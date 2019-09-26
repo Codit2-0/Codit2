@@ -1,4 +1,4 @@
-package control;
+package main.control;
 
 
 public class Prova {
