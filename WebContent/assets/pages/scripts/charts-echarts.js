@@ -607,7 +607,7 @@ jQuery(document).ready(function() {
                     startAngle: 135,
                     center: ['75%', 200],
                     radius: [80, 120],
-                    itemStyle: 　{
+                    itemStyle: {
                         normal: {
                             label: {
                                 show: false
