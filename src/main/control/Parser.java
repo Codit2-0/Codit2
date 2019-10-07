@@ -12,7 +12,7 @@ public class Parser {
  
     final static String ATTRIBUTES = "ownedAttribute";
     final static String CLASSES = "packagedElement"; 
-    final static String FILE_ADDRESS = "/Users/antoniocimino/git/Codit2/CODIT/src/test.xmi";
+    final static String FILE_ADDRESS = "/Users/antoniocimino/git/Codit2.0/src/main/test.xmi";
  
     public static void main(String args[]) {
         try {
