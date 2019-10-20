@@ -18,12 +18,12 @@ public class Parser {
  
     final static String ATTRIBUTES = "ownedAttribute";
     final static String CLASSES = "packagedElement"; 
-    final static String FILE_ADDRESS = "/Users/silviocresci/eclipse-workspace/Nattimo/src/test.xmi";
+    final static String FILE_ADDRESS = "/Users/antoniocimino/git/Codit2/src/main/resources/test.xmi";
  
-    public static void main(String args[]) {
-    	 ERBean modello = new ERBean();
-    	 ArrayList<EntityBean> arrayEntity = new ArrayList<EntityBean>();
-    	 ArrayList<AssociationBean> arrayAssociation = new ArrayList<AssociationBean>();
+    public ERBean parser (String url) {
+    	ERBean modello = new ERBean();
+    	ArrayList<EntityBean> arrayEntity = new ArrayList<EntityBean>();
+    	ArrayList<AssociationBean> arrayAssociation = new ArrayList<AssociationBean>();
     	try {
  
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -106,5 +106,6 @@ public class Parser {
         modello.setEntity(arrayEntity);
         modello.setAssociation(arrayAssociation);
         modello.stampa();
+		return modello;
     }
 }
