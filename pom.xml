@@ -3,31 +3,17 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>codit-project</groupId>
   <artifactId>Codit2_Project</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
   <name>Codit2_Project Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>javax.servlet</groupId>
-    	<artifactId>javax.servlet-api</artifactId>
-    	<version>4.0.1</version>
-    	<scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.0</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
   <build>
-    <finalName>Codit2_Project</finalName>
+  	<sourceDirectory>src/main</sourceDirectory>
+  	<scriptSourceDirectory>WebContent</scriptSourceDirectory>
+  	<testSourceDirectory>src/test</testSourceDirectory>
+  	<outputDirectory>build/classes</outputDirectory>
+  	<testOutputDirectory>build/test</testOutputDirectory>
+  	<directory>build</directory>
   </build>
+  
 </project>
