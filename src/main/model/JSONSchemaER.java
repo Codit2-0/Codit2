@@ -1,5 +1,6 @@
 package model;
 
+import control.JsonParser;
 import control.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 @WebServlet("/JSONCarrello")
 public class JSONSchemaER extends HttpServlet {
@@ -25,11 +28,13 @@ public class JSONSchemaER extends HttpServlet {
     String url = (String) sessione.getAttribute("url"); 
 
     response.setContentType("text/html");
-    response.getWriter().append("[{");
+    //response.getWriter().append("[{");
 
     Parser p = new Parser();
     ERBean er = p.parser(url);
-
+    JSONObject obj = JsonParser.parseToJson(er);
+    response.getWriter().append(obj.toJSONString());
+/*
     if (er.getEntity() != null) {
       for (int i = 0; i < er.getEntity().size(); i++) {
         response.getWriter().append("\"entita\": \"" + er.getEntity().get(i).getName() + "\",");
@@ -50,6 +55,7 @@ public class JSONSchemaER extends HttpServlet {
       }
     }
     response.getWriter().append("]");
+    */
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
