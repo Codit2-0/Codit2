@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.selected {
+	fill : green
+}
+
+.unselected {
+	fill : red
+}

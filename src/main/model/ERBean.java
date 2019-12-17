@@ -54,13 +54,14 @@ public class ERBean {
   public void stampa() {
     if (entity != null)
       for (int i = 0; i < entity.size(); i++) {
-        System.out.println(entity.get(i).getName() + "@@@");
+        //System.out.println(entity.get(i).getName() + "@@@");
         for (int j = 0; j < entity.get(i).getAttribute().size(); j++) {
-          System.out.println(entity.get(i).getAttribute().get(j));
+         // System.out.println(entity.get(i).getAttribute().get(j));
         }
       }
     if (association != null)
-      for (int i = 0; i < association.size(); i++)
-        System.out.println(association.get(i).getName() + "@@");
+      for (int i = 0; i < association.size(); i++) {
+       // System.out.println(association.get(i).getName() + "@@");
+      }
   }
 }

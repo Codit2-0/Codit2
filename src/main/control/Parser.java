@@ -18,7 +18,7 @@ public class Parser {
 
   static final String ATTRIBUTES = "ownedAttribute";
   static final String CLASSES = "packagedElement"; 
-  static final String FILE_ADDRESS = "C:/Users/feder/eclipse-workspace/Codit2-0/src/main/util/test.xmi";
+  static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
 
   public ERBean parser (String url) {
     ERBean modello = new ERBean();
@@ -35,11 +35,11 @@ public class Parser {
       AssociationBean association = null;
 
       doc.getDocumentElement().normalize();
-      System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+      //System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
       NodeList listClass = doc.getElementsByTagName(CLASSES);
       int totalClass = listClass.getLength();
-      System.out.println("Total Class : " + totalClass);
+      //System.out.println("Total Class : " + totalClass);
 
       for (int i = 0; i < totalClass;i++) {
 
@@ -49,19 +49,22 @@ public class Parser {
           String nomeAssociazione = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
           nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1, nomeAssociazione.lastIndexOf('"'));
           String nomeEntity1 = nomeAssociazione.substring(0, nomeAssociazione.indexOf("__"));
-          EntityBean e1 = modello.findByName(nomeEntity1);
+          //System.out.println("nomeEntity1 : " + nomeEntity1);
           String nuovaStringa = nomeAssociazione.substring(nomeAssociazione.indexOf("__") + 2);
           String nomeEntity2 = nuovaStringa.substring(0, nuovaStringa.indexOf("__"));
-          EntityBean e2 = modello.findByName(nomeEntity2);
+          //System.out.println("nomeEntity2 : " + nomeEntity2);
+          nuovaStringa = nuovaStringa.substring(nuovaStringa.indexOf("__") + 2);
+          nomeAssociazione = nuovaStringa.substring(0, nuovaStringa.indexOf("_"));
+          //System.out.println("nomeAssociazione : " + nomeAssociazione);
           attribute = new ArrayList<String>();
-          association = new AssociationBean(attribute, nomeAssociazione, e1, e2);
+          association = new AssociationBean(attribute, nomeAssociazione, nomeEntity1, nomeEntity2);
           arrayAssociation.add(association);
 
         } else {
 
           String nomeClasse = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1, nomeClasse.lastIndexOf('"'));
-          System.out.println("Classe : " + nomeClasse);
+          //System.out.println("Classe : " + nomeClasse);
           attribute = new ArrayList<String>();
           attribute = new ArrayList<String>();
           entity = new EntityBean(nomeClasse, attribute);
@@ -77,7 +80,7 @@ public class Parser {
           if (Attribute.equals(ATTRIBUTES)) {
             String nomeAttributo = listAttributesClass.item(j).getAttributes().getNamedItem("name").toString();
             nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1, nomeAttributo.lastIndexOf('"'));
-            System.out.println("Attribute : " + nomeAttributo);
+            //System.out.println("Attribute : " + nomeAttributo);
             entity.getAttribute().add(nomeAttributo);
             for (int o = 0; o < arrayEntity.size(); o++) {
               if (arrayEntity.get(o).getName().equals(entity.getName())) {

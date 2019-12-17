@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-@WebServlet("/JSONCarrello")
+@WebServlet("/JSONSchemaER")
 public class JSONSchemaER extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -28,10 +28,11 @@ public class JSONSchemaER extends HttpServlet {
     String url = (String) sessione.getAttribute("url"); 
 
     response.setContentType("text/html");
-    //response.getWriter().append("[{");
-
+//  response.getWriter().append("[{");
+    
     Parser p = new Parser();
     ERBean er = p.parser(url);
+
     JSONObject obj = JsonParser.parseToJson(er);
     response.getWriter().append(obj.toJSONString());
 /*
@@ -55,7 +56,7 @@ public class JSONSchemaER extends HttpServlet {
       }
     }
     response.getWriter().append("]");
-    */
+*/
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
