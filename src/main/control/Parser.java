@@ -18,7 +18,7 @@ public class Parser {
 
   static final String ATTRIBUTES = "ownedAttribute";
   static final String CLASSES = "packagedElement"; 
-  static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
+  static final String FILE_ADDRESS = "/Users/silviocresci/git/Codit2/src/main/util/test.xmi";
 
   public ERBean parser (String url) {
     ERBean modello = new ERBean();
