@@ -124,8 +124,9 @@ d3.classDiagram = (function() {
     
     var classNameTexts = classNameG.append('text')
       .attr('font-size', 12)
-      .call(d3.multilineText()
+      .call(d3.multilineTextEntity()
         .verticalAlign('top')
+        .horizontalAlign('center')
         .paddingTop(4)
         .paddingBottom(4)
         .text(function(d) { return d.classname; })
@@ -184,7 +185,7 @@ d3.classDiagram = (function() {
     // rettangolo contenente gli attributi [GESTIONE DEL TESTO ALL'INTERNO]
     var attributesTexts = attributesG.append('text')
       .attr('font-size', 12)
-      .call(d3.multilineText()
+      .call(d3.multilineTextEntity()
         .text(function(d) { return d.key; })
         .verticalAlign('top')
         .horizontalAlign('left')

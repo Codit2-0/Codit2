@@ -1,4 +1,4 @@
-d3.multilineText = function() {
+d3.multilineTextEntity = function() {
   var lineHeight = 1.4;
   var horizontalAlign = 'center'; // 'left', 'center', or 'right'
   var verticalAlign = 'center'; // 'top', 'center', or 'bottom'
@@ -57,7 +57,7 @@ d3.multilineText = function() {
     var w = result(d, width);
     switch (horizontalAlign) {
     case 'center':
-      return w / 1.5;
+      return w / 2;
     case 'left':
       return paddingLeft;
     case 'right':

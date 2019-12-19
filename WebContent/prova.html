@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+#licensing {
+  fill: green;
+}
+
+.link.licensing {
+  stroke: green;
+}
+
+.link.resolved {
+  stroke-dasharray: 0,2 1;
+}
+
+rect {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+</style>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+
+var data = [];
+var links = [];
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+};
+xmlhttp.open("GET", "JSONSchemaER", true);
+xmlhttp.send();
+		
+function loadSchemaER(xmlhttp) {
+	
+	data = JSON.parse(xmlhttp.responseText);
+	
+	var i = 0;
+	while(data.entity[i] != null){
+		var j = 0;
+		while(data.entity[i].attributes[j] != null){
+			links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , type: "licensing", elemento: "att"});
+			j++;
+		}
+		i++;
+	}
+		
+	
+	i = 0;
+	while(data.association[i] != null){
+		links.push({source: data.association[i].name, target: data.association[i].entity1, type: "suit", elemento: "assoc"});	
+		links.push({source: data.association[i].name, target: data.association[i].entity2, type: "suit", elemento: "assoc"});	
+		i++;
+	}
+	
+	
+}
+
+
+</script>
+<script>
+
+var myTimer = setTimeout(function() {
+	
+		var nodes = {};
+
+		// Compute the distinct nodes from the links.
+		links.forEach(function(link) {
+		  link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+		  link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+		});
+
+		var width = 1500,
+		    height = 1500;
+
+		var force = d3.layout.force()
+		    .nodes(d3.values(nodes))
+		    .links(links)
+		    .size([width, height])
+		    .linkDistance(300)
+		    .charge(-700)
+		    .on("tick", tick)
+		    .start();
+
+		var svg = d3.select("body").append("svg")
+		    .attr("width", width)
+		    .attr("height", height);
+
+
+		var path = svg.append("g").selectAll("path")
+		    .data(force.links())
+		  .enter().append("path")
+		    .attr("class", function(d) { return "link " + d.type; })
+
+		    
+		var rect = svg.append("g").selectAll("rect")
+    		.data(force.nodes())
+  			.enter().append("rect")
+    		.attr("width", 100)
+    		.attr("height", 50)
+    		.call(force.drag);
+
+		var text = svg.append("g").selectAll("text")
+	    .data(force.nodes())
+	  .enter().append("text")
+	    .attr("x", 10)
+	    .attr("y", 25)
+	    .text(function(d) { return d.name; });
+
+		// Use elliptical arc path segments to doubly-encode directionality.
+		function tick() {
+		  path.attr("d", linkArc);
+		  rect.attr("transform", transform);
+		  text.attr("transform", transform);
+		}
+
+		function linkArc(d) {
+		  var dx = d.target.x - d.source.x,
+		      dy = d.target.y - d.source.y,
+		      dr = Math.sqrt(dx * dx + dy * dy);
+		  return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+		}
+
+		function transform(d) {
+		  return "translate(" + d.x + "," + d.y + ")";
+		}
+	}, 1000);
+
+
+</script>
