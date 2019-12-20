@@ -362,7 +362,7 @@ d3.classDiagram = (function() {
           'class': 'connector',
           'd': line(d.points),
           'stroke': 'black',
-          'stroke-width': 1,
+          'stroke-width': 2,
           'fill': 'none'
         });
         if (d.markerEnd) {

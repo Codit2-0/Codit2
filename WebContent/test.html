@@ -100,9 +100,6 @@
 			i++;
 		}
 		
-		var boxes2 = d3.classDiagram.createRel(rel);
-		var boxes = d3.classDiagram.createClasses(classes);
-		svg.selectAll('text').attr('font-family', 'Noto Sans Japanese');
 		
 		//Creazione delle linee che rappresentano i collegamenti
 		i = 0, w = 1, v = 0;
@@ -163,8 +160,11 @@
 			i++;
 		}
 		
-		
-	
+		var boxes2 = d3.classDiagram.createRel(rel);
+		var boxes = d3.classDiagram.createClasses(classes);
+		//svg.selectAll('text').attr('font-family', 'Noto Sans Japanese');
+	 		
+
 		d3.classDiagram.createConnectors(connectors);
 		
 		
