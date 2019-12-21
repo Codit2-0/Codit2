@@ -8,7 +8,6 @@
 }
 
 path {
-	fill: pink;
 	stroke: #999;
 }
 
@@ -18,10 +17,8 @@ text {
 }
 
 </style>
-<svg width="960" height="600"></svg>
+<svg width="1500" height="1500"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
- <script src="d3-symbol-extra.min.js"></script>
-
 <script type="text/javascript">
 
 var data = [];
@@ -42,10 +39,22 @@ function loadSchemaER(xmlhttp) {
 	var i = 0;
 	while(data.entity[i] != null){
 		var j = 0;
-		nodes.push({id:data.entity[i].name, type: "symbolSquare"});
+		nodes.push({id:data.entity[i].name, type: "symbolSquare", color: "lightgreen"});
 		while(data.entity[i].attributes[j] != null){
-			links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4});
-			nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle"});
+			var w = 0, control = true;
+			while(nodes[w] != null){
+				if(data.entity[i].attributes[j] == nodes[w].id) control = false;
+				w++;
+			}
+			if(control == true) {
+				nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
+				links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
+			}
+			else {
+				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
+				links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
+			}
+			
 			j++;
 		}
 		i++;
@@ -56,7 +65,7 @@ function loadSchemaER(xmlhttp) {
 	while(data.association[i] != null){
 		links.push({source: data.association[i].entity1, target: data.association[i].name , value: 1});	
 		links.push({source: data.association[i].entity2, target: data.association[i].name , value: 1});	
-		nodes.push({id:data.association[i].name, type:"symbolDiamond"});
+		nodes.push({id:data.association[i].name, type:"symbolDiamond", color: "pink"});
 		i++;
 	}
 	
@@ -67,26 +76,22 @@ function loadSchemaER(xmlhttp) {
 </script>
 <script>
 
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+var svg = d3.select("svg"),width = 1500, height = 1500;
 
 var myTimer = setTimeout(function() {
-	
-	var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 	var simulation = d3.forceSimulation()
-	    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+	    .force("link", d3.forceLink().distance(100).id(function(d) { return d.id; }))
 	    .force("charge", d3.forceManyBody())
-	    .force("center", d3.forceCenter(width / 2, height / 2));
+	    .force("center", d3.forceCenter(width / 3, height / 3));
 	
 
   var link = svg.append("g")
-      .attr("class", "links")
-    .selectAll("line")
-    .data(links)
-    .enter().append("line")
-      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+      	.attr("class", "links")
+   	 	.selectAll("line")
+    	.data(links)
+    	.enter().append("line")
+      	.attr("stroke-width", function(d) { return Math.sqrt(d.value); });
  
   var node = svg.append("g")
     .attr("class", "nodes")
@@ -94,10 +99,12 @@ var myTimer = setTimeout(function() {
     .data(nodes)
     .enter().append("g");
  
-  var symbolGenerator = d3.symbol().size(300);
+  var symbolGenerator = d3.symbol().size(1000);
     
+  
   var circles = node.append("path")
-  	.attr("r", 6)
+  	.attr("r", 10)
+  	.attr("fill", function(d){ return d.color })
 	.attr('d', function(d) {symbolGenerator.type(d3[d.type]);return symbolGenerator();})
   	.call(d3.drag().on("start", dragstarted).on("drag", dragged));
 
@@ -105,8 +112,8 @@ var myTimer = setTimeout(function() {
       .text(function(d) {
         return d.id;
       })
-      .attr('x', 0)
-      .attr('y', 0);
+      .attr('x', -15)
+      .attr('y', 2);
 
   node.append("title").text(function(d) { return d.id; });
 
@@ -137,6 +144,13 @@ function dragged(d) {
   d.fx = d3.event.x;
   d.fy = d3.event.y;
 }
+
+//Questa è la funzione per bloccare i nodie va inserita in circles
+function dragended(d) {
+	  if (!d3.event.active) simulation.alphaTarget(0);
+	  d.fx = null;
+	  d.fy = null;
+	}
 }, 2000);
 
 

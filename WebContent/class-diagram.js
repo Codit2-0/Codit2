@@ -124,8 +124,9 @@ d3.classDiagram = (function() {
     
     var classNameTexts = classNameG.append('text')
       .attr('font-size', 12)
-      .call(d3.multilineText()
+      .call(d3.multilineTextEntity()
         .verticalAlign('top')
+        .horizontalAlign('center')
         .paddingTop(4)
         .paddingBottom(4)
         .text(function(d) { return d.classname; })
@@ -184,7 +185,7 @@ d3.classDiagram = (function() {
     // rettangolo contenente gli attributi [GESTIONE DEL TESTO ALL'INTERNO]
     var attributesTexts = attributesG.append('text')
       .attr('font-size', 12)
-      .call(d3.multilineText()
+      .call(d3.multilineTextEntity()
         .text(function(d) { return d.key; })
         .verticalAlign('top')
         .horizontalAlign('left')
@@ -209,7 +210,7 @@ d3.classDiagram = (function() {
     var methodsRects = methodsG.append('rect')
       .attr({
         'width': function(d) { return d.width; },
-        'fill': 'none',
+        'fill': 'white',
         'stroke': 'blue',
         'stroke-width': 1,
         'rx': 15
@@ -281,7 +282,7 @@ d3.classDiagram = (function() {
 	      .attr({
 	        'width': function(d) { return d.width; },
 	        'height': function(d) { return d.width; },
-	        'fill': 'none',
+	        'fill': 'white',
 	        'stroke': 'black',
 	        'stroke-width': 1,
 	        'transform':'rotate(315)'
@@ -290,29 +291,13 @@ d3.classDiagram = (function() {
 	    var classNameTexts = classNameG.append('text')
 	      .attr('font-size', 12)
 	      .call(d3.multilineText()
-	        .verticalAlign('center')
-	        .horizontalAlign('left')
-	        .paddingTop(4)
+	        .verticalAlign('top')
+	        .horizontalAlign('center')
+	        .paddingTop(-10)
 	        .paddingBottom(4)
 	        .text(function(d) { return d.classname; })
-	      );
-
-	    //adjustHeight(classNameRects[0], classNameTexts[0], 4, 4);
-	    
-	    // funzione che regola altezza del rettangolo in base al contenuto
-	    function adjustHeight(rects, texts, paddingTop, paddingBottom) {
-	      var i,
-	          n = rects.length,
-	          rect,
-	          text,
-	          height;
-	      for (i = 0; i < n; i++) {
-	        rect = rects[i];
-	        text = texts[i];
-	        height = text.getBBox().height + paddingTop + paddingBottom;
-	        d3.select(rect).attr('height', height);
-	      }
-	    }
+	      );	    
+	 
 	    //FUNZIONE PER LA SELEZIONE
 	    svg.selectAll("rect").on("click", function(){
 	    	
