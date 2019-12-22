@@ -209,7 +209,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe class="col-12 border-primary" height="750" src="test2.html">
+              <iframe class="col-12 border-primary" src="test2.html">
               </iframe>
             </div>
           </div>
@@ -239,7 +239,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe class="col-12 border-primary" height="750" src="test2.html">
+              <iframe class="col-12 border-primary" src="test2.html">
               </iframe>
             </div>
           </div>
@@ -298,7 +298,8 @@
 <script type="text/javascript">
   // script per il dimensionamento degli iframe
     $('iframe').on('resize', function() {
-      $('iframe').height( $('iframe').width() *80/100);
+      // $('iframe').height( $('iframe').width() *80/100);
+    	$('iframe').height($(document).height() * 75/100);
     }).trigger('resize');
 </script>
 <script src="dist/js/adminlte.js"></script>
