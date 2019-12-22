@@ -43,26 +43,34 @@ text {
 </style>
 <body>
  <div class="card-body">
-              <form method="post" enctype="multipart/form-data" role="form">
-                <div class="form-group">
-                  <label for="exampleInputFile2">Selezionare file .xmi</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" id="path" name="file">
-                      <!--  <label class="custom-file-label" for="exampleInputFile1">Choose file</label> -->
-                    </div>
-                    <div class="input-group-append">
-                        <span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()">
-                          Upload
-                        </span>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
+   <form method="post" enctype="multipart/form-data" role="form">
+     <div class="form-group">
+       <label for="path">Selezionare file .xmi</label>
+       <div class="input-group">
+         <div class="custom-file">
+         	 <input type="file" id="path" name="file" class="custom-file-input">
+           <label class="custom-file-label" for="path">Choose file</label>
+         </div>
+         <div class="input-group-append">
+           <span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()">
+             Upload
+           </span>
+         </div>
+       </div>
+     </div>
+   </form>
+ </div>
 </body>
-<svg width="900" height="1200"></svg>
+<svg width="900" height="1200" style="display: none;"></svg>
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    bsCustomFileInput.init();
+  });
+</script>
 <script type="text/javascript">
 
 
@@ -87,7 +95,6 @@ function writeDatabase() {
 //Continuare a implementare la funzione su onclick
 		
 function loadSchemaER(xmlhttp) {
-	
 	data = JSON.parse(xmlhttp.responseText);
 	
 	var i = 0;
@@ -188,6 +195,9 @@ function loadSchemaER(xmlhttp) {
   		d.fx = null;
   		d.fy = null;
 	}
+	
+	d3.select(".card-body").style("display", "none");
+	d3.select("svg").style("display", "inline");
 }
 
 
