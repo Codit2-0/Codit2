@@ -18,9 +18,9 @@ public class Parser {
 
   static final String ATTRIBUTES = "ownedAttribute";
   static final String CLASSES = "packagedElement"; 
-  static final String FILE_ADDRESS = "/Users/silviocresci/git/Codit2/src/main/util/test.xmi";
+  //static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
 
-  public ERBean parser (String url) {
+  public ERBean parser (File url) {
     ERBean modello = new ERBean();
     ArrayList<EntityBean> arrayEntity = new ArrayList<EntityBean>();
     ArrayList<AssociationBean> arrayAssociation = new ArrayList<AssociationBean>();
@@ -28,7 +28,7 @@ public class Parser {
 
       DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-      Document doc = docBuilder.parse(new File(FILE_ADDRESS));
+      Document doc = docBuilder.parse(url);
       ArrayList<String> attribute = null;
 
       EntityBean entity = null;
@@ -46,8 +46,10 @@ public class Parser {
         String type =  listClass.item(i).getAttributes().getNamedItem("xmi:type").toString();
         if (type.equals("xmi:type=\"uml:Association\"")) {
 
-          String nomeAssociazione = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
-          nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1, nomeAssociazione.lastIndexOf('"'));
+          String nomeAssociazione = listClass.item(i).getAttributes()
+                                              .getNamedItem("xmi:id").toString();
+          nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1,
+                                                        nomeAssociazione.lastIndexOf('"'));
           String nomeEntity1 = nomeAssociazione.substring(0, nomeAssociazione.indexOf("__"));
           //System.out.println("nomeEntity1 : " + nomeEntity1);
           String nuovaStringa = nomeAssociazione.substring(nomeAssociazione.indexOf("__") + 2);
@@ -63,7 +65,8 @@ public class Parser {
         } else {
 
           String nomeClasse = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
-          nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1, nomeClasse.lastIndexOf('"'));
+          nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
+                                            nomeClasse.lastIndexOf('"'));
           //System.out.println("Classe : " + nomeClasse);
           attribute = new ArrayList<String>();
           attribute = new ArrayList<String>();
@@ -78,8 +81,10 @@ public class Parser {
         for (int j = 0; j < totalAttributesClass; j++) {
           String Attribute = listAttributesClass.item(j).getNodeName();
           if (Attribute.equals(ATTRIBUTES)) {
-            String nomeAttributo = listAttributesClass.item(j).getAttributes().getNamedItem("name").toString();
-            nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1, nomeAttributo.lastIndexOf('"'));
+            String nomeAttributo = listAttributesClass.item(j).getAttributes()
+                                                       .getNamedItem("name").toString();
+            nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1,
+                                                    nomeAttributo.lastIndexOf('"'));
             //System.out.println("Attribute : " + nomeAttributo);
             entity.getAttribute().add(nomeAttributo);
             for (int o = 0; o < arrayEntity.size(); o++) {
@@ -96,7 +101,8 @@ public class Parser {
       }
 
     } catch (SAXParseException err) {
-      System.out.println("** Parsing error" + ", line " + err.getLineNumber() + ", uri " + err.getSystemId());
+      System.out.println("** Parsing error" + ", line "
+                        + err.getLineNumber() + ", uri " + err.getSystemId());
       System.out.println(" " + err.getMessage());
     } catch (SAXException e) { 
       Exception x = e.getException();
