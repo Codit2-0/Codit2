@@ -146,12 +146,13 @@ function loadSchemaER(xmlhttp) {
 
 	var node = svg.append("g")
 					.attr("class", "nodes")
+										.attr("opacity",1)
 					.selectAll("g")
 					.data(nodes)
 					.enter().append("g")
 					.on("dblclick", function(){
 						
-					
+					// Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
 						if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
 						var numAttributi = 0;
 						var indexEntity = d3.select(this)._groups[0][0].__data__.index;
@@ -168,7 +169,7 @@ function loadSchemaER(xmlhttp) {
 								}
 							}
 						for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
-							if(d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == 1){
+							if(d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == 1||d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == ""){
 							d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 0;
 							}else{
 								d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 1;
@@ -177,7 +178,7 @@ function loadSchemaER(xmlhttp) {
 						}
 						for(var j = 0; j<length; j++){
 							if(d3.selectAll(link)._groups[0]._groups[0][j].__data__.target.id == nomeEntity){
-								if(d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == 1){
+								if(d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == 1 || d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == ""){
 								d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 0;
 								}else{
 									d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 1;
@@ -186,6 +187,7 @@ function loadSchemaER(xmlhttp) {
 						}
 						}
 					});
+	console.log(d3.selectAll(node));
 
 
 	var symbolGenerator = d3.symbol().size(1000);
@@ -235,6 +237,7 @@ function loadSchemaER(xmlhttp) {
   		d.fy = null;
 	}
 	
+	d3.select(".card-body").style("display", "none");
 	d3.select("svg").style("display", "inline");
 }
 
