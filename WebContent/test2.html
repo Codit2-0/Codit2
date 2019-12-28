@@ -31,8 +31,11 @@
   stroke-opacity: 0.6;
 }
 
-path {
+path{
 	stroke: #999;
+}
+path.selected {
+	stroke: #FF0000;
 }
 
 text {
@@ -131,7 +134,7 @@ function loadSchemaER(xmlhttp) {
 	}
 	
 	var simulation = d3.forceSimulation()
-    					.force("link", d3.forceLink().distance(100).id(function(d) { return d.id; }))
+    					.force("link", d3.forceLink().distance(200).id(function(d) { return d.id; }))
     					.force("charge", d3.forceManyBody())
     					.force("center", d3.forceCenter(width / 2, height));
 
@@ -146,10 +149,63 @@ function loadSchemaER(xmlhttp) {
 
 	var node = svg.append("g")
 					.attr("class", "nodes")
-										.attr("opacity",1)
+					.attr("opacity",1)
 					.selectAll("g")
 					.data(nodes)
 					.enter().append("g")
+					.on("click", function(){
+						
+						//Funzione per la selezione e la deselezione di entità e relazioni
+						
+						if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
+							var numAttributi = 0;
+							var indexEntity = d3.select(this)._groups[0][0].__data__.index;
+							var j = indexEntity;
+							var nomeEntity = d3.select(this)._groups[0][0].__data__.id;
+							var length = d3.selectAll(link)._groups[0]._groups[0].length;
+								while(true){
+									j++;
+									if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
+										numAttributi++;
+									} else {
+
+										break;
+									}
+								}
+						
+						
+
+					for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
+
+						if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+							
+							d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "#999";
+							d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 1;
+							} else {
+
+								d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "red";
+								d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 4;
+							}
+							}
+						if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+							
+							d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+							d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
+							} else {
+								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
+							}
+							} else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
+								if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+									
+									d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+									d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
+									} else {
+										d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+										d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
+									}
+							}
+					})
 					.on("dblclick", function(){
 						
 					// Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
@@ -187,10 +243,8 @@ function loadSchemaER(xmlhttp) {
 						}
 						}
 					});
-	console.log(d3.selectAll(node));
 
-
-	var symbolGenerator = d3.symbol().size(1000);
+	var symbolGenerator = d3.symbol().size(2000);
 
 
 	var circles = node.append("path")
