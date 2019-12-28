@@ -209,7 +209,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe class="col-12 border-primary" src="test2.html">
+              <iframe id="db1" class="col-12 border-primary" src="test2.html">
               </iframe>
             </div>
           </div>
@@ -239,7 +239,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe class="col-12 border-primary" src="test2.html">
+              <iframe id="db2" class="col-12 border-primary" src="test2.html">
               </iframe>
             </div>
           </div>
@@ -253,7 +253,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Extra Large Modal</h4>
+          <h4 class="modal-title">Operazioni disponibili</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -326,5 +326,17 @@
     }).trigger('resize');
 </script>
 <script src="dist/js/adminlte.js"></script>
+<script type="text/javascript">
+	$('#db1').on('load', function () {
+		var iframe = document.getElementById('db1');
+		var docIframe = (iframe.contentWindow || iframe.contentDocument);
+		if(docIframe.document) {
+			docIframe = docIframe.document;
+		}
+		var test = docIframe.getElementsByTagName("svg");
+		console.log(test);
+		;
+	});
+</script>
 </body>
 </html>

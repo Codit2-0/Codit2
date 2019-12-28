@@ -168,43 +168,37 @@ function loadSchemaER(xmlhttp) {
 									if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
 										numAttributi++;
 									} else {
-
 										break;
 									}
 								}
-						
-						
+								for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
 
-					for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
-
-						if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+									if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+										d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "#999";
+										d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 1;
+									} else {	
+										d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "red";
+										d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 4;
+									}
+								}
+								if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
 							
-							d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "#999";
-							d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 1;
-							} else {
-
-								d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "red";
-								d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.strokeWidth = 4;
-							}
-							}
-						if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
-							
-							d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
-							d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
+									d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+									d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
+								} else {
+									d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+									d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
+								}
+						} else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
+							if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+								
+								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
 							} else {
 								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
 								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
 							}
-							} else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
-								if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
-									
-									d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
-									d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
-									} else {
-										d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
-										d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
-									}
-							}
+						}
 					})
 					.on("dblclick", function(){
 						
@@ -291,7 +285,7 @@ function loadSchemaER(xmlhttp) {
   		d.fy = null;
 	}
 	
-	d3.select(".card-body").style("display", "none");
+	// d3.select(".card-body").style("display", "none");
 	d3.select("svg").style("display", "inline");
 }
 
