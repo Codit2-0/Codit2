@@ -328,14 +328,24 @@
 <script src="dist/js/adminlte.js"></script>
 <script type="text/javascript">
 	$('#db1').on('load', function () {
-		var iframe = document.getElementById('db1');
-		var docIframe = (iframe.contentWindow || iframe.contentDocument);
+		var iframe1 = document.getElementById('db1');
+		var docIframe = (iframe1.contentWindow || iframe1.contentDocument);
 		if(docIframe.document) {
 			docIframe = docIframe.document;
 		}
-		var test = docIframe.getElementsByTagName("svg");
-		console.log(test);
-		;
+		var text = docIframe.getElementById("frame");
+		text.value = "frame1";
+		console.log(text.value);
+	});
+	$('#db2').on('load', function () {
+		var iframe2 = document.getElementById('db2');
+		var docIframe = (iframe2.contentWindow || iframe2.contentDocument);
+		if(docIframe.document) {
+			docIframe = docIframe.document;
+		}
+		var text = docIframe.getElementById("frame");
+		text.value = "frame2";
+		console.log(text.value);
 	});
 </script>
 </body>
