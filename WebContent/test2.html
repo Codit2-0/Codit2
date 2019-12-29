@@ -202,6 +202,15 @@ function loadSchemaER(xmlhttp) {
 								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
 								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
 							}
+						} else{
+							if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+								
+								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 1;
+							} else {
+								d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+								d3.select(this)._groups[0][0].childNodes[0].style.strokeWidth = 4;
+							}
 						}
 					})
 					.on("dblclick", function(){
