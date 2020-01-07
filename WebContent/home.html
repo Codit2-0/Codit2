@@ -34,7 +34,7 @@
       </li>
     </ul>
 
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl">
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl" onclick="filtro()">
       Operazioni
     </button>
   </nav>
@@ -209,7 +209,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe id="db1" class="col-12 border-primary" src="test2.html">
+              <iframe id="db1" class="col-12 border-primary" src="diagramma.jsp">
               </iframe>
             </div>
           </div>
@@ -239,7 +239,7 @@
               </form>
             </div> -->
             <div class="card-body" >
-              <iframe id="db2" class="col-12 border-primary" src="test2.html">
+              <iframe id="db2" class="col-12 border-primary" src="diagramma.jsp">
               </iframe>
             </div>
           </div>
@@ -348,5 +348,14 @@
 		console.log(text.value);
 	});
 </script>
+<!--  -->
+<script type="text/javascript">
+	function filtro() {
+		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
+		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
+		console.log(frame1, frame2);
+	}
+</script>
+
 </body>
 </html>

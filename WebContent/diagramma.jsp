@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
@@ -8,10 +10,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- a differenza del default di questo
-       template, abbiamo deciso di far scomparire
-       completamente la barra laterale
-  -->
+  <!-- per la scomparsa del menu laterale -->
   <style>
     @media (min-width: 992px) {
       .sidebar-mini.sidebar-collapse .main-sidebar {
@@ -23,27 +22,28 @@
       }
     }
   </style>
+	<!-- style per il diagramma -->
+	<style>
+
+		.links line {
+		  stroke: #999;
+		  stroke-opacity: 0.6;
+		}
+		
+		path{
+			stroke: #999;
+		}
+		path.selected {
+			stroke: #FF0000;
+		}
+		
+		text {
+		  font-family: sans-serif;
+		  font-size: 12px;
+		}
+		
+	</style>
 </head>
-<style>
-
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
-
-path{
-	stroke: #999;
-}
-path.selected {
-	stroke: #FF0000;
-}
-
-text {
-  font-family: sans-serif;
-  font-size: 12px;
-}
-
-</style>
 <body>
  <div class="card-body">
    <form method="post" enctype="multipart/form-data" role="form">
@@ -64,17 +64,19 @@ text {
      <input type="hidden" id="frame" value="">
    </form>
  </div>
+ <svg width="900" height="1200" style="display: none;"></svg>
 </body>
-<svg width="900" height="1200" style="display: none;"></svg>
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- script per nome file nel form -->
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
   });
 </script>
+<!-- script per disegnare il diagramma -->
 <script type="text/javascript">
 
 
@@ -101,15 +103,15 @@ function writeDatabase() {
 function loadSchemaER(xmlhttp) {
 	//variabile che distingue i due frame
 	var frame = document.getElementById("frame").value;
-	
+	sessionStorage.setItem(frame, '[]');
 	var selectedNodes = [];
 	
-data = JSON.parse(xmlhttp.responseText);
+	data = JSON.parse(xmlhttp.responseText);
 	
 	var i = 0;
 	while(data.entity[i] != null){
 		var j = 0;
-		nodes.push({id:data.entity[i].name, size:4000, img:  "imgForme/entita.png",h: 120, w:120});
+		nodes.push({id:data.entity[i].name, type: "symbolSquare", color: "lightgreen"});
 		while(data.entity[i].attributes[j] != null){
 			var w = 0, control = true;
 			while(nodes[w] != null){
@@ -117,11 +119,11 @@ data = JSON.parse(xmlhttp.responseText);
 				w++;
 			}
 			if(control == true) {
-				nodes.push({id:data.entity[i].attributes[j], size:4000,  img:  "imgForme/attributo.png", h: 60, w:60});
+				nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
 				links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
 			}
 			else {
-				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000,  img:  "imgForme/attributo.png",h: 60, w:60});
+				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
 				links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
 			}
 			
@@ -135,7 +137,7 @@ data = JSON.parse(xmlhttp.responseText);
 	while(data.association[i] != null){
 		links.push({source: data.association[i].entity1, target: data.association[i].name , value: 1});	
 		links.push({source: data.association[i].entity2, target: data.association[i].name , value: 1});	
-		nodes.push({id:data.association[i].name, size:4000,  img:  "imgForme/relazione.png", h: 120, w:120});
+		nodes.push({id:data.association[i].name, type:"symbolDiamond", color: "pink"});
 		i++;
 	}
 	
@@ -161,6 +163,7 @@ data = JSON.parse(xmlhttp.responseText);
 					.enter().append("g")
 					.on("click", function(){
 						//Funzione per la selezione e la deselezione di entità e relazioni
+						selectedNodes = JSON.parse(sessionStorage.getItem(frame));
 						
 						if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
 							var numAttributi = 0;
@@ -231,6 +234,7 @@ data = JSON.parse(xmlhttp.responseText);
 							}
 						}
 						console.log(selectedNodes, selectedNodes.length);
+						sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
 					})
 					.on("dblclick", function(){
 						
@@ -270,7 +274,9 @@ data = JSON.parse(xmlhttp.responseText);
 						}
 					});
 
+	var symbolGenerator = d3.symbol().size(2000);
 
+	<!-- cancella l'elemento deselezionato dalla lista -->
 	function checkSelected(obj) {
 		for(var i=0; i < selectedNodes.length; i++) {
 			if(obj.name == selectedNodes[i].name){
@@ -279,26 +285,17 @@ data = JSON.parse(xmlhttp.responseText);
 			}
 		} 
 	}
-	// Append a circle
-	 node.append("circle")
-	     .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
-	     .style("fill", "#eee");
-	     
 
-	  
-	 // Append images
-	 var images = node.append("image")
-	       .attr("xlink:href",  function(d) { return d.img;})
-	       .attr("x", function(d) { return -(d.h/2);})
-	       .attr("y", function(d) { return -(d.w/2);})
-	       .attr("height",function(d) { return d.h;})
-	       .attr("width", function(d) { return d.w;})
-	       .call(d3.drag().on("start", dragstarted).on("drag", dragged));
-		
-		var lables = node.append("text")
-	  					.text(function(d) {return d.id;})
-	  					.attr('x', -35)
-	  					.attr('y', 2);
+	var circles = node.append("path")
+						.attr("r", 20)
+						.attr("fill", function(d){ return d.color })
+						.attr('d', function(d) {symbolGenerator.type(d3[d.type]);return symbolGenerator();})
+						.call(d3.drag().on("start", dragstarted).on("drag", dragged));
+	
+	var lables = node.append("text")
+  					.text(function(d) {return d.id;})
+  					.attr('x', -15)
+  					.attr('y', 2);
 
 	node.append("title").text(function(d) { return d.id; });
 
@@ -333,7 +330,7 @@ data = JSON.parse(xmlhttp.responseText);
   		d.fy = null;
 	}
 	
-	// d3.select(".card-body").style("display", "none");
+	d3.select(".card-body").style("display", "none");
 	d3.select("svg").style("display", "inline");
 }
 
