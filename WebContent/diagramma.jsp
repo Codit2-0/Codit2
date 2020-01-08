@@ -10,18 +10,6 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- per la scomparsa del menu laterale -->
-  <style>
-    @media (min-width: 992px) {
-      .sidebar-mini.sidebar-collapse .main-sidebar {
-        width: 0;
-      }
-      .sidebar-mini.sidebar-collapse .main-header,
-      .sidebar-mini.sidebar-collapse .content-wrapper {
-        margin-left: 0 !important;
-      }
-    }
-  </style>
 	<!-- style per il diagramma -->
 	<style>
 
@@ -111,7 +99,7 @@ function loadSchemaER(xmlhttp) {
 	var i = 0;
 	while(data.entity[i] != null){
 		var j = 0;
-		nodes.push({id:data.entity[i].name, type: "symbolSquare", color: "lightgreen"});
+		nodes.push({id:data.entity[i].name, size:4000, img:  "imgForme/entita.png",h: 120, w:120});
 		while(data.entity[i].attributes[j] != null){
 			var w = 0, control = true;
 			while(nodes[w] != null){
@@ -119,11 +107,11 @@ function loadSchemaER(xmlhttp) {
 				w++;
 			}
 			if(control == true) {
-				nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
+				nodes.push({id:data.entity[i].attributes[j], size:4000,  img:  "imgForme/attributo.png", h: 60, w:60});
 				links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
 			}
 			else {
-				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], type: "symbolCircle", color: "lightblue"});
+				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000,  img:  "imgForme/attributo.png",h: 60, w:60});
 				links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4});	
 			}
 			
@@ -137,7 +125,7 @@ function loadSchemaER(xmlhttp) {
 	while(data.association[i] != null){
 		links.push({source: data.association[i].entity1, target: data.association[i].name , value: 1});	
 		links.push({source: data.association[i].entity2, target: data.association[i].name , value: 1});	
-		nodes.push({id:data.association[i].name, type:"symbolDiamond", color: "pink"});
+		nodes.push({id:data.association[i].name, size:4000,  img:  "imgForme/relazione.png", h: 120, w:120});
 		i++;
 	}
 	
@@ -276,7 +264,7 @@ function loadSchemaER(xmlhttp) {
 
 	var symbolGenerator = d3.symbol().size(2000);
 
-	<!-- cancella l'elemento deselezionato dalla lista -->
+	// cancella l'elemento deselezionato dalla lista
 	function checkSelected(obj) {
 		for(var i=0; i < selectedNodes.length; i++) {
 			if(obj.name == selectedNodes[i].name){
@@ -286,16 +274,26 @@ function loadSchemaER(xmlhttp) {
 		} 
 	}
 
-	var circles = node.append("path")
-						.attr("r", 20)
-						.attr("fill", function(d){ return d.color })
-						.attr('d', function(d) {symbolGenerator.type(d3[d.type]);return symbolGenerator();})
-						.call(d3.drag().on("start", dragstarted).on("drag", dragged));
-	
-	var lables = node.append("text")
-  					.text(function(d) {return d.id;})
-  					.attr('x', -15)
-  					.attr('y', 2);
+	// Append a circle
+	 node.append("circle")
+	     .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
+	     .style("fill", "#eee");
+	     
+
+	  
+	 // Append images
+	 var images = node.append("image")
+       .attr("xlink:href",  function(d) { return d.img;})
+       .attr("x", function(d) { return -(d.h/2);})
+       .attr("y", function(d) { return -(d.w/2);})
+       .attr("height",function(d) { return d.h;})
+       .attr("width", function(d) { return d.w;})
+       .call(d3.drag().on("start", dragstarted).on("drag", dragged));
+	 
+	 var lables = node.append("text")
+				.text(function(d) {return d.id;})
+				.attr('x', -35)
+				.attr('y', 2);
 
 	node.append("title").text(function(d) { return d.id; });
 

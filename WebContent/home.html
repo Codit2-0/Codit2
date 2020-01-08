@@ -8,10 +8,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- a differenza del default di questo
-       template, abbiamo deciso di far scomparire
-       completamente la barra laterale
-  -->
+  <!-- per la scomparsa del menu laterale -->
   <style>
     @media (min-width: 992px) {
       .sidebar-mini.sidebar-collapse .main-sidebar {
@@ -348,7 +345,7 @@
 		console.log(text.value);
 	});
 </script>
-<!--  -->
+<!-- gestione del modal -->
 <script type="text/javascript">
 	function filtro() {
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));

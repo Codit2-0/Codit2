@@ -7,24 +7,8 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- a differenza del default di questo
-       template, abbiamo deciso di far scomparire
-       completamente la barra laterale
-  -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> 
   <style>
-    @media (min-width: 992px) {
-      .sidebar-mini.sidebar-collapse .main-sidebar {
-        width: 0;
-      }
-      .sidebar-mini.sidebar-collapse .main-header,
-      .sidebar-mini.sidebar-collapse .content-wrapper {
-        margin-left: 0 !important;
-      }
-    }
-  </style>
-</head>
-<style>
 
 .links line {
   stroke: #999;
@@ -44,6 +28,7 @@ text {
 }
 
 </style>
+</head>
 <body>
  <div class="card-body">
    <form method="post" enctype="multipart/form-data" role="form">
@@ -333,7 +318,7 @@ data = JSON.parse(xmlhttp.responseText);
   		d.fy = null;
 	}
 	
-	// d3.select(".card-body").style("display", "none");
+	d3.select(".card-body").style("display", "none");
 	d3.select("svg").style("display", "inline");
 }
 
