@@ -166,7 +166,7 @@
 	<packagedElement xmi:type="uml:Association" xmi:id="activity__clinicalrecord__contain__id" />
 	<packagedElement xmi:type="uml:Association" xmi:id="activity__test__require__id"/>
 	<packagedElement xmi:type="uml:Association" xmi:id="clinicalrecord__hospitalization__registration__id" />
-	<packagedElement xmi:type="uml:Association" xmi:id="patientdata__hospitalization__actual_id" y="100" x="306">
+	<packagedElement xmi:type="uml:Association" xmi:id="patientdata__hospitalization__actual__id" y="100" x="306">
 		<ownedAttribute xmi:type="uml:Property" xmi:id="checkIn" name="checkIn" visibility="private">
         </ownedAttribute>
 	</packagedElement>

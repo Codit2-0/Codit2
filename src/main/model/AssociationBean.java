@@ -5,15 +5,14 @@ import java.util.ArrayList;
 public class AssociationBean {
 
   private ArrayList<String> attribute;
-  private String name, entity1, entity2;
+  private ArrayList<String> entity;
+  private String name;
 
-  public AssociationBean(ArrayList<String> attribute, String name,
-                        String entity1, String entity2) {
+  public AssociationBean(String name, ArrayList<String> attribute, ArrayList<String> entity) {
     super();
-    this.attribute = attribute;
     this.name = name;
-    this.entity1 = entity1;
-    this.entity2 = entity2;
+    this.attribute = attribute;
+    this.entity = entity;
   }
 
   public ArrayList<String> getAttribute() {
@@ -32,22 +31,12 @@ public class AssociationBean {
     this.name = name;
   }
   
-  public String getEntity1() {
-    return entity1;
+  public ArrayList<String> getEntity() {
+    return entity;
   }
   
-  public void setEntity1(String entity1) {
-    this.entity1 = entity1;
+  public void addEntity(String entity){
+	  this.entity.add(entity);
   }
-  
-  public String getEntity2() {
-    return entity2;
-  }
-  
-  public void setEntity2(String entity2) {
-    this.entity2 = entity2;
-  }
-
-
 
 }

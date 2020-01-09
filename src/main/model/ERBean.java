@@ -6,15 +6,17 @@ public class ERBean {
 
   private ArrayList<EntityBean> entity;
   private ArrayList<AssociationBean> association;
+  private ArrayList<HierarchyBean> hierarchy;
 
   public ERBean() {
 
   }
 
-  public ERBean(ArrayList<EntityBean> entity, ArrayList<AssociationBean> association) {
+  public ERBean(ArrayList<EntityBean> entity, ArrayList<AssociationBean> association, ArrayList<HierarchyBean> hierarchy) {
     super();
     this.entity = entity;
     this.association = association;
+    this.hierarchy = hierarchy;
   }
 
   public ArrayList<EntityBean> getEntity() {
@@ -32,6 +34,14 @@ public class ERBean {
   public void setAssociation(ArrayList<AssociationBean> association) {
     this.association = association;
   }
+  
+  public ArrayList<HierarchyBean> getHierarchy() {
+	    return hierarchy;
+	  }
+	  
+	  public void setHierarchy(ArrayList<HierarchyBean> hierarchy) {
+	    this.hierarchy = hierarchy;
+	  }
 
   public EntityBean findByName(String name) {
     if (entity != null)
