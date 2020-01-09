@@ -7,8 +7,24 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css"> 
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- a differenza del default di questo
+       template, abbiamo deciso di far scomparire
+       completamente la barra laterale
+  -->
   <style>
+    @media (min-width: 992px) {
+      .sidebar-mini.sidebar-collapse .main-sidebar {
+        width: 0;
+      }
+      .sidebar-mini.sidebar-collapse .main-header,
+      .sidebar-mini.sidebar-collapse .content-wrapper {
+        margin-left: 0 !important;
+      }
+    }
+  </style>
+</head>
+<style>
 
 .links line {
   stroke: #999;
@@ -16,10 +32,10 @@
 }
 
 path{
-	stroke: #999;
+ stroke: #999;
 }
-path.selected {
-	stroke: #FF0000;
+path.selected {
+ stroke: #FF0000;
 }
 
 text {
@@ -28,7 +44,6 @@ text {
 }
 
 </style>
-</head>
 <body>
  <div class="card-body">
    <form method="post" enctype="multipart/form-data" role="form">
@@ -36,7 +51,7 @@ text {
        <label for="path">Selezionare file .xmi</label>
        <div class="input-group">
          <div class="custom-file">
-         	 <input type="file" id="path" name="file" class="custom-file-input">
+           <input type="file" id="path" name="file" class="custom-file-input">
            <label class="custom-file-label" for="path">Choose file</label>
          </div>
          <div class="input-group-append">
@@ -50,7 +65,7 @@ text {
    </form>
  </div>
 </body>
-<svg width="900" height="1200" style="display: none;"></svg>
+<svg width="1200" height="1500" style="display: none;"></svg>
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -66,26 +81,29 @@ text {
 var data = [];
 var links = [];
 var nodes = [];
-var svg = d3.select("svg"),width = 900, height = 600;
+var gerarchia = [];
+var svg = d3.select("svg"),width = 1200, height = 800;
 
 function writeDatabase() {
-	
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
-	};
-	
-	var formData = new FormData();
-	formData.append("file", document.getElementById("path").files[0]);
 
-	xmlhttp.open("POST", "JSONSchemaER", true);
-	xmlhttp.send(formData);
+ var xmlhttp = new XMLHttpRequest();
+ xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+ };
+ 
+ var formData = new FormData();
+ formData.append("file", document.getElementById("path").files[0]);
+
+ xmlhttp.open("POST", "JSONSchemaER", true);
+ xmlhttp.send(formData);
 }
-//Continuare a implementare la funzione su onclick
-		
+
+  
 function loadSchemaER(xmlhttp) {
  //variabile che distingue i due frame
  var frame = document.getElementById("frame").value;
+ 
+ sessionStorage.setItem(frame, '[]');
  
  var selectedNodes = [];
  
@@ -119,16 +137,43 @@ function loadSchemaER(xmlhttp) {
  
  i = 0;
  while(data.association[i] != null){
-  links.push({source:
-data.association[i].entity1, target: data.association[i].name , value: 1, force:200}); 
-  links.push({source: data.association[i].entity2, target: data.association[i].name , value: 1, force:200}); 
-  nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
-  i++;
+j = 0;
+   while( data.association[i].entity[j] != null){
+    links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:200});
+    j++;
+   }
+   nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
+   i++;
  }
  
+ i = 0;
+ while(data.hierarchy[i] != null){
+ j = 0;
+ var test = true;
+ while(gerarchia[j] != null){
+  if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
+  j++;
+ }
+ if(test == true) gerarchia.push({father:data.hierarchy[i].father});
+ i++;
+ }
+ 
+ i = 0;
+ while(gerarchia[i] != null){
+ j = 0;
+ nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
+ links.push({source: gerarchia[i].father, target: i, value: 1, force:200});
+ while(data.hierarchy[j] != null){
+  if(gerarchia[i].father == data.hierarchy[j].father){
+   links.push({source: data.hierarchy[j].sons, target: i, value: 1, force:50});
+  }
+  j++;
+ }
+ i++;
+ }
  var simulation = d3.forceSimulation()
          .force("link", d3.forceLink().distance(function(d) { return d.force; }).id(function(d) { return d.id; }))
-         .force("charge", d3.forceManyBody())
+         .force("charge", d3.forceManyBody().strength(-200))
          .force("center", d3.forceCenter(width / 2, height));
  
  var link = svg.append("g")
@@ -147,6 +192,8 @@ data.association[i].entity1, target: data.association[i].name , value: 1, force:
      .enter().append("g")
      .on("click", function(){
       //Funzione per la selezione e la deselezione di entità e relazioni
+      selectedNodes = JSON.parse(sessionStorage.getItem(frame));
+      
       if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
        
        
@@ -211,7 +258,24 @@ data.association[i].entity1, target: data.association[i].name , value: 1, force:
         selectedNodes.push(relation);
         
        }
-      } else{
+      }else if(d3.select(this)._groups[0][0].__data__.type == "symbolTriangolo"){
+          var g = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
+                  type: "g"}
+               
+               if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+                
+                checkSelected(g);
+                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+                d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
+                
+               } else {
+              
+                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+                d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+                selectedNodes.push(g);
+                
+         }
+       } else{
        var attribute = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
                 type: "attribute"};
        
@@ -222,13 +286,14 @@ data.association[i].entity1, target: data.association[i].name , value: 1, force:
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
         
        } else {
-d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+ 				d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
         selectedNodes.push(attribute);
        
        }
       }
       console.log(selectedNodes, selectedNodes.length);
+      sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
      })
      .on("dblclick", function(){
       
@@ -296,7 +361,7 @@ d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
   var images2 = node.append("image")
       .attr("xlink:href",  function(d) { return d.img;})
       .attr("x", function(d) { return -(d.w/2 + 2);})
-      .attr("y", function(d) { return -(d.h/2 + 2);})
+.attr("y", function(d) { return -(d.h/2 + 2);})
       .attr("height",function(d) { return d.h + 5;})
       .attr("width", function(d) { return d.w + 5;})
       .call(d3.drag().on("start", dragstarted).on("drag", dragged));

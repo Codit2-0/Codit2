@@ -392,14 +392,16 @@
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
 		
+		console.log(frame1, frame2);
+		
 		//variabili che contano contano per tipo di oggetto
 		var entity1 = 0, relation1 = 0, attribute1 = 0, hierarchy1 = 0;
-		var entity2 = 0, relation2 = 0, attribute2 = 0, hierarchy1 = 0;
+		var entity2 = 0, relation2 = 0, attribute2 = 0, hierarchy2 = 0;
 		
 		//ciclo per il conteggio nel frame sinistro
 		var i = 0;
 		while(frame1[i] != null) {
-			switch (frame2[i].type) {
+			switch (frame1[i].type) {
 			case 'entity': 
 						entity1 += 1;
 						break;
@@ -458,9 +460,29 @@
 			}
 		} else if ((attribute1 == 0) && (entity1 == 2) && (relation1 == 1) && (hierarchy1 == 0)) {
 			if ((attribute2 == 0) && (entity2 == 2) && (relation2 == 2) && (hierarchy2 == 0)) {
-				
+				d3.select('#btn5').style('display', 'inline-block');
+			}
+		} else if ((attribute1 == 0) && (entity1 > 2) && (relation1 == 1) && (hierarchy1 == 0)) {
+			if ((attribute2 == 0) && (entity2 == 3) && (relation2 == 2) && (hierarchy2 == 0)) {
+				d3.select('#btn4').style('display', 'inline-block');
+			}
+		} else if ((attribute1 == 0) && (entity1 > 2) && (relation1 == 0) && (hierarchy1 == 1)) {
+			if (attribute2 == 0) {
+				if (relation2 == 0) {
+					if ((entity2 == (entity1 - 1)) && (hierarchy2 == 0)) {
+						d3.select('#btn7').style('display', 'inline-block');
+					} else if ((entity2 == 1) && (hierarchy2 == 0)) {
+						d3.select('#btn8').style('display', 'inline-block');
+					}
+				} else if (relation2 == 2) {
+					if ((entity2 == entity1) && (hierarchy2 == 0)) {
+						d3.select('#btn9').style('display', 'inline-block');
+					}
+				}
 			}
 		}
+		//fine controllo
+		
 	}
 
 </script>
