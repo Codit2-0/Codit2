@@ -55,7 +55,7 @@ public class JsonParser {
 	    for (int i = 0; i < hierarchies.size(); i++) {
 	      JSONObject obj = new JSONObject();
 	      obj.put("father", hierarchies.get(i).getFather());
-	      
+	      System.out.println(hierarchies.get(i).getSons()+"ççççççç");
 	      obj.put("son", hierarchies.get(i).getSons());
 	      
 	      hierarchyArray.add(obj);
