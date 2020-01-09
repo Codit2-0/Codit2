@@ -70,7 +70,7 @@ public class JsonParser {
   private static JSONArray associationToJson(ArrayList<AssociationBean> associations) {
     JSONArray associationArray = new JSONArray();
 
-    for (int i = 0; i < associations.size(); i++) {
+    for (int i = 0; i < associations.size();  i++) {
       JSONObject obj = new JSONObject();
       obj.put("name", associations.get(i).getName());
       
