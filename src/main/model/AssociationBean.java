@@ -38,5 +38,10 @@ public class AssociationBean {
   public void addEntity(String entity){
 	  this.entity.add(entity);
   }
-
+  public void stampa() {
+	  System.out.print("nome: "+name);
+	  for(int i = 0; i < entity.size(); i++) {
+		  System.out.print(" entità:"+entity.get(i)+" ");
+	  }
+  }
 }

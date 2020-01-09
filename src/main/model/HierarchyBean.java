@@ -26,4 +26,11 @@ public class HierarchyBean {
 	    this.father = father;
 	  }
 
+	@Override
+	public String toString() {
+		return "HierarchyBean [sons=" + sons + ", father=" + father + "]";
+	}
+	  
+	  
+
 }

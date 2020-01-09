@@ -73,5 +73,13 @@ public class ERBean {
       for (int i = 0; i < association.size(); i++) {
        // System.out.println(association.get(i).getName() + "@@");
       }
+    if (hierarchy != null)
+        for (int i = 0; i < hierarchy.size(); i++) {
+          System.out.println(hierarchy.toString()+ "@@");
+        } else {
+            System.out.println("@@");
+
+        }
   }
+  
 }

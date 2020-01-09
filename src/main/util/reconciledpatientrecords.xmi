@@ -131,10 +131,10 @@
         </ownedAttribute>
 	</packagedElement>
 	<packagedElement xmi:type="uml:Association" xmi:id="clinicalrecord__activity__entry__id" />
-	<packagedElement xmi:type="uml:Association" xmi:id="activity__therapy__ciao__id" type="ISA" />
-	<packagedElement xmi:type="uml:Association" xmi:id="activity__diagnostictest__ciao__id" type="ISA"/>
-	<packagedElement xmi:type="uml:Association" xmi:id="diagnostictest__biochemical__ciao__id" type="ISA" />
-	<packagedElement xmi:type="uml:Association" xmi:id="diagnostictest__instrumental__ciao__id" type="ISA" />
+	<packagedElement xmi:type="uml:Association" xmi:id="activity__therapy__id" type="ISA" />
+	<packagedElement xmi:type="uml:Association" xmi:id="activity__diagnostictest__id" type="ISA"/>
+	<packagedElement xmi:type="uml:Association" xmi:id="diagnostictest__biochemical__id" type="ISA" />
+	<packagedElement xmi:type="uml:Association" xmi:id="diagnostictest__instrumental__id" type="ISA" />
 	<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_XrSbHdk5EdyEZoPpUv3LUw">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XrSbHtk5EdyEZoPpUv3LUw" source="http://www.eclipse.org/uml2/2.0.0/UML">

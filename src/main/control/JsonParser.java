@@ -51,7 +51,7 @@ public class JsonParser {
    */
   private static JSONArray hierarchyToJson(ArrayList<HierarchyBean> hierarchies) {
 	    JSONArray hierarchyArray = new JSONArray();
-	    
+	    if(hierarchies != null) {
 	    for (int i = 0; i < hierarchies.size(); i++) {
 	      JSONObject obj = new JSONObject();
 	      obj.put("father", hierarchies.get(i).getFather());
@@ -60,8 +60,9 @@ public class JsonParser {
 	      
 	      hierarchyArray.add(obj);
 	    }
-	    
+	    }
 	    return hierarchyArray;
+	    
 	  }
   
   /*metodo per il popolamento del JSONArray delle assiociazioni.

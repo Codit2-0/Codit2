@@ -52,14 +52,15 @@ public class Parser {
         	if(listClass.item(i).getAttributes().getNamedItem("type")!=null) {
         		String hierarchyString = listClass.item(i).getAttributes()
                         .getNamedItem("type").toString();
-            	if(hierarchyString.equals("ISA")) {
-                    
+            	if(hierarchyString.equals("type=\"ISA\"")) {
+
             		String nomeGerarchia = listClass.item(i).getAttributes()
                             .getNamedItem("xmi:id").toString();
             		nomeGerarchia = nomeGerarchia.substring(nomeGerarchia.indexOf('"') + 1,
             				nomeGerarchia.lastIndexOf('"'));
 					String padre = nomeGerarchia;
 					String figlio = nomeGerarchia;
+					
 					
 					padre = nomeGerarchia.substring(0, nomeGerarchia.indexOf("__"));
 					figlio = nomeGerarchia.substring(nomeGerarchia.indexOf("__")+2, nomeGerarchia.lastIndexOf("__"));
@@ -98,6 +99,7 @@ public class Parser {
           }
           for(int k = 0; k < tmp.size()-1; k++) {
         	  entityList.add(tmp.get(k));
+        	  
           }
           nomeAssociazione = tmp.get(tmp.size()-1);
           
@@ -106,7 +108,11 @@ public class Parser {
           attribute = new ArrayList<String>();
     
           association = new AssociationBean(nomeAssociazione, attribute, entityList);
+          entityList = new ArrayList<String>();
+          association.stampa();
+
           arrayAssociation.add(association);
+          
         	}
         } else {
 
@@ -160,6 +166,7 @@ public class Parser {
 
     modello.setEntity(arrayEntity);
     modello.setAssociation(arrayAssociation);
+    modello.setHierarchy(arrayHierarchy);
     modello.stampa();
     return modello;
   }
