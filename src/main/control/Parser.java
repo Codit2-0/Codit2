@@ -100,6 +100,7 @@ public class Parser {
           for(int k = 0; k < tmp.size()-1; k++) {
         	  entityList.add(tmp.get(k));
         	  
+        	  
           }
           nomeAssociazione = tmp.get(tmp.size()-1);
           
@@ -120,7 +121,6 @@ public class Parser {
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
                                             nomeClasse.lastIndexOf('"'));
           //System.out.println("Classe : " + nomeClasse);
-          attribute = new ArrayList<String>();
           attribute = new ArrayList<String>();
           entity = new EntityBean(nomeClasse, attribute);
           arrayEntity.add(entity);
