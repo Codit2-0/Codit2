@@ -64,8 +64,11 @@ text {
      <input type="hidden" id="frame" value="">
    </form>
  </div>
+  <div id="svgContainer" class="svgContainer">
+ 	<svg id="svgImage" width="1200"  height="1500" style="display: none;"></svg>
+ </div>
 </body>
-<svg width="1200" height="1500" style="display: none;"></svg>
+
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -410,4 +413,100 @@ j = 0;
 }
 
 
+</script>
+
+<!-- zoom -->
+<script type="text/javascript">
+const svgImage = document.getElementById("svgImage");
+const svgContainer = document.getElementById("svgContainer");
+
+var viewBox = {x:0,y:0,w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
+svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
+var isPanning = false;
+var startPoint = {x:0,y:0};
+var endPoint = {x:0,y:0};;
+var scale = 1;
+
+svgContainer.onmousewheel = function(e) {
+   e.preventDefault();
+   var w = viewBox.w;
+   var h = viewBox.h;
+   var mx = e.x;//mouse x  
+   var my = e.y;    
+   var dw = w*Math.sign(e.deltaY)*0.05;
+   var dh = h*Math.sign(e.deltaY)*0.05;
+   var dx = dw*mx/svgSize.w;
+   var dy = dh*my/svgSize.h;
+   viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
+   scale = svgSize.w/viewBox.w;
+   svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+}
+
+
+svgContainer.onmousedown = function(e){
+   isPanning = true;
+   startPoint = {x:e.x,y:e.y};   
+}
+
+svgContainer.onmousemove = function(e){
+   if (isPanning){
+  endPoint = {x:e.x,y:e.y};
+  var dx = (startPoint.x - endPoint.x)/scale;
+  var dy = (startPoint.y - endPoint.y)/scale;
+  var movedViewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+  svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
+   }
+}
+
+svgContainer.onmouseup = function(e){
+   if (isPanning){ 
+  endPoint = {x:e.x,y:e.y};
+  var dx = (startPoint.x - endPoint.x)/scale;
+  var dy = (startPoint.y - endPoint.y)/scale;
+  viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+  svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+  isPanning = false;
+   }
+}
+
+svgContainer.onmouseleave = function(e){
+ isPanning = false;
+}
+</script>
+<script>
+for (const divMain of document.getElementsByTagName("body")) {
+	// drag the svg
+	  for (const divSection of divMain.getElementsByClassName('svgContainer')) {
+	    // when mouse is pressed store the current mouse x,y
+	    let previousX, previousY
+	    divSection.addEventListener('mousedown', (event) => {
+	      previousX = event.pageX
+	      previousY = event.pageY
+	    })
+
+	    // when mouse is moved, scrollBy() the mouse movement x,y
+	    divSection.addEventListener('mousemove', (event) => {
+	        // only do this when the primary mouse button is pressed (event.buttons = 1)
+	      if (event.buttons) {
+	        let dragX = 0
+	        let dragY = 0
+	        // skip the drag when the x position was not changed
+	        if (event.pageX - previousX !== 0) {
+	          dragX = previousX - event.pageX
+	          previousX = event.pageX
+	        }
+	        // skip the drag when the y position was not changed
+	        if (event.pageY - previousY !== 0) {
+	          dragY = previousY - event.pageY
+	          previousY = event.pageY
+	        }
+	        // scrollBy x and y
+	        if (dragX !== 0 || dragY !== 0) {
+	          divMain.scrollBy(dragX, dragY)
+	        }
+	      }
+	    })
+	  }
+	}
 </script>
