@@ -239,6 +239,15 @@
               <iframe id="db2" class="col-12 border-primary" src="diagramma.jsp">
               </iframe>
             </div>
+            
+            
+            <div class="input-group-append">
+           		<span class="btn btn-default" style="background-color: #e9ecef;" onclick="frame2()">
+        			Refresh
+           		</span>
+         	</div>
+        	
+        	
           </div>
         </div>
       </div>
@@ -351,6 +360,11 @@
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
 		console.log(frame1, frame2);
+	}
+	
+	function frame2() {
+		var iframe = document.getElementById('db2');
+		iframe.src = iframe.src;
 	}
 </script>
 

@@ -167,7 +167,7 @@ public class Parser {
     modello.setEntity(arrayEntity);
     modello.setAssociation(arrayAssociation);
     modello.setHierarchy(arrayHierarchy);
-   // modello.stampa();
+    modello.stampa();
     return modello;
   }
 }

@@ -165,12 +165,14 @@ j = 0;
  links.push({source: gerarchia[i].father, target: i, value: 1, force:200});
  while(data.hierarchy[j] != null){
   if(gerarchia[i].father == data.hierarchy[j].father){
-   links.push({source: data.hierarchy[j].sons, target: i, value: 1, force:50});
+   links.push({source: data.hierarchy[j].son, target: i, value: 1, force:50});
   }
   j++;
  }
  i++;
  }
+ 
+ 
  var simulation = d3.forceSimulation()
          .force("link", d3.forceLink().distance(function(d) { return d.force; }).id(function(d) { return d.id; }))
          .force("charge", d3.forceManyBody().strength(-200))
@@ -372,11 +374,10 @@ j = 0;
   .attr('x', function(d) {return -(d.h/4)})
     .attr('y', 0);
 
-
+ 
  simulation.nodes(nodes).on("tick", ticked);
-
  simulation.force("link").links(links);
-
+ 
  function ticked() {
   link.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
@@ -397,7 +398,7 @@ j = 0;
   d.fy = d3.event.y;
  }
 
- //Questa è la funzione per bloccare i nodie va inserita in circles
+ //Questa è la funzione per bloccare i nodi va inserita in circles
  function dragended(d) {
     if (!d3.event.active) simulation.alphaTarget(0);
     d.fx = null;

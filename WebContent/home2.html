@@ -228,6 +228,11 @@
             <div class="card-body" >
               <iframe id="db1" class="col-12 border-primary" src="test2.html">
               </iframe>
+              <div class="input-group-append">
+                <span class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh1()">
+                  Reset 
+                </span>
+              </div>
             </div>
           </div>
           <!-- Sezione operazioni -->
@@ -270,6 +275,11 @@
             <div class="card-body" >
               <iframe id="db2" class="col-12 border-primary" src="test2.html">
               </iframe>
+        	  <div class="input-group-append">
+                <span class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh2()">
+                  Reset 
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -378,6 +388,14 @@
 </script>
 <!-- gestione del modal -->
 <script type="text/javascript">
+	function refresh1() {
+		var iframe = document.getElementById('db1');
+		iframe.src = iframe.src;
+	}
+	function refresh2() {
+		var iframe = document.getElementById('db2');
+		iframe.src = iframe.src;
+	}
 	function filtro() {
 		d3.select('#btn1').style('display', 'none');
 		d3.select('#btn2').style('display', 'none');
