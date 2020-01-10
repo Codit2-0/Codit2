@@ -245,7 +245,8 @@
               </div>
             </div>
           	<div class="card-body">
-		         	<ul class="operatori">
+		         	<ul class="operatori" id="operatoriSelezionati">
+		         	<!-- 
 			         	<li class="d-flex justify-content-center align-items-center operatore selected">
 			         		<div class="btn-default">
 				           	<img src="imgFunzioni/subimg1.png" alt="Derivable right">
@@ -264,6 +265,7 @@
 				           	<img src="imgFunzioni/subimg2.png" alt="Derivable right">
 				         	</div>
 			         	</li>
+			         	-->
 		         	</ul>
 	         	</div>
           </div>
@@ -298,31 +300,31 @@
           </button>
         </div>
         <div class="modal-body">
-          <button id="btn1" type="button" class="btn btn-default">
+          <button id="btn1" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine1.png')">
             <img src="imgFunzioni/Immagine1.png" alt="Derivable right">
           </button>
-          <button id="btn2" type="button" class="btn btn-default">
+          <button id="btn2" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine2.png')">
             <img src="imgFunzioni/Immagine2.png" alt="Derivable right">
           </button>
-          <button id="btn3" type="button" class="btn btn-default">
+          <button id="btn3" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine3.png')">
             <img src="imgFunzioni/Immagine3.png" alt="Derivable right">
           </button>
-          <button id="btn4" type="button" class="btn btn-default">
+          <button id="btn4" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine4.png')">
             <img src="imgFunzioni/Immagine4.png" alt="Derivable right">
           </button>
-          <button id="btn5" type="button" class="btn btn-default">
+          <button id="btn5" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine5.png')">
             <img src="imgFunzioni/Immagine5.png" alt="Derivable right">
           </button>
-          <button id="btn6" type="button" class="btn btn-default">
+          <button id="btn6" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine6.png')">
             <img src="imgFunzioni/Immagine6.png" alt="Derivable right">
           </button>
-          <button id="btn7" type="button" class="btn btn-default">
+          <button id="btn7" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine7.png')">
             <img src="imgFunzioni/Immagine7.png" alt="Derivable right">
           </button>
-          <button id="btn8" type="button" class="btn btn-default">
+          <button id="btn8" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine8.png')">
             <img src="imgFunzioni/Immagine8.png" alt="Derivable right">
           </button>
-          <button id="btn9" type="button" class="btn btn-default">
+          <button id="btn9" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine9.png')">
             <img src="imgFunzioni/Immagine9.png" alt="Derivable right">
           </button>
         </div>
@@ -388,6 +390,32 @@
 </script>
 <!-- gestione del modal -->
 <script type="text/javascript">
+	function inserisciOperazione(img) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			  if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+		};
+		xmlhttp.open("POST", "JSONOperazioni?op=" + img, true);	
+		xmlhttp.send();		
+	}
+	function loadSchemaER(xmlhttp) {
+		var data = JSON.parse(xmlhttp.responseText);
+		document.getElementById("operatoriSelezionati").innerHTML = "";
+		var i = 0;
+		while(data[i] != null){
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></div></li>";
+			i++;
+		}
+	}
+	
 	function refresh1() {
 		var iframe = document.getElementById('db1');
 		iframe.src = iframe.src;
@@ -397,6 +425,7 @@
 		iframe.src = iframe.src;
 	}
 	function filtro() {
+		/*
 		d3.select('#btn1').style('display', 'none');
 		d3.select('#btn2').style('display', 'none');
 		d3.select('#btn3').style('display', 'none');
@@ -406,7 +435,7 @@
 		d3.select('#btn7').style('display', 'none');
 		d3.select('#btn8').style('display', 'none');
 		d3.select('#btn9').style('display', 'none');
-		
+		*/
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
 		
