@@ -125,11 +125,11 @@ function loadSchemaER(xmlhttp) {
    }
    if(control == true) {
     nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
-    links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:100}); 
+    links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
    else {
     nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
-    links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:100}); 
+    links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
    
    j++;
@@ -142,7 +142,7 @@ function loadSchemaER(xmlhttp) {
  while(data.association[i] != null){
 	j = 0;
    while( data.association[i].entity[j] != null){
-    links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:200});
+    links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:100});
     j++;
    }
    nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
@@ -178,7 +178,7 @@ function loadSchemaER(xmlhttp) {
  
  var simulation = d3.forceSimulation()
          .force("link", d3.forceLink().distance(function(d) { return d.force; }).id(function(d) { return d.id; }))
-         .force("charge", d3.forceManyBody().strength(-200))
+         .force("charge", d3.forceManyBody().strength(-1000))
          .force("center", d3.forceCenter(width - 400, height/2));
  
  var link = svg.append("g")
