@@ -219,12 +219,12 @@ j = 0;
 
          if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
           
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
+          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
           d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "#999";
           
          } else { 
         
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
+          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
           d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "red";
           entity.attributes.push(d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].textContent)
          
@@ -233,12 +233,12 @@ j = 0;
         if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
          
          checkSelected(entity);
-         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
          d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
          
         } else {
         
-         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
          d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
          selectedNodes.push(entity);
          
@@ -250,12 +250,12 @@ j = 0;
        if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
         
         checkSelected(relation);
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
         
        } else {
       
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
         selectedNodes.push(relation);
         
@@ -267,12 +267,12 @@ j = 0;
                if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
                 
                 checkSelected(g);
-                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
                 d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
                 
                } else {
               
-                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
                 d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
                 selectedNodes.push(g);
                 
@@ -284,11 +284,11 @@ j = 0;
        if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
         
         checkSelected(attribute);
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
         
        } else {
- 				d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+ 				d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
         selectedNodes.push(attribute);
        
