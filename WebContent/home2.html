@@ -41,7 +41,7 @@
   		background-color: #040756;
   	}
   	
-  	div.btn-default {
+  	.operatori .btn-default {
   		max-width:40%;
   		display: inline-block;
   	}	
@@ -56,6 +56,10 @@
   		padding-right: 0.2rem !important;
   	}
   
+  	.card-header .btn {
+  		padding-top: 0 !important;
+  		padding-bottom: 0 !important;
+  	}
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -221,18 +225,16 @@
           <!-- Database sinistro -->
           <div class="col-lg-5">
             <div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-                <h3 class="card-title">Database 1</h3>
+              <h3 class="card-title">Database 1</h3>
+              <div class="card-tools">
+                <button class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh1()">
+                  Reset 
+                </button>
               </div>
             </div>
-            <div class="card-body" >
+            <div class="card-body">
               <iframe id="db1" class="col-12 border-primary" src="test2.html">
               </iframe>
-              <div class="input-group-append">
-                <span class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh1()">
-                  Reset 
-                </span>
-              </div>
             </div>
           </div>
           <!-- Sezione operazioni -->
@@ -268,18 +270,16 @@
           <!-- Database destro -->
           <div class="col-lg-5">
             <div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-                <h3 class="card-title">Database 2</h3>
+              <h3 class="card-title">Database 2</h3>
+              <div class="card-tools">
+                <button class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh2()">
+                  Reset 
+                </button>
               </div>
             </div>
             <div class="card-body" >
               <iframe id="db2" class="col-12 border-primary" src="test2.html">
               </iframe>
-        	  <div class="input-group-append">
-                <span class="btn btn-default" style="background-color: #e9ecef;" onclick="refresh2()">
-                  Reset 
-                </span>
-              </div>
             </div>
           </div>
         </div>
