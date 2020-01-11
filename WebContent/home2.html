@@ -357,6 +357,7 @@
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
+    inserisciOperazione("null");
   });
 </script>
 <!-- script per il dimensionamento degli iframe -->
@@ -403,18 +404,42 @@
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 		var i = 0;
 		while(data[i] != null){
-			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></div></li>";
-			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><div class='btn-default'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></div><span class='separatore'>-</span><div class='btn-default'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></div></li>";
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].scelta != "null") {
+				var btn = "bt"+data[i].scelta+"Operando"+i;
+				document.getElementById(btn).style.borderColor = "red";
+				document.getElementById(btn).style.borderWidth = "thick";
+				document.getElementById(btn).disabled = true;
+				if(data[i].scelta == 1) {document.getElementById("bt"+2+"Operando"+i).disabled = true;}
+				else {document.getElementById("bt"+1+"Operando"+i).disabled = true;}
+			}
 			i++;
 		}
 	}
+	function scelta(btn) {
+		document.getElementById(btn).style.borderColor = "red";
+		document.getElementById(btn).style.borderWidth = "thick";
+		document.getElementById(btn).disabled = true;
+		
+		var op = btn.substring(11);
+		var scelta = btn.substring(2, 3);
+		if(scelta == 1) {document.getElementById("bt"+2+"Operando"+op).disabled = true;}
+		else {document.getElementById("bt"+1+"Operando"+op).disabled = true;}
+		
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta, true);	
+		xmlhttp.send();	
+	}
+
+	
 	
 	function refresh1() {
 		var iframe = document.getElementById('db1');
