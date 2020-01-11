@@ -90,19 +90,16 @@
 		
     <!-- Sidebar -->
     <div class="sidebar">
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Operazioni salvate
-                <i class="right fas fa-angle-left"></i>
-              </p>
+              <p>Operazioni salvate<i class="right fas fa-angle-left"></i></p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" id="tutteOpLato">
+            <!--  
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -121,8 +118,11 @@
                   <p>Operazione 3</p>
                 </a>
               </li>
+              -->
             </ul>
           </li>
+         </ul>
+          <!--  
           <li class="nav-header">EXAMPLES</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -212,6 +212,7 @@
             </ul>
           </li>
         </ul>
+        -->
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -423,22 +424,63 @@
 			}
 			i++;
 		}
+		
+		
+		document.getElementById("tutteOpLato").innerHTML = "";
+		var i = 0;
+		while(data[i] != null){
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].scelta != "null") {
+				var btn = "lt"+data[i].scelta+"Operando"+i;
+				document.getElementById(btn).style.borderColor = "red";
+				document.getElementById(btn).style.borderWidth = "thick";
+				document.getElementById(btn).disabled = true;
+			}
+			i++;
+		}
 	}
 	function scelta(btn) {
-		document.getElementById(btn).style.borderColor = "red";
-		document.getElementById(btn).style.borderWidth = "thick";
-		document.getElementById(btn).disabled = true;
 		
 		var op = btn.substring(11);
 		var scelta = btn.substring(2, 3);
-		if(scelta == 1) {document.getElementById("bt"+2+"Operando"+op).disabled = true;}
-		else {document.getElementById("bt"+1+"Operando"+op).disabled = true;}
+
+		document.getElementById("lt"+scelta+"Operando"+op).disabled = true;
+		document.getElementById("lt"+scelta+"Operando"+op).style.borderColor = "red";
+		document.getElementById("lt"+scelta+"Operando"+op).style.borderWidth = "thick";
+		
+		document.getElementById("bt"+2+"Operando"+op).disabled = true;
+		document.getElementById("bt"+1+"Operando"+op).disabled = true;
+		document.getElementById("bt"+scelta+"Operando"+op).style.borderColor = "red";
+		document.getElementById("bt"+scelta+"Operando"+op).style.borderWidth = "thick";	
+		
+		if(scelta == 1){
+			document.getElementById("lt"+2+"Operando"+op).disabled = false;
+			document.getElementById("lt"+2+"Operando"+op).style.borderColor = "white";
+			document.getElementById("lt"+2+"Operando"+op).style.borderWidth = "thick";
+			document.getElementById("bt"+2+"Operando"+op).style.borderColor = "white";
+			document.getElementById("bt"+2+"Operando"+op).style.borderWidth = "thick";
+		} else {
+			document.getElementById("lt"+1+"Operando"+op).disabled = false;
+			document.getElementById("lt"+1+"Operando"+op).style.borderColor = "white";
+			document.getElementById("lt"+1+"Operando"+op).style.borderWidth = "thick";
+			document.getElementById("bt"+1+"Operando"+op).style.borderColor = "white";
+			document.getElementById("bt"+1+"Operando"+op).style.borderWidth = "thick";
+		}
 		
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta, true);	
 		xmlhttp.send();	
 	}
 
+	
 	
 	
 	function refresh1() {
