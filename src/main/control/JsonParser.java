@@ -3,8 +3,8 @@ package control;
 import java.util.ArrayList;
 import model.AssociationBean;
 import model.ERBean;
-import model.HierarchyBean;
 import model.EntityBean;
+import model.HierarchyBean;
 import org.json.simple.*;
 
 
@@ -13,7 +13,7 @@ public class JsonParser {
   
   /**
    * Metodo che trasforma un ERBean in una stringa in formato JSON.
-   * @param beanER � una classe contenente due {@link ArrayList},
+   * @param beanER Classe contenente due {@link ArrayList},
    una di {@link EntityBean} e una di {@link AssociationBean}.
    * @return
    */
@@ -47,23 +47,24 @@ public class JsonParser {
     
     return entityArray;
   }
+
   /*metodo per il popolamento del JSONArray delle gerarchie.
    */
   private static JSONArray hierarchyToJson(ArrayList<HierarchyBean> hierarchies) {
-	    JSONArray hierarchyArray = new JSONArray();
-	    if(hierarchies != null) {
-	    for (int i = 0; i < hierarchies.size(); i++) {
-	      JSONObject obj = new JSONObject();
-	      obj.put("father", hierarchies.get(i).getFather());
-	      System.out.println(hierarchies.get(i).getSons()+"ççççççç");
-	      obj.put("son", hierarchies.get(i).getSons());
-	      
-	      hierarchyArray.add(obj);
-	    }
-	    }
-	    return hierarchyArray;
-	    
-	  }
+    JSONArray hierarchyArray = new JSONArray();
+    if (hierarchies != null) {
+      for (int i = 0; i < hierarchies.size(); i++) {
+        JSONObject obj = new JSONObject();
+        obj.put("father", hierarchies.get(i).getFather());
+        System.out.println(hierarchies.get(i).getSons() + "ççççççç");
+        obj.put("son", hierarchies.get(i).getSons());
+
+        hierarchyArray.add(obj);
+      }
+    }
+    return hierarchyArray;
+
+  }
   
   /*metodo per il popolamento del JSONArray delle assiociazioni.
    */
@@ -79,7 +80,7 @@ public class JsonParser {
       
       //ciclo per l'aggiunta delle entità
       for (int j = 0; j < entity.size(); j++) {
-    	  entityArray.add(entity.get(j));
+        entityArray.add(entity.get(j));
       }
       obj.put("entity", entityArray);
       //"attributes" : [] se l'array � vuoto  

@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i dati di un'entita'
+ * di un diagramma ER.
+ */
 public class EntityBean {
 
   private String name;

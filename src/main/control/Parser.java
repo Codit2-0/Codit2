@@ -21,7 +21,12 @@ public class Parser {
   static final String CLASSES = "packagedElement"; 
   //static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
 
-  public ERBean parser (File url) {
+  /**
+   * Parser che legge da un file .xmi e lo traduce in un elemento {@link ERBean}.
+   * @param url il percorso del file all'interno del server
+   * @return 
+   */
+  public ERBean parser(File url) {
     ERBean modello = new ERBean();
     ArrayList<EntityBean> arrayEntity = new ArrayList<EntityBean>();
     ArrayList<AssociationBean> arrayAssociation = new ArrayList<AssociationBean>();
@@ -45,78 +50,89 @@ public class Parser {
       int totalClass = listClass.getLength();
       //System.out.println("Total Class : " + totalClass);
 
+      //ciclo di tutti gli elementi 'packagedElement'
       for (int i = 0; i < totalClass;i++) {
 
         String type =  listClass.item(i).getAttributes().getNamedItem("xmi:type").toString();
+        
+        // controllo se il 'type' è 'Association' o 'Class'
         if (type.equals("xmi:type=\"uml:Association\"")) {
-        	if(listClass.item(i).getAttributes().getNamedItem("type")!=null) {
-        		String hierarchyString = listClass.item(i).getAttributes()
-                        .getNamedItem("type").toString();
-            	if(hierarchyString.equals("type=\"ISA\"")) {
+          
+          // caso in cui l'elemento è 'Association', cioè una relazione
+          
+          if (listClass.item(i).getAttributes().getNamedItem("type") != null) {
+            String hierarchyString = listClass.item(i).getAttributes()
+                                              .getNamedItem("type").toString();
+            
+            // controllo se la relazione è una gerarchia
+            if (hierarchyString.equals("type=\"ISA\"")) {
 
-            		String nomeGerarchia = listClass.item(i).getAttributes()
-                            .getNamedItem("xmi:id").toString();
-            		nomeGerarchia = nomeGerarchia.substring(nomeGerarchia.indexOf('"') + 1,
-            				nomeGerarchia.lastIndexOf('"'));
-					String padre = nomeGerarchia;
-					String figlio = nomeGerarchia;
-					
-					
-					padre = nomeGerarchia.substring(0, nomeGerarchia.indexOf("__"));
-					figlio = nomeGerarchia.substring(nomeGerarchia.indexOf("__")+2, nomeGerarchia.lastIndexOf("__"));
-				
-					
-					
-					hierarchy = new HierarchyBean(padre, figlio);
-					arrayHierarchy.add(hierarchy);
-
-            		
-            	}
-        	} else{
-        	
-          String nomeAssociazione = listClass.item(i).getAttributes()
+              String nomeGerarchia = listClass.item(i).getAttributes()
                                               .getNamedItem("xmi:id").toString();
-          nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1,
-                                                       nomeAssociazione.lastIndexOf('"'));
-          int j = 0;
-          ArrayList<String> tmp = new ArrayList<String>();
-          String nuovaStringa = nomeAssociazione;
-          while(true) {
+              nomeGerarchia = nomeGerarchia.substring(nomeGerarchia.indexOf('"') + 1,
+                                                      nomeGerarchia.lastIndexOf('"'));
+              String padre = nomeGerarchia;
+              String figlio = nomeGerarchia;
 
-          if(!nuovaStringa.equals("id")) {
-        	  //System.out.println("nuovaStringa: "+ nuovaStringa+ " j: "+j);
-          	tmp.add(nomeAssociazione.substring(j, nuovaStringa.indexOf("__")+j));
 
-          nuovaStringa = nuovaStringa.substring(nuovaStringa.indexOf("__") + 2);
+              padre = nomeGerarchia.substring(0, nomeGerarchia.indexOf("__"));
+              figlio = nomeGerarchia.substring(nomeGerarchia.indexOf("__") + 2,
+                                               nomeGerarchia.lastIndexOf("__"));
 
-          j = nomeAssociazione.indexOf(nuovaStringa);
 
-          }else {
-          j= 0;
-          nuovaStringa = "";
-          break;
+
+              hierarchy = new HierarchyBean(padre, figlio);
+              arrayHierarchy.add(hierarchy);
+
+
+            }
+          } else {
+
+            String nomeAssociazione = listClass.item(i).getAttributes()
+                                               .getNamedItem("xmi:id").toString();
+            nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1,
+                                                          nomeAssociazione.lastIndexOf('"'));
+            int j = 0;
+            ArrayList<String> tmp = new ArrayList<String>();
+            String nuovaStringa = nomeAssociazione;
+            while (true) {
+
+              if (!nuovaStringa.equals("id")) {
+                //System.out.println("nuovaStringa: "+ nuovaStringa+ " j: "+j);
+                tmp.add(nomeAssociazione.substring(j, nuovaStringa.indexOf("__") + j));
+
+                nuovaStringa = nuovaStringa.substring(nuovaStringa.indexOf("__") + 2);
+
+                j = nomeAssociazione.indexOf(nuovaStringa);
+
+              } else {
+                j = 0;
+                nuovaStringa = "";
+                break;
+              }
+            }
+            for (int k = 0; k < tmp.size() - 1; k++) {
+              entityList.add(tmp.get(k));
+
+
+            }
+            nomeAssociazione = tmp.get(tmp.size() - 1);
+
+            tmp = new ArrayList<String>();
+
+            attribute = new ArrayList<String>();
+
+            association = new AssociationBean(nomeAssociazione, attribute, entityList);
+            entityList = new ArrayList<String>();
+            association.stampa();
+
+            arrayAssociation.add(association);
+
           }
-          }
-          for(int k = 0; k < tmp.size()-1; k++) {
-        	  entityList.add(tmp.get(k));
-        	  
-        	  
-          }
-          nomeAssociazione = tmp.get(tmp.size()-1);
-          
-          tmp = new ArrayList<String>();
-          
-          attribute = new ArrayList<String>();
-    
-          association = new AssociationBean(nomeAssociazione, attribute, entityList);
-          entityList = new ArrayList<String>();
-          association.stampa();
-
-          arrayAssociation.add(association);
-          
-        	}
         } else {
 
+          //caso in cui è 'Class', cioè un'entita'
+          
           String nomeClasse = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
                                             nomeClasse.lastIndexOf('"'));
@@ -130,11 +146,12 @@ public class Parser {
         NodeList listAttributesClass = listClass.item(i).getChildNodes();
         int totalAttributesClass = listAttributesClass.getLength();
 
+        // ciclo per leggere gli attributi dell'entita'
         for (int j = 0; j < totalAttributesClass; j++) {
-          String Attribute = listAttributesClass.item(j).getNodeName();
-          if (Attribute.equals(ATTRIBUTES)) {
+          String attribute1 = listAttributesClass.item(j).getNodeName();
+          if (attribute1.equals(ATTRIBUTES)) {
             String nomeAttributo = listAttributesClass.item(j).getAttributes()
-                                                       .getNamedItem("name").toString();
+                                                      .getNamedItem("name").toString();
             nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1,
                                                     nomeAttributo.lastIndexOf('"'));
             //System.out.println("Attribute : " + nomeAttributo);

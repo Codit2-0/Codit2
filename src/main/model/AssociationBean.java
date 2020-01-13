@@ -2,12 +2,22 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Classe che gestisce i dati di  una relazione di un 
+ * diagramma ER.
+ */
 public class AssociationBean {
 
   private ArrayList<String> attribute;
   private ArrayList<String> entity;
   private String name;
 
+  /**
+   * Costruttore della classe {@link AssociationBean}. 
+   * @param name nome che identifica la relazione
+   * @param attribute lista degli attributi della relazione
+   * @param entity lista delle entita' collegate alla relazione
+   */
   public AssociationBean(String name, ArrayList<String> attribute, ArrayList<String> entity) {
     super();
     this.name = name;
@@ -35,13 +45,17 @@ public class AssociationBean {
     return entity;
   }
   
-  public void addEntity(String entity){
-	  this.entity.add(entity);
+  public void addEntity(String entity) {
+    this.entity.add(entity);
   }
+  
+  /**
+   * metodo di controllo che stampa i dati.
+   */
   public void stampa() {
-	  System.out.print("nome: "+name);
-	  for(int i = 0; i < entity.size(); i++) {
-		  System.out.print(" entità:"+entity.get(i)+" ");
-	  }
+    System.out.print("nome: " + name);
+    for (int i = 0; i < entity.size(); i++) {
+      System.out.print(" entità:" + entity.get(i) + " ");
+    }
   }
 }
