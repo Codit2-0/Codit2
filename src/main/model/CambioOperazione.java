@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SceltaOperazione
+ * Servlet implementation class CambioOperazione
  */
-@WebServlet("/SceltaOperazione")
-public class SceltaOperazione extends HttpServlet {
+@WebServlet("/CambioOperazione")
+public class CambioOperazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SceltaOperazione() {
+    public CambioOperazione() {
         super();
     }
 
@@ -30,26 +30,11 @@ public class SceltaOperazione extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String p = (String) request.getParameter("op");
 		String s = (String) request.getParameter("sc");
-		String f1N = (String) request.getParameter("f1Name");
-		String f1T = (String) request.getParameter("f1Type");
-		String f2N = (String) request.getParameter("f2Name");
-		String f2T = (String) request.getParameter("f2Type");
 		
 	    HttpSession sessione = request.getSession();
 		ArrayList latoOperazione  = (ArrayList) sessione.getAttribute("latoOperazioni");
 		latoOperazione.set(Integer.parseInt(p),s);
 		sessione.setAttribute("latoOperazione", latoOperazione);
-		
-		ArrayList f1  = (ArrayList) sessione.getAttribute("f1");
-		f1.set(Integer.parseInt(p),f1N);
-		f1.set(Integer.parseInt(p) + 1,f1T);
-		sessione.setAttribute("f1", f1);
-		
-		ArrayList f2  = (ArrayList) sessione.getAttribute("f2");
-		f2.set(Integer.parseInt(p), f2N);
-		f2.set(Integer.parseInt(p) + 1, f2T);
-		sessione.setAttribute("f2", f2);
-		
 	}
 
 	/**

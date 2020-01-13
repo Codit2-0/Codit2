@@ -355,7 +355,12 @@
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
-    inserisciOperazione("null");
+    var inside1 = iframeRef(document.getElementById('db1'));
+	var inside2 = iframeRef(document.getElementById('db2'));
+	inside1.getElementById("Nomeframe").value = "Nframe1";
+	inside2.getElementById("Nomeframe").value = "Nframe2";
+	inside1.getElementById("frame").value = "frame1";
+	inside2.getElementById("frame").value = "frame2";
   });
 </script>
 <!-- script per il dimensionamento degli iframe -->
@@ -389,6 +394,11 @@
 </script>
 <!-- gestione del modal -->
 <script type="text/javascript">
+	
+	function explode2(){
+	  inserisciOperazione("null");
+	}
+	setTimeout(explode2, 5000);
 	function inserisciOperazione(img) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -402,18 +412,18 @@
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 		var i = 0;
 		while(data[i] != null){
-			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("operatoriSelezionati").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='bt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='bt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"bt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
 			if(data[i].scelta != "null") {
 				var btn = "bt"+data[i].scelta+"Operando"+i;
-				document.getElementById(btn).style.borderColor = "red";
+				document.getElementById(btn).style.borderColor = "black";
 				document.getElementById(btn).style.borderWidth = "thick";
 				document.getElementById(btn).disabled = true;
 				if(data[i].scelta == 1) {document.getElementById("bt"+2+"Operando"+i).disabled = true;}
@@ -421,33 +431,65 @@
 			}
 			i++;
 		}
-		
-		
 		document.getElementById("tutteOpLato").innerHTML = "";
-		var i = 0;
+		i = 0;
 		while(data[i] != null){
-			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
 			if(data[i].scelta != "null") {
 				var btn = "lt"+data[i].scelta+"Operando"+i;
-				document.getElementById(btn).style.borderColor = "red";
+				document.getElementById(btn).style.borderColor = "black";
 				document.getElementById(btn).style.borderWidth = "thick";
 				document.getElementById(btn).disabled = true;
 			}
 			i++;
 		}
+		
+		
+		var inside1 = iframeRef(document.getElementById('db1'));
+		var inside2 = iframeRef(document.getElementById('db2'));
+		
+		i = 0;
+		while(data[i] != null) {
+			if(data[i].f1T == "entity"){
+				inside1.getElementById(data[i].f1N).style.strokeWidth = 350;
+			} else if (data[i].f1T == "relation") {
+				inside1.getElementById(data[i].f1N).style.strokeWidth = 250;
+			} else {
+				inside1.getElementById(data[i].f1N).style.strokeWidth = 150;
+			}
+			inside1.getElementById(data[i].f1N).style.stroke = data[i].colore;
+			
+			if(data[i].f2T == "entity"){
+				inside2.getElementById(data[i].f2N).style.strokeWidth = 350;
+			} else if (data[i].f2T == "relation") {
+				inside2.getElementById(data[i].f2N).style.strokeWidth = 250;
+			} else {
+				inside2.getElementById(data[i].f2N).style.strokeWidth = 150;
+			}
+			inside2.getElementById(data[i].f2N).style.stroke = data[i].colore;
+			/*
+			alert("Nome entita 1: " + data[i].f1N);
+			alert("Tipo entita 1: " + data[i].f1T);
+			alert("Nome entita 1: " + data[i].f2N);
+			alert("Tipo entita 2: " + data[i].f2T);
+			*/
+			i++;
+		}
+
 	}
-	function scelta(btn) {
+	function scelta(btn,colore) {
 		
 		var op = btn.substring(11);
 		var scelta = btn.substring(2, 3);
+		var tipo = btn.substring(0,1);
 
 		document.getElementById("lt"+scelta+"Operando"+op).disabled = true;
 		document.getElementById("lt"+scelta+"Operando"+op).style.borderColor = "black";
@@ -472,21 +514,84 @@
 			document.getElementById("bt"+1+"Operando"+op).style.borderWidth = "thick";
 		}
 		
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta, true);	
-		xmlhttp.send();	
+		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
+		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
+		
+		var i = 0;
+		while(frame1[i] != null) {
+			i++;
+		}
+		i--;
+		
+		if(tipo == 'b'){
+			
+			var inside1 = iframeRef(document.getElementById('db1'));
+			var inside2 = iframeRef(document.getElementById('db2'));
+			
+			if(frame1[i].type == "entity"){
+				inside1.getElementById(frame1[i].name).style.strokeWidth = 350;
+			} else if (frame1[i].type == "relation") {
+				inside1.getElementById(frame1[i].name).style.strokeWidth = 250;
+			} else {
+				inside1.getElementById(frame1[i].name).style.strokeWidth = 150;
+			}
+			inside1.getElementById(frame1[i].name).style.stroke = colore;
+			
+			if(frame2[i].type == "entity"){
+				inside2.getElementById(frame2[i].name).style.strokeWidth = 350;
+			} else if (frame2[i].type == "relation") {
+				inside2.getElementById(frame2[i].name).style.strokeWidth = 250;
+			} else {
+				inside2.getElementById(frame2[i].name).style.strokeWidth = 150;
+			}
+			inside2.getElementById(frame2[i].name).style.stroke = colore;
+			
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta + "&f1Name=" + frame1[i].name + "&f1Type=" + frame1[i].type + "&f2Name=" + frame2[i].name + "&f2Type=" + frame2[i].type, true);	
+			xmlhttp.send();
+		} else {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("POST", "CambioOperazione?op=" + op + "&sc=" + scelta, true);	
+			xmlhttp.send();
+		}
+	
+		
 	}
-
+	function iframeRef( frameRef ) {
+	    return frameRef.contentWindow? frameRef.contentWindow.document: frameRef.contentDocument;
+	}
 	
 	
 	
 	function refresh1() {
 		var iframe = document.getElementById('db1');
 		iframe.src = iframe.src;
+		
+		iframe = document.getElementById('db2');
+		iframe.src = iframe.src;
+		
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "ResetSession?presente=Nframe1", true);	
+		xmlhttp.send();
+		
+		sessionStorage.setItem("Nframe1", "");
+		
+		inserisciOperazione("null");
 	}
 	function refresh2() {
-		var iframe = document.getElementById('db2');
+		var iframe = document.getElementById('db1');
 		iframe.src = iframe.src;
+		
+		iframe = document.getElementById('db2');
+		iframe.src = iframe.src;
+		
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "ResetSession?presente=Nframe2", true);	
+		xmlhttp.send();
+		
+		sessionStorage.setItem("Nframe2", "");
+		inserisciOperazione("null");
+		
 	}
 	function filtro() {
 		/*

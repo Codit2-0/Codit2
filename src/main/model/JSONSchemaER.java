@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.json.simple.JSONObject;
@@ -36,33 +38,62 @@ public class JSONSchemaER extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
 
-    Part part = request.getPart("file");
-    // String url = "../util/test.xmi";
-    response.setContentType("text/html");
+	File copy;
+	HttpSession sessione = request.getSession();
+	String url = request.getParameter("presente");
+	Part part = request.getPart("file");
+	
+	if(part == null) {	
+		copy = (File) sessione.getAttribute(url);
+	} else {
+		if(url.equals("Nframe1")) {
+			response.setContentType("text/html");
     
-    InputStream inputStream = part.getInputStream();
-    String contentType = part.getContentType();
-    String pathname = "copyFileDatabase.xmi";
-    File copy = new File(pathname);
-    OutputStream outputStream = new FileOutputStream(copy);
-    try {
-      byte[] buffer = new byte[1024];
-      int length;
-      while ((length = inputStream.read(buffer)) > 0) {
-        outputStream.write(buffer, 0, length);
-      }
-    } finally {
-      inputStream.close();
-      outputStream.close();
-    }
+			InputStream inputStream = part.getInputStream();
+			String contentType = part.getContentType();
+			String pathname = "copyFileDatabase1.xmi";
+			copy = new File(pathname);
+			OutputStream outputStream = new FileOutputStream(copy);
+			try {
+				byte[] buffer = new byte[1024];
+				int length;
+				while ((length = inputStream.read(buffer)) > 0) {
+					outputStream.write(buffer, 0, length);
+				}
+			} finally {
+				inputStream.close();
+				outputStream.close();
+			}
     
-    Parser p = new Parser();
-    ERBean er = p.parser(copy);
+			sessione.setAttribute(url , copy);
+		} else {
+				response.setContentType("text/html");
+	    
+				InputStream inputStream = part.getInputStream();
+				String contentType = part.getContentType();
+				String pathname = "copyFileDatabase2.xmi";
+				copy = new File(pathname);
+				OutputStream outputStream = new FileOutputStream(copy);
+				try {
+					byte[] buffer = new byte[1024];
+					int length;
+					while ((length = inputStream.read(buffer)) > 0) {
+						outputStream.write(buffer, 0, length);
+					}
+				} finally {
+					inputStream.close();
+					outputStream.close();
+				}
+	    
+				sessione.setAttribute(url , copy);
+		}
+	}
+	Parser p = new Parser();
+	ERBean er = p.parser(copy);
 
-    JSONObject obj = JsonParser.parseToJson(er);
-    response.getWriter().append(obj.toJSONString());
-    
-    copy.delete();
+	JSONObject obj = JsonParser.parseToJson(er);
+	response.getWriter().append(obj.toJSONString());
+    //copy.delete();
     
     /*
   response.getWriter().append("[{");

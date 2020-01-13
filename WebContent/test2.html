@@ -55,13 +55,14 @@ text {
            <label class="custom-file-label" for="path">Choose file</label>
          </div>
          <div class="input-group-append">
-           <span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()">
+           <span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()" name="test">
              Upload
            </span>
          </div>
        </div>
      </div>
      <input type="hidden" id="frame" value="">
+     <input type="hidden" id="Nomeframe" value=""> 
    </form>
  </div>
   <div id="svgContainer" class="svgContainer">
@@ -87,18 +88,42 @@ var nodes = [];
 var gerarchia = [];
 var svg = d3.select("svg"),width = 600, height = 900;
 
+function explode2(){
+	writeDatabase();
+}
+setTimeout(explode2, 1000);
+
 function writeDatabase() {
-
- var xmlhttp = new XMLHttpRequest();
- xmlhttp.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
- };
+	var nomeFrame = document.getElementById("Nomeframe").value;
+	var f = sessionStorage.getItem(nomeFrame);
+	
+	if(f == nomeFrame){
+		//alert("FilePresente");
+ 		var xmlhttp = new XMLHttpRequest();
+ 		xmlhttp.onreadystatechange = function() {
+  			if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+ 		};
  
- var formData = new FormData();
- formData.append("file", document.getElementById("path").files[0]);
-
- xmlhttp.open("POST", "JSONSchemaER", true);
- xmlhttp.send(formData);
+		var formData = new FormData();
+ 		formData.append("presente", nomeFrame);
+ 		
+ 		xmlhttp.open("POST", "JSONSchemaER", true);
+ 		xmlhttp.send(formData);
+	}else if(document.getElementById("path").files[0] != null){
+		//alert("InserireFile");
+		sessionStorage.setItem(nomeFrame, nomeFrame);
+ 		var xmlhttp = new XMLHttpRequest();
+ 		xmlhttp.onreadystatechange = function() {
+  			if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+ 		};
+ 
+		var formData = new FormData();
+ 		formData.append("file", document.getElementById("path").files[0]);
+ 		formData.append("presente", nomeFrame);
+ 		
+ 		xmlhttp.open("POST", "JSONSchemaER", true);
+ 		xmlhttp.send(formData);
+	}  
 }
 
   
@@ -220,46 +245,40 @@ function loadSchemaER(xmlhttp) {
         }
         for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
 
-         if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+         if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
           
           d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "#999";
           
          } else { 
         
           d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[0].style.stroke = "red";
           entity.attributes.push(d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].textContent)
          
          }
         }
-        if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+        if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
          
          checkSelected(entity);
          d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
          
         } else {
         
          d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-         d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
          selectedNodes.push(entity);
          
         }
       } else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
-       var relation = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
+       var relation = {name: d3.select(this)._groups[0][0].__data__.id,
           type: "relation"}
        
-       if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+       if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
         
         checkSelected(relation);
         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-        d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
         
        } else {
       
         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-        d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
         selectedNodes.push(relation);
         
        }
@@ -267,32 +286,28 @@ function loadSchemaER(xmlhttp) {
           var g = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
                   type: "g"}
                
-               if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+               if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
                 
                 checkSelected(g);
                 d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-                d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
                 
                } else {
               
                 d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-                d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
                 selectedNodes.push(g);
                 
          }
        } else{
-       var attribute = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
+       var attribute = {name: d3.select(this)._groups[0][0].__data__.id,
                 type: "attribute"};
        
-       if(d3.select(this)._groups[0][0].childNodes[0].style.stroke == "red"){
+       if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
         
         checkSelected(attribute);
         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-        d3.select(this)._groups[0][0].childNodes[0].style.stroke = "#999";
         
        } else {
- 				d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-        d3.select(this)._groups[0][0].childNodes[0].style.stroke = "red";
+ 		d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
         selectedNodes.push(attribute);
        
        }
@@ -350,7 +365,8 @@ function loadSchemaER(xmlhttp) {
  // Append a circle
   node.append("circle")
       .attr("r", 5)
-      .style("fill", "#eee");
+      .style("fill", "#eee")
+      .attr("id", function(d) { return d.id;});
       
  
    
@@ -366,15 +382,16 @@ function loadSchemaER(xmlhttp) {
   var images2 = node.append("image")
       .attr("xlink:href",  function(d) { return d.img;})
       .attr("x", function(d) { return -(d.w/2 + 2);})
-.attr("y", function(d) { return -(d.h/2 + 2);})
+	  .attr("y", function(d) { return -(d.h/2 + 2);})
       .attr("height",function(d) { return d.h + 5;})
       .attr("width", function(d) { return d.w + 5;})
+      .attr("id", function(d) { return "img" + d.id;})
       .call(d3.drag().on("start", dragstarted).on("drag", dragged));
  
 
  var lables = node.append("text")
     .text(function(d) {return d.id;})
-  .attr('x', function(d) {return -(d.h/4)})
+  	.attr('x', function(d) {return -(d.h/4)})
     .attr('y', 0);
 
  
