@@ -91,11 +91,12 @@ var svg = d3.select("svg"),width = 600, height = 900;
 function explode2(){
 	writeDatabase();
 }
-setTimeout(explode2, 1000);
+setTimeout(explode2, 500);
 
 function writeDatabase() {
 	var nomeFrame = document.getElementById("Nomeframe").value;
 	var f = sessionStorage.getItem(nomeFrame);
+	//alert("Nome frame: " + nomeFrame + ", Nome Sesseone: " + f);
 	
 	if(f == nomeFrame){
 		//alert("FilePresente");

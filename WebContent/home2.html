@@ -398,7 +398,7 @@
 	function explode2(){
 	  inserisciOperazione("null");
 	}
-	setTimeout(explode2, 5000);
+	setTimeout(explode2, 3000);
 	function inserisciOperazione(img) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -564,34 +564,53 @@
 	
 	
 	function refresh1() {
-		var iframe = document.getElementById('db1');
-		iframe.src = iframe.src;
-		
-		iframe = document.getElementById('db2');
-		iframe.src = iframe.src;
-		
 		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var data = JSON.parse(this.responseText);
+
+				var inside2 = iframeRef(document.getElementById('db2'));					
+				var i = 0;
+				while(data[i] != null) {
+					inside2.getElementById(data[i].f2N).style.stroke = "#ffffff";
+					i++;
+				}
+			}
+		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe1", true);	
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe1", "");
-		
-		inserisciOperazione("null");
-	}
-	function refresh2() {
+		document.getElementById("tutteOpLato").innerHTML = "";
+		document.getElementById("operatoriSelezionati").innerHTML = "";
+	
 		var iframe = document.getElementById('db1');
 		iframe.src = iframe.src;
 		
-		iframe = document.getElementById('db2');
-		iframe.src = iframe.src;
-		
+	}
+	function refresh2() {	
+	
 		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var data = JSON.parse(this.responseText);
+				var inside1 = iframeRef(document.getElementById('db1'));					
+				var i = 0;
+				while(data[i] != null) {
+					inside1.getElementById(data[i].f1N).style.stroke = "#ffffff";
+					i++;
+				}
+			}
+		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe2", true);	
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe2", "");
-		inserisciOperazione("null");
+		document.getElementById("tutteOpLato").innerHTML = "";
+		document.getElementById("operatoriSelezionati").innerHTML = "";
 		
+		var iframe = document.getElementById('db2');
+		iframe.src = iframe.src;
 	}
 	function filtro() {
 		/*
