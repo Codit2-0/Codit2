@@ -136,24 +136,34 @@ function loadSchemaER(xmlhttp) {
  
  var selectedNodes = [];
  
+ // nella response è stata scritta una stringa formato JSON
+ // e con il JSON.parse() è stata tradotta in un oggetto
  data = JSON.parse(xmlhttp.responseText);
  
  
  var i = 0;
+ // ciclo delle entità
  while(data.entity[i] != null){
   var j = 0;
+  //img è l'immagine base, imgS selezioanta, type distingue la tipologia
+  //di nodo ('symbolSquare' = entità)
   nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120});
+  
+  // ciclo degli attributi di una entità
   while(data.entity[i].attributes[j] != null){
    var w = 0, control = true;
+   //controllo se l'attributo è già stato inserito tra i nodi (due entità hanno un attributo con lo stesso nome)
    while(nodes[w] != null){
     if(data.entity[i].attributes[j] == nodes[w].id) control = false;
     w++;
    }
    if(control == true) {
+	  // nodo 'symbolCircle' = attributo
     nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
     links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
    else {
+	  // se già inserito, il nome diventa 'entità'-'attributo'
     nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
     links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
@@ -165,20 +175,27 @@ function loadSchemaER(xmlhttp) {
   
  
  i = 0;
+ //ciclo delle relazioni
  while(data.association[i] != null){
 	j = 0;
+	 // ciclo delle entità collegate alla relazione
    while( data.association[i].entity[j] != null){
     links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:100});
     j++;
    }
+	 //nodo 'symbolDiamond' = relazione
    nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
    i+=2;
  }
  
  i = 0;
+ // ciclo delle gerarchie
  while(data.hierarchy[i] != null){
  j = 0;
  var test = true;
+ // poiché le gerarchie sono definite come (padre, figlio)
+ // si controlla se il padre è gia stato inserito nelle gerarchie
+ // per impedire che si creino due o più gerarchie al posto di una
  while(gerarchia[j] != null){
   if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
   j++;
@@ -188,10 +205,12 @@ function loadSchemaER(xmlhttp) {
  }
  
  i = 0;
+ // ciclo per ogni nodo padre
  while(gerarchia[i] != null){
  j = 0;
  nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
  links.push({source: gerarchia[i].father, target: i, value: 1, force:200});
+ // aggiungo i nodi figli in base al padre
  while(data.hierarchy[j] != null){
   if(gerarchia[i].father == data.hierarchy[j].father){
    links.push({source: data.hierarchy[j].son, target: i, value: 1, force:50});
@@ -207,6 +226,7 @@ function loadSchemaER(xmlhttp) {
          .force("charge", d3.forceManyBody().strength(-1000))
          .force("center", d3.forceCenter(width - 400, height/2));
  
+ //disegno i collegamenti tra i nodi
  var link = svg.append("g")
        .attr("class", "links")
       .selectAll("line")
@@ -214,7 +234,7 @@ function loadSchemaER(xmlhttp) {
      .enter().append("line")
        .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
  
- 
+ //disegno i nodi
  var node = svg.append("g")
      .attr("class", "nodes")
      .attr("opacity",1)
@@ -225,6 +245,7 @@ function loadSchemaER(xmlhttp) {
       //Funzione per la selezione e la deselezione di entità e relazioni
       selectedNodes = JSON.parse(sessionStorage.getItem(frame));
       
+      //controllo se il nodo è un'entità
       if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
        
        
@@ -235,7 +256,8 @@ function loadSchemaER(xmlhttp) {
        var length = d3.selectAll(link)._groups[0]._groups[0].length;
        
        var entity = {name: nomeEntity, attributes: [], type: "entity"}
-       
+       	
+        // conto i numero di attributi collegati
         while(true){
          j++;
          if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
@@ -244,6 +266,9 @@ function loadSchemaER(xmlhttp) {
           break;
          }
         }
+        // quando seleziono un'entità devono essere selezionati anche gli attributi e,
+        // poiché gli attributi sono inseriti subito dopo l'entità nella lista dei nodi,
+        // li seleziono a partire dall'indice dell'entità 
         for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
 
          if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
@@ -268,7 +293,8 @@ function loadSchemaER(xmlhttp) {
          selectedNodes.push(entity);
          
         }
-      } else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
+      } // se non è un'entità controlla se è ua relazione
+      else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
        var relation = {name: d3.select(this)._groups[0][0].__data__.id,
           type: "relation"}
        
@@ -283,7 +309,9 @@ function loadSchemaER(xmlhttp) {
         selectedNodes.push(relation);
         
        }
-      }else if(d3.select(this)._groups[0][0].__data__.type == "symbolTriangolo"){
+       
+      } // se non è una relazione controlla se è una gerarchia
+      else if(d3.select(this)._groups[0][0].__data__.type == "symbolTriangolo"){
           var g = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
                   type: "g"}
                
@@ -298,7 +326,8 @@ function loadSchemaER(xmlhttp) {
                 selectedNodes.push(g);
                 
          }
-       } else{
+      } // altrimenti è un attributo
+      else{
        var attribute = {name: d3.select(this)._groups[0][0].__data__.id,
                 type: "attribute"};
        
@@ -313,7 +342,7 @@ function loadSchemaER(xmlhttp) {
        
        }
       }
-      console.log(selectedNodes, selectedNodes.length);
+      //console.log(selectedNodes, selectedNodes.length);
       sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
      })
      .on("dblclick", function(){
@@ -354,7 +383,8 @@ function loadSchemaER(xmlhttp) {
       }
      });
 
-
+ // controllo se il nodo della lista dei selezionati è stato deselezionato
+ // e lo cancello dalla lista
  function checkSelected(obj) {
   for(var i=0; i < selectedNodes.length; i++) {
    if(obj.name == selectedNodes[i].name){
