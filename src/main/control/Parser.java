@@ -37,6 +37,8 @@ public class Parser {
       DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
       Document doc = docBuilder.parse(url);
       ArrayList<String> attribute = null;
+      ArrayList<String> xAttribute = null;
+      ArrayList<String> yAttribute = null;
       ArrayList<String> entityList = new ArrayList<String>();
 
       EntityBean entity = null;
@@ -55,20 +57,37 @@ public class Parser {
 
         String type =  listClass.item(i).getAttributes().getNamedItem("xmi:type").toString();
         
-        // controllo se il 'type' è 'Association' o 'Class'
+        // controllo se il 'type' ï¿½ 'Association' o 'Class'
         if (type.equals("xmi:type=\"uml:Association\"")) {
           
-          // caso in cui l'elemento è 'Association', cioè una relazione
+          // caso in cui l'elemento ï¿½ 'Association', cioï¿½ una relazione
           
           if (listClass.item(i).getAttributes().getNamedItem("type") != null) {
             String hierarchyString = listClass.item(i).getAttributes()
                                               .getNamedItem("type").toString();
             
-            // controllo se la relazione è una gerarchia
+            // controllo se la relazione ï¿½ una gerarchia
             if (hierarchyString.equals("type=\"ISA\"")) {
 
               String nomeGerarchia = listClass.item(i).getAttributes()
                                               .getNamedItem("xmi:id").toString();
+              String x;
+              try {
+              x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+              x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
+
+              }catch(NullPointerException e) {
+            	  x = "n";
+              }
+              String y;
+              try {
+              y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+              y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
+
+              }catch(NullPointerException e) {
+            	  y = "n";
+              }
+              
               nomeGerarchia = nomeGerarchia.substring(nomeGerarchia.indexOf('"') + 1,
                                                       nomeGerarchia.lastIndexOf('"'));
               String padre = nomeGerarchia;
@@ -81,7 +100,7 @@ public class Parser {
 
 
 
-              hierarchy = new HierarchyBean(padre, figlio);
+              hierarchy = new HierarchyBean(padre, figlio, x, y);
               arrayHierarchy.add(hierarchy);
 
 
@@ -95,6 +114,24 @@ public class Parser {
             int j = 0;
             ArrayList<String> tmp = new ArrayList<String>();
             String nuovaStringa = nomeAssociazione;
+            
+            String x;
+            try {
+            x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+            x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
+
+            }catch(NullPointerException e) {
+          	  x = "n";
+            }
+            String y;
+            try {
+            y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+            y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
+            }catch(NullPointerException e) {
+          	  y = "n";
+            }
+            
+            
             while (true) {
 
               if (!nuovaStringa.equals("id")) {
@@ -122,7 +159,7 @@ public class Parser {
 
             attribute = new ArrayList<String>();
 
-            association = new AssociationBean(nomeAssociazione, attribute, entityList);
+            association = new AssociationBean(nomeAssociazione, attribute, entityList, x, y);
             entityList = new ArrayList<String>();
             association.stampa();
 
@@ -131,14 +168,33 @@ public class Parser {
           }
         } else {
 
-          //caso in cui è 'Class', cioè un'entita'
+          //caso in cui ï¿½ 'Class', cioï¿½ un'entita'
           
           String nomeClasse = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
+          String x;
+          try {
+          x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+          x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
+          }catch(NullPointerException e) {
+        	  x = "n";
+          }
+          String y;
+          try {
+          y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+          y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
+
+          }catch(NullPointerException e) {
+        	  y = "n";
+          }
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
                                             nomeClasse.lastIndexOf('"'));
+          
+          System.out.println(x);
           //System.out.println("Classe : " + nomeClasse);
           attribute = new ArrayList<String>();
-          entity = new EntityBean(nomeClasse, attribute);
+          xAttribute = new ArrayList<String>();
+          yAttribute = new ArrayList<String>();
+          entity = new EntityBean(nomeClasse, attribute, x, y, xAttribute, yAttribute);
           arrayEntity.add(entity);
 
         }
@@ -154,8 +210,28 @@ public class Parser {
                                                       .getNamedItem("name").toString();
             nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1,
                                                     nomeAttributo.lastIndexOf('"'));
+            String xAttributo;
+            String yAttributo;
+            try {
+            	xAttributo = listAttributesClass.item(j).getAttributes()
+                  .getNamedItem("x").toString();
+                  xAttributo = xAttributo.substring(xAttributo.indexOf('"') + 1,
+                  xAttributo.lastIndexOf('"'));
+            }catch(Exception e) {
+            	xAttributo = "n";
+            }
+            try{		
+            	yAttributo = listAttributesClass.item(j).getAttributes()
+				.getNamedItem("y").toString();
+				yAttributo = yAttributo.substring(yAttributo.indexOf('"') + 1,
+				yAttributo.lastIndexOf('"'));
+            }catch(Exception e) {
+            	yAttributo = "n";
+            }
             //System.out.println("Attribute : " + nomeAttributo);
             entity.getAttribute().add(nomeAttributo);
+            entity.getxAttribute().add(xAttributo);
+            entity.getyAttribute().add(yAttributo);
             for (int o = 0; o < arrayEntity.size(); o++) {
               if (arrayEntity.get(o).getName().equals(entity.getName())) {
                 arrayEntity.remove(o);
@@ -184,7 +260,7 @@ public class Parser {
     modello.setEntity(arrayEntity);
     modello.setAssociation(arrayAssociation);
     modello.setHierarchy(arrayHierarchy);
-    modello.stampa();
+    //modello.stampa();
     return modello;
   }
 }

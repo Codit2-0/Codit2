@@ -33,7 +33,6 @@ public class JSONSchemaER extends HttpServlet {
     super();
   }
 
-
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -42,12 +41,15 @@ public class JSONSchemaER extends HttpServlet {
 	HttpSession sessione = request.getSession();
 	String url = request.getParameter("presente");
 	Part part = request.getPart("file");
+
 	
 	if(part == null) {	
 		copy = (File) sessione.getAttribute(url);
+		System.out.println(copy);
 	} else {
 		if(url.equals("Nframe1")) {
 			response.setContentType("text/html");
+			//sessione.removeAttribute("Nframe2");
     
 			InputStream inputStream = part.getInputStream();
 			String contentType = part.getContentType();
@@ -64,11 +66,13 @@ public class JSONSchemaER extends HttpServlet {
 				inputStream.close();
 				outputStream.close();
 			}
-    
 			sessione.setAttribute(url , copy);
+			sessione.setAttribute("NomeFile1" , part.getSubmittedFileName());
+
 		} else {
 				response.setContentType("text/html");
-	    
+				//sessione.removeAttribute("Nframe1");
+
 				InputStream inputStream = part.getInputStream();
 				String contentType = part.getContentType();
 				String pathname = "copyFileDatabase2.xmi";
@@ -84,8 +88,11 @@ public class JSONSchemaER extends HttpServlet {
 					inputStream.close();
 					outputStream.close();
 				}
-	    
+				System.out.println(copy);
+
 				sessione.setAttribute(url , copy);
+				sessione.setAttribute("NomeFile2" , part.getSubmittedFileName());
+
 		}
 	}
 	Parser p = new Parser();

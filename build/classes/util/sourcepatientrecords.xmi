@@ -2,7 +2,7 @@
     <packageImport xmi:type="uml:PackageImport" xmi:id="_XrSbEdk5EdyEZoPpUv3LUw">
         <importedPackage xmi:type="uml:Model" href="http://schema.omg.org/spec/UML/2.1.1/uml.xml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Class" xmi:id="activity" name="activity" y="105" x="879">
+    <packagedElement xmi:type="uml:Class" xmi:id="activity" name="activity">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="activityEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="activity_Entity" key="Entity"/>
@@ -28,7 +28,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="Constraint" name="Constraint" visibility="private">
         </ownedAttribute>
 	  </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="anagraphicdata" name="anagraphicdata" type="WeakEntity" y="728" x="100">
+    <packagedElement xmi:type="uml:Class" xmi:id="anagraphicdata" name="anagraphicdata" type="WeakEntity">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="anagraphicdataEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="anagraphicdata_Entity" key="Entity"/>
@@ -47,7 +47,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="PlaceOfBirth" name="PlaceOfBirth" visibility="private">
         </ownedAttribute>
 	  </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="patientdata" name="patientdata" y="160" x="100">
+    <packagedElement xmi:type="uml:Class" xmi:id="patientdata" name="patientdata">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="patientdataEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_groups_Entity" key="Entity"/>
@@ -60,12 +60,12 @@
                 </eAnnotations>
             </xmi:Extension>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Blood Group" name="Blood Group" visibility="private">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="BloodGroup" name="BloodGroup" visibility="private">
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="Rh" name="Rh" visibility="private">
         </ownedAttribute>
     </packagedElement>
-  	<packagedElement xmi:type="uml:Class" xmi:id="test" name="test" type="WeakEntity" y="413" x="817">
+  	<packagedElement xmi:type="uml:Class" xmi:id="test" name="test" type="WeakEntity">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="phpbb_configEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_config_Entity" key="Entity"/>
@@ -78,9 +78,9 @@
                 </eAnnotations>
             </xmi:Extension>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Urine Sample" name="Urine Sample" visibility="private">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="UrineSample" name="UrineSample" visibility="private">
         </ownedAttribute>
-		    <ownedAttribute xmi:type="uml:Property" xmi:id="Blood Sample" name="Blood Sample" visibility="private">
+		    <ownedAttribute xmi:type="uml:Property" xmi:id="BloodSample" name="BloodSample" visibility="private">
         </ownedAttribute>
 		    <ownedAttribute xmi:type="uml:Property" xmi:id="Operator" name="Operator" visibility="private">
         </ownedAttribute>
@@ -91,7 +91,7 @@
 		    <ownedAttribute xmi:type="uml:Property" xmi:id="Name" name="Name" visibility="private">
         </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="doctor" name="doctor" y="347" x="668">
+    <packagedElement xmi:type="uml:Class" xmi:id="doctor" name="doctor">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="phpbb_confirmEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_confirm_Entity" key="Entity"/>
@@ -107,7 +107,7 @@
 		    <ownedAttribute xmi:type="uml:Property" xmi:id="Name" name="Name" visibility="private">
         </ownedAttribute>
     </packagedElement>
-	  <packagedElement xmi:type="uml:Class" xmi:id="clinicalrecord" name="clinicalrecord" y="160" x="512">
+	  <packagedElement xmi:type="uml:Class" xmi:id="clinicalrecord" name="clinicalrecord">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="phpbb_confirmEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_confirm_Entity" key="Entity"/>
@@ -121,7 +121,7 @@
             </xmi:Extension>
         </ownedAttribute>
     </packagedElement>
-	  <packagedElement xmi:type="uml:Class" xmi:id="therapy" name="therapy" type="WeakEntity" y="353" x="961">
+	  <packagedElement xmi:type="uml:Class" xmi:id="therapy" name="therapy" type="WeakEntity">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="phpbb_disallowEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_disallow_Entity" key="Entity"/>
@@ -141,7 +141,7 @@
 		    <ownedAttribute xmi:type="uml:Property" xmi:id="DrugName" name="DrugName" visibility="private">
         </ownedAttribute>
     </packagedElement>
-	  <packagedElement xmi:type="uml:Class" xmi:id="hospitalization" name="hospitalization" type="WeakEntity" y="110" x="349">
+	  <packagedElement xmi:type="uml:Class" xmi:id="hospitalization" name="hospitalization" type="WeakEntity">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="phpbb_disallowEAnnotation" source="http://www.eclipse.org/uml2/2.0.0/UML">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="phpbb_disallow_Entity" key="Entity"/>
@@ -154,19 +154,11 @@
 	  <packagedElement xmi:type="uml:Association" xmi:id="therapy__activity__define__id" />
 	  <packagedElement xmi:type="uml:Association" xmi:id="activity__doctor__recommendation__id" />
 	  <packagedElement xmi:type="uml:Association" xmi:id="activity__clinicalrecord__contain__id" />
-	  <packagedElement xmi:type="uml:Association" xmi:id="activity__test__require__id"/>
+	  <packagedElement xmi:type="uml:Association" xmi:id="activity__test__require__id" />
 	  <packagedElement xmi:type="uml:Association" xmi:id="clinicalrecord__hospitalization__registration__id" />
-	  <packagedElement xmi:type="uml:Association" xmi:id="patientdata__hospitalization__actual__id" y="100" x="306">
-		  <ownedAttribute xmi:type="uml:Property" xmi:id="checkIn" name="checkIn" visibility="private">
-          </ownedAttribute>
-	  </packagedElement>
-	  <packagedElement xmi:type="uml:Association" xmi:id="hospitalization__patientdata__past__id">
-		  <ownedAttribute xmi:type="uml:Property" xmi:id="checkIn" name="checkIn" visibility="private">
-          </ownedAttribute>
-		  <ownedAttribute xmi:type="uml:Property" xmi:id="checkOut" name="checkOut" visibility="private">
-          </ownedAttribute>
-	  </packagedElement>
-	  <packagedElement xmi:type="uml:Association" xmi:id="patientdata__anagraphicdata__patientInfo__id" y="444" x="100"/>
+	  <packagedElement xmi:type="uml:Association" xmi:id="patientdata__hospitalization__actual__id" />
+	  <packagedElement xmi:type="uml:Association" xmi:id="hospitalization__patientdata__past__id" />
+	  <packagedElement xmi:type="uml:Association" xmi:id="patientdata__anagraphicdata__patientInfo__id" />
 	  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_XrSbHdk5EdyEZoPpUv3LUw">
         <xmi:Extension extender="http://www.eclipse.org/emf/2002/Ecore">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XrSbHtk5EdyEZoPpUv3LUw" source="http://www.eclipse.org/uml2/2.0.0/UML">

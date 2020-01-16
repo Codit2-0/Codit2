@@ -35,12 +35,31 @@ public class JsonParser {
       obj.put("name", entities.get(i).getName());
       
       ArrayList<String> attributes = entities.get(i).getAttribute();
+      ArrayList<String> xAttributes = entities.get(i).getxAttribute();
+      ArrayList<String> yAttributes = entities.get(i).getyAttribute();
+      
+      
       JSONArray attributeArray = new JSONArray();
       for (int j = 0; j < attributes.size(); j++) {
         attributeArray.add(attributes.get(j));
       }
+      JSONArray xAttributeArray = new JSONArray();
+      for (int j = 0; j < xAttributes.size(); j++) {
+        xAttributeArray.add(xAttributes.get(j));
+      }
+      JSONArray yAttributeArray = new JSONArray();
+      for (int j = 0; j < yAttributes.size(); j++) {
+        yAttributeArray.add(yAttributes.get(j));
+      }
+      
       
       obj.put("attributes", attributeArray);
+      obj.put("x", entities.get(i).getX());
+      obj.put("y", entities.get(i).getY());
+      obj.put("xAttribute", xAttributes);
+      obj.put("yAttribute", yAttributes);
+
+
 
       entityArray.add(obj);
     }
@@ -56,8 +75,9 @@ public class JsonParser {
       for (int i = 0; i < hierarchies.size(); i++) {
         JSONObject obj = new JSONObject();
         obj.put("father", hierarchies.get(i).getFather());
-        System.out.println(hierarchies.get(i).getSons() + "ççççççç");
         obj.put("son", hierarchies.get(i).getSons());
+        obj.put("x", hierarchies.get(i).getX());
+        obj.put("y", hierarchies.get(i).getY());
 
         hierarchyArray.add(obj);
       }
@@ -74,6 +94,7 @@ public class JsonParser {
     for (int i = 0; i < associations.size();  i++) {
       JSONObject obj = new JSONObject();
       obj.put("name", associations.get(i).getName());
+ 
       
       ArrayList<String> entity = associations.get(i).getEntity();
       JSONArray entityArray = new JSONArray();
@@ -83,6 +104,9 @@ public class JsonParser {
         entityArray.add(entity.get(j));
       }
       obj.put("entity", entityArray);
+      obj.put("x", associations.get(i).getX());
+      obj.put("y", associations.get(i).getY());
+            
       //"attributes" : [] se l'array � vuoto  
       
       associationArray.add(obj);

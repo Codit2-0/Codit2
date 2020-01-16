@@ -7,16 +7,20 @@ package model;
 public class HierarchyBean {
   private String sons;
   private String father;
+  private String x;
+  private String y;
 
   /**
    * construttore della classe {@link HierarchyBean}.
    * @param father Nome dell'entita' padre
    * @param sons Nome dell'entita' figlio
    */
-  public HierarchyBean(String father, String sons) {
+  public HierarchyBean(String father, String sons, String x, String y) {
     super();
     this.father = father;
     this.sons = sons;
+    this.x = x;
+    this.y = y;
   }
 
   public String getSons() {
@@ -40,6 +44,20 @@ public class HierarchyBean {
     return "HierarchyBean [sons=" + sons + ", father=" + father + "]";
   }
 
+  public String getX() {
+		return x;
+	}
 
+	public void setX(String x) {
+		this.x = x;
+	}
+
+	public String getY() {
+		return y;
+	}
+
+	public void setY(String y) {
+		this.y = y;
+	}
 
 }

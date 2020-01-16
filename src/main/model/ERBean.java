@@ -90,24 +90,25 @@ public class ERBean {
    * metodo di controllo che stampa il contenuto del bean.
    */
   public void stampa() {
-    if (entity != null) {
-      for (int i = 0; i < entity.size(); i++) {
-        //System.out.println(entity.get(i).getName() + "@@@");
-        for (int j = 0; j < entity.get(i).getAttribute().size(); j++) {
-          // System.out.println(entity.get(i).getAttribute().get(j));
-        }
-      }
-    }
-    if (association != null) {
-      for (int i = 0; i < association.size(); i++) {
-        // System.out.println(association.get(i).getName() + "@@");
-      }
-    }
-    if (hierarchy != null) {
-      for (int i = 0; i < hierarchy.size(); i++) {
-        System.out.println(hierarchy.toString() + "@@");
-      }
-    }
+//    if (entity != null) {
+//      for (int i = 0; i < entity.size(); i++) {
+//        //System.out.println(entity.get(i).getName() + "@@@");
+//        for (int j = 0; j < entity.get(i).getAttribute().size(); j++) {
+//          // System.out.println(entity.get(i).getAttribute().get(j));
+//        }
+//      }
+//    }
+//    if (association != null) {
+//      for (int i = 0; i < association.size(); i++) {
+//        // System.out.println(association.get(i).getName() + "@@");
+//      }
+//    }
+//    if (hierarchy != null) {
+//      for (int i = 0; i < hierarchy.size(); i++) {
+//        System.out.println(hierarchy.toString() + "@@");
+//      }
+//    }
   }
+  
   
 }
