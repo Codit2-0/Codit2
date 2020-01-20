@@ -2,10 +2,11 @@ package control;
 
 import java.util.ArrayList;
 import model.AssociationBean;
-import model.ERBean;
+import model.ErBean;
 import model.EntityBean;
 import model.HierarchyBean;
-import org.json.simple.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 
 
@@ -17,7 +18,7 @@ public class JsonParser {
    una di {@link EntityBean} e una di {@link AssociationBean}.
    * @return
    */
-  public static JSONObject parseToJson(ERBean beanER) {
+  public static JSONObject parseToJson(ErBean beanER) {
     JSONObject bean = new JSONObject();
     bean.put("entity", entityToJson(beanER.getEntity()));
     bean.put("association", associationToJson(beanER.getAssociation()));
@@ -35,29 +36,29 @@ public class JsonParser {
       obj.put("name", entities.get(i).getName());
       
       ArrayList<String> attributes = entities.get(i).getAttribute();
-      ArrayList<String> xAttributes = entities.get(i).getxAttribute();
-      ArrayList<String> yAttributes = entities.get(i).getyAttribute();
+      ArrayList<String> xattributes = entities.get(i).getxAttribute();
+      ArrayList<String> yattributes = entities.get(i).getyAttribute();
       
       
       JSONArray attributeArray = new JSONArray();
       for (int j = 0; j < attributes.size(); j++) {
         attributeArray.add(attributes.get(j));
       }
-      JSONArray xAttributeArray = new JSONArray();
-      for (int j = 0; j < xAttributes.size(); j++) {
-        xAttributeArray.add(xAttributes.get(j));
+      JSONArray xattributeArray = new JSONArray();
+      for (int j = 0; j < xattributes.size(); j++) {
+        xattributeArray.add(xattributes.get(j));
       }
-      JSONArray yAttributeArray = new JSONArray();
-      for (int j = 0; j < yAttributes.size(); j++) {
-        yAttributeArray.add(yAttributes.get(j));
+      JSONArray yattributeArray = new JSONArray();
+      for (int j = 0; j < yattributes.size(); j++) {
+        yattributeArray.add(yattributes.get(j));
       }
       
       
       obj.put("attributes", attributeArray);
       obj.put("x", entities.get(i).getX());
       obj.put("y", entities.get(i).getY());
-      obj.put("xAttribute", xAttributes);
-      obj.put("yAttribute", yAttributes);
+      obj.put("xattribute", xattributes);
+      obj.put("yattribute", yattributes);
 
 
 

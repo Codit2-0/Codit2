@@ -26,10 +26,10 @@ import org.json.simple.JSONObject;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
     maxFileSize = 1024 * 1024 * 10,
     maxRequestSize = 1024 * 1024 * 50) 
-public class JSONSchemaER extends HttpServlet {
+public class JsonSchemaEr extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public JSONSchemaER() {
+  public JsonSchemaEr() {
     super();
   }
 
@@ -96,7 +96,7 @@ public class JSONSchemaER extends HttpServlet {
 		}
 	}
 	Parser p = new Parser();
-	ERBean er = p.parser(copy);
+	ErBean er = p.parser(copy);
 
 	JSONObject obj = JsonParser.parseToJson(er);
 	response.getWriter().append(obj.toJSONString());

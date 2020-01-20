@@ -6,23 +6,23 @@ import java.util.ArrayList;
  * Classe che raccoglie le informazioni
  * di un diagramma ER.
  */
-public class ERBean {
+public class ErBean {
 
   private ArrayList<EntityBean> entity;
   private ArrayList<AssociationBean> association;
   private ArrayList<HierarchyBean> hierarchy;
 
-  public ERBean() {
+  public ErBean() {
 
   }
 
   /**
-   * costruttore della classe {@link ERBean}.
+   * costruttore della classe {@link ErBean}.
    * @param entity Lista delle entita' del diagramma
    * @param association Lista delle relazioni del diagramma
    * @param hierarchy Lista delle gerarchie del diagramma
    */
-  public ERBean(ArrayList<EntityBean> entity, ArrayList<AssociationBean> association,
+  public ErBean(ArrayList<EntityBean> entity, ArrayList<AssociationBean> association,
                 ArrayList<HierarchyBean> hierarchy) {
     super();
     this.entity = entity;
@@ -90,24 +90,24 @@ public class ERBean {
    * metodo di controllo che stampa il contenuto del bean.
    */
   public void stampa() {
-//    if (entity != null) {
-//      for (int i = 0; i < entity.size(); i++) {
-//        //System.out.println(entity.get(i).getName() + "@@@");
-//        for (int j = 0; j < entity.get(i).getAttribute().size(); j++) {
-//          // System.out.println(entity.get(i).getAttribute().get(j));
-//        }
-//      }
-//    }
-//    if (association != null) {
-//      for (int i = 0; i < association.size(); i++) {
-//        // System.out.println(association.get(i).getName() + "@@");
-//      }
-//    }
-//    if (hierarchy != null) {
-//      for (int i = 0; i < hierarchy.size(); i++) {
-//        System.out.println(hierarchy.toString() + "@@");
-//      }
-//    }
+    //    if (entity != null) {
+    //      for (int i = 0; i < entity.size(); i++) {
+    //        //System.out.println(entity.get(i).getName() + "@@@");
+    //        for (int j = 0; j < entity.get(i).getAttribute().size(); j++) {
+    //          // System.out.println(entity.get(i).getAttribute().get(j));
+    //        }
+    //      }
+    //    }
+    //    if (association != null) {
+    //      for (int i = 0; i < association.size(); i++) {
+    //        // System.out.println(association.get(i).getName() + "@@");
+    //      }
+    //    }
+    //    if (hierarchy != null) {
+    //      for (int i = 0; i < hierarchy.size(); i++) {
+    //        System.out.println(hierarchy.toString() + "@@");
+    //      }
+    //    }
   }
   
   

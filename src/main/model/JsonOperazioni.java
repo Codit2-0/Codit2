@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/JSONOperazioni")
-public class JSONOperazioni extends HttpServlet {
+public class JsonOperazioni extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public JSONOperazioni() {
+  public JsonOperazioni() {
     super();
   }
 
@@ -24,21 +24,28 @@ public class JSONOperazioni extends HttpServlet {
 
     HttpSession sessione = request.getSession();
     
+    // recupero dalla sessione la lista degli operatori selezionati
+    // se non esite, la creo
     ArrayList operazioniSelezionate = (ArrayList) sessione.getAttribute("operazioniSelezionate");
     if (operazioniSelezionate == null) {
       operazioniSelezionate = new ArrayList();
     }
-    
+
+    // recupero dalla sessione la lista degli operatori selezionati con decisione sull'operando 
+    // se non esite, la creo
     ArrayList latoOperazioni = (ArrayList) sessione.getAttribute("latoOperazioni");
     if (latoOperazioni == null) {
       latoOperazioni = new ArrayList();
     }
     
+    // recupero dalla sessione la lista dei colori relativi agli operatori selezionati
+    // se non esite, la creo
     ArrayList colori = (ArrayList) sessione.getAttribute("colori");
     if (colori == null) {
       colori = new ArrayList();
     }
     
+
     ArrayList f1 = (ArrayList) sessione.getAttribute("f1");
 
     if (f1 == null) {
@@ -80,8 +87,19 @@ public class JSONOperazioni extends HttpServlet {
     for (int i = 0; i < operazioniSelezionate.size(); i++) {
       int x = i * 2;
       int j =  x + 1;
-      if(i != operazioniSelezionate.size() - 1) { response.getWriter().append("{\"op\":\"" + operazioniSelezionate.get(i) + "\", \"scelta\": \""+latoOperazioni.get(i)+"\", \"colore\": \""+colori.get(i)+"\", \"f1N\": \""+f1.get(x)+"\",  \"f1T\": \""+f1.get(j)+"\", \"f2N\": \""+f2.get(x)+"\", \"f2T\": \""+f2.get(j)+"\"},");}   
-      else { response.getWriter().append("{\"op\":\"" + operazioniSelezionate.get(i) + "\", \"scelta\": \""+latoOperazioni.get(i)+"\", \"colore\": \""+colori.get(i)+"\", \"f1N\": \""+f1.get(x)+"\",  \"f1T\": \""+f1.get(j)+"\", \"f2N\": \""+f2.get(x)+"\", \"f2T\": \""+f2.get(j)+"\"}");} 
+      if (i != operazioniSelezionate.size() - 1) {
+        response.getWriter().append("{\"op\":\"" + operazioniSelezionate.get(i) 
+                + "\", \"scelta\": \"" + latoOperazioni.get(i) + "\", \"colore\": \""
+                + colori.get(i) + "\", \"f1N\": \"" + f1.get(x) + "\",  \"f1T\": \""
+                + f1.get(j) + "\", \"f2N\": \"" + f2.get(x) + "\", \"f2T\": \""
+                + f2.get(j) + "\"},");
+      } else {
+        response.getWriter().append("{\"op\":\"" + operazioniSelezionate.get(i) 
+                + "\", \"scelta\": \"" + latoOperazioni.get(i) + "\", \"colore\": \""
+                + colori.get(i) + "\", \"f1N\": \"" + f1.get(x) + "\",  \"f1T\": \""
+                + f1.get(j) + "\", \"f2N\": \"" + f2.get(x) + "\", \"f2T\": \""
+                + f2.get(j) + "\"}");
+      }
       //System.out.println(operazioniSelezionate.get(i));
     }
     response.getWriter().append("]");
@@ -89,7 +107,8 @@ public class JSONOperazioni extends HttpServlet {
     //sessione.invalidate();
   }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                 throws ServletException, IOException {
     doGet(request, response);
   }
 

@@ -11,8 +11,8 @@ public class AssociationBean {
   private ArrayList<String> attribute;
   private ArrayList<String> entity;
   private String name;
-  private String x;
-  private String y;
+  private String posX;
+  private String posY;
 
   /**
    * Costruttore della classe {@link AssociationBean}. 
@@ -20,13 +20,14 @@ public class AssociationBean {
    * @param attribute lista degli attributi della relazione
    * @param entity lista delle entita' collegate alla relazione
    */
-  public AssociationBean(String name, ArrayList<String> attribute, ArrayList<String> entity, String x, String y) {
+  public AssociationBean(String name, ArrayList<String> attribute,
+                         ArrayList<String> entity, String x, String y) {
     super();
     this.name = name;
     this.attribute = attribute;
     this.entity = entity;
-    this.x = x;
-    this.y = y;
+    this.posX = x;
+    this.posY = y;
   }
 
   public ArrayList<String> getAttribute() {
@@ -64,19 +65,19 @@ public class AssociationBean {
   }
   
   public String getX() {
-		return x;
-	}
+    return posX;
+  }
 
-	public void setX(String x) {
-		this.x = x;
-	}
+  public void setX(String x) {
+    this.posX = x;
+  }
 
-	public String getY() {
-		return y;
-	}
+  public String getY() {
+    return posY;
+  }
 
-	public void setY(String y) {
-		this.y = y;
-	}
+  public void setY(String y) {
+    this.posY = y;
+  }
 }
 

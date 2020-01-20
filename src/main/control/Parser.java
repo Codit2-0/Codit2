@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import model.AssociationBean;
-import model.ERBean;
+import model.ErBean;
 import model.EntityBean;
 import model.HierarchyBean;
 import org.w3c.dom.Document;
@@ -22,12 +22,12 @@ public class Parser {
   //static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
 
   /**
-   * Parser che legge da un file .xmi e lo traduce in un elemento {@link ERBean}.
+   * Parser che legge da un file .xmi e lo traduce in un elemento {@link ErBean}.
    * @param url il percorso del file all'interno del server
    * @return 
    */
-  public ERBean parser(File url) {
-    ERBean modello = new ERBean();
+  public ErBean parser(File url) {
+    ErBean modello = new ErBean();
     ArrayList<EntityBean> arrayEntity = new ArrayList<EntityBean>();
     ArrayList<AssociationBean> arrayAssociation = new ArrayList<AssociationBean>();
     ArrayList<HierarchyBean> arrayHierarchy = new ArrayList<HierarchyBean>();
@@ -37,8 +37,8 @@ public class Parser {
       DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
       Document doc = docBuilder.parse(url);
       ArrayList<String> attribute = null;
-      ArrayList<String> xAttribute = null;
-      ArrayList<String> yAttribute = null;
+      ArrayList<String> xattribute = null;
+      ArrayList<String> yattribute = null;
       ArrayList<String> entityList = new ArrayList<String>();
 
       EntityBean entity = null;
@@ -56,47 +56,47 @@ public class Parser {
       for (int i = 0; i < totalClass;i++) {
 
         String type =  listClass.item(i).getAttributes().getNamedItem("xmi:type").toString();
-        
+
         // controllo se il 'type' � 'Association' o 'Class'
         if (type.equals("xmi:type=\"uml:Association\"")) {
-          
+
           // caso in cui l'elemento � 'Association', cio� una relazione
-          
+
           if (listClass.item(i).getAttributes().getNamedItem("type") != null) {
             String hierarchyString = listClass.item(i).getAttributes()
-                                              .getNamedItem("type").toString();
-            
+                .getNamedItem("type").toString();
+
             // controllo se la relazione � una gerarchia
             if (hierarchyString.equals("type=\"ISA\"")) {
 
               String nomeGerarchia = listClass.item(i).getAttributes()
-                                              .getNamedItem("xmi:id").toString();
+                  .getNamedItem("xmi:id").toString();
               String x;
               try {
-              x = listClass.item(i).getAttributes().getNamedItem("x").toString();
-              x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
+                x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+                x = x.substring(x.indexOf("\"") + 1, x.lastIndexOf("\""));
 
-              }catch(NullPointerException e) {
-            	  x = "n";
+              } catch (NullPointerException e) {
+                x = "n";
               }
               String y;
               try {
-              y = listClass.item(i).getAttributes().getNamedItem("y").toString();
-              y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
+                y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+                y = y.substring(y.indexOf("\"") + 1, y.lastIndexOf("\""));
 
-              }catch(NullPointerException e) {
-            	  y = "n";
+              } catch (NullPointerException e) {
+                y = "n";
               }
-              
+
               nomeGerarchia = nomeGerarchia.substring(nomeGerarchia.indexOf('"') + 1,
-                                                      nomeGerarchia.lastIndexOf('"'));
+                  nomeGerarchia.lastIndexOf('"'));
               String padre = nomeGerarchia;
               String figlio = nomeGerarchia;
 
 
               padre = nomeGerarchia.substring(0, nomeGerarchia.indexOf("__"));
               figlio = nomeGerarchia.substring(nomeGerarchia.indexOf("__") + 2,
-                                               nomeGerarchia.lastIndexOf("__"));
+                  nomeGerarchia.lastIndexOf("__"));
 
 
 
@@ -108,30 +108,30 @@ public class Parser {
           } else {
 
             String nomeAssociazione = listClass.item(i).getAttributes()
-                                               .getNamedItem("xmi:id").toString();
+                .getNamedItem("xmi:id").toString();
             nomeAssociazione = nomeAssociazione.substring(nomeAssociazione.indexOf('"') + 1,
-                                                          nomeAssociazione.lastIndexOf('"'));
+                nomeAssociazione.lastIndexOf('"'));
             int j = 0;
             ArrayList<String> tmp = new ArrayList<String>();
             String nuovaStringa = nomeAssociazione;
-            
+
             String x;
             try {
-            x = listClass.item(i).getAttributes().getNamedItem("x").toString();
-            x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
+              x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+              x = x.substring(x.indexOf("\"") + 1, x.lastIndexOf("\""));
 
-            }catch(NullPointerException e) {
-          	  x = "n";
+            } catch (NullPointerException e) {
+              x = "n";
             }
             String y;
             try {
-            y = listClass.item(i).getAttributes().getNamedItem("y").toString();
-            y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
-            }catch(NullPointerException e) {
-          	  y = "n";
+              y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+              y = y.substring(y.indexOf("\"") + 1, y.lastIndexOf("\""));
+            } catch (NullPointerException e) {
+              y = "n";
             }
-            
-            
+
+
             while (true) {
 
               if (!nuovaStringa.equals("id")) {
@@ -169,32 +169,32 @@ public class Parser {
         } else {
 
           //caso in cui � 'Class', cio� un'entita'
-          
+
           String nomeClasse = listClass.item(i).getAttributes().getNamedItem("xmi:id").toString();
           String x;
           try {
-          x = listClass.item(i).getAttributes().getNamedItem("x").toString();
-          x = x.substring(x.indexOf("\"")+1, x.lastIndexOf("\""));
-          }catch(NullPointerException e) {
-        	  x = "n";
+            x = listClass.item(i).getAttributes().getNamedItem("x").toString();
+            x = x.substring(x.indexOf("\"") + 1, x.lastIndexOf("\""));
+          } catch (NullPointerException e) {
+            x = "n";
           }
           String y;
           try {
-          y = listClass.item(i).getAttributes().getNamedItem("y").toString();
-          y = y.substring(y.indexOf("\"")+1, y.lastIndexOf("\""));
+            y = listClass.item(i).getAttributes().getNamedItem("y").toString();
+            y = y.substring(y.indexOf("\"") + 1, y.lastIndexOf("\""));
 
-          }catch(NullPointerException e) {
-        	  y = "n";
+          } catch (NullPointerException e) {
+            y = "n";
           }
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
-                                            nomeClasse.lastIndexOf('"'));
-          
+              nomeClasse.lastIndexOf('"'));
+
           System.out.println(x);
           //System.out.println("Classe : " + nomeClasse);
           attribute = new ArrayList<String>();
-          xAttribute = new ArrayList<String>();
-          yAttribute = new ArrayList<String>();
-          entity = new EntityBean(nomeClasse, attribute, x, y, xAttribute, yAttribute);
+          xattribute = new ArrayList<String>();
+          yattribute = new ArrayList<String>();
+          entity = new EntityBean(nomeClasse, attribute, x, y, xattribute, yattribute);
           arrayEntity.add(entity);
 
         }
@@ -207,31 +207,31 @@ public class Parser {
           String attribute1 = listAttributesClass.item(j).getNodeName();
           if (attribute1.equals(ATTRIBUTES)) {
             String nomeAttributo = listAttributesClass.item(j).getAttributes()
-                                                      .getNamedItem("name").toString();
+                .getNamedItem("name").toString();
             nomeAttributo = nomeAttributo.substring(nomeAttributo.indexOf('"') + 1,
-                                                    nomeAttributo.lastIndexOf('"'));
-            String xAttributo;
-            String yAttributo;
+                nomeAttributo.lastIndexOf('"'));
+            String xattributo;
+            String yattributo;
             try {
-            	xAttributo = listAttributesClass.item(j).getAttributes()
+              xattributo = listAttributesClass.item(j).getAttributes()
                   .getNamedItem("x").toString();
-                  xAttributo = xAttributo.substring(xAttributo.indexOf('"') + 1,
-                  xAttributo.lastIndexOf('"'));
-            }catch(Exception e) {
-            	xAttributo = "n";
+              xattributo = xattributo.substring(xattributo.indexOf('"') + 1,
+                  xattributo.lastIndexOf('"'));
+            } catch (Exception e) {
+              xattributo = "n";
             }
-            try{		
-            	yAttributo = listAttributesClass.item(j).getAttributes()
-				.getNamedItem("y").toString();
-				yAttributo = yAttributo.substring(yAttributo.indexOf('"') + 1,
-				yAttributo.lastIndexOf('"'));
-            }catch(Exception e) {
-            	yAttributo = "n";
+            try {
+              yattributo = listAttributesClass.item(j).getAttributes()
+                  .getNamedItem("y").toString();
+              yattributo = yattributo.substring(yattributo.indexOf('"') + 1,
+                  yattributo.lastIndexOf('"'));
+            } catch (Exception e) {
+              yattributo = "n";
             }
             //System.out.println("Attribute : " + nomeAttributo);
             entity.getAttribute().add(nomeAttributo);
-            entity.getxAttribute().add(xAttributo);
-            entity.getyAttribute().add(yAttributo);
+            entity.getxAttribute().add(xattributo);
+            entity.getyAttribute().add(yattributo);
             for (int o = 0; o < arrayEntity.size(); o++) {
               if (arrayEntity.get(o).getName().equals(entity.getName())) {
                 arrayEntity.remove(o);
@@ -247,7 +247,7 @@ public class Parser {
 
     } catch (SAXParseException err) {
       System.out.println("** Parsing error" + ", line "
-                        + err.getLineNumber() + ", uri " + err.getSystemId());
+          + err.getLineNumber() + ", uri " + err.getSystemId());
       System.out.println(" " + err.getMessage());
     } catch (SAXException e) { 
       Exception x = e.getException();

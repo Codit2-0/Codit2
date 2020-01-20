@@ -31,10 +31,14 @@ public class CambioOperazione extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
                  throws ServletException, IOException {
+    // variabile contenete il nome dell'operatore selezionato
     String p = (String) request.getParameter("op");
+    // variabile contenente la scelta rispetto all'operatore
     String s = (String) request.getParameter("sc");
 
     HttpSession sessione = request.getSession();
+    
+    // array degli operatori selezionati
     ArrayList latoOperazione  = (ArrayList) sessione.getAttribute("latoOperazioni");
     latoOperazione.set(Integer.parseInt(p),s);
     sessione.setAttribute("latoOperazione", latoOperazione);
