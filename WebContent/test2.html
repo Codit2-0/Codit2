@@ -43,8 +43,29 @@ text {
   font-size: 10px;
 }
 
+.zoom {
+	position: absolute;
+	left: 5px;
+	width: 20px;
+	font-size: small;
+	padding: 0;
+	display: none;
+}
+
+.zoom:first-of-type{
+		top: 10px;
+	
+}
+
+.zoom:nth-of-type(2) {
+		top: 30px;	
+}
+
 </style>
 <body>
+  <button id="zoomIn" class="zoom">+</button>
+  <button id="zoomOut" class="zoom">-</button>
+  
  <div class="card-body">
    <form method="post" enctype="multipart/form-data" role="form">
      <div class="form-group">
@@ -74,11 +95,13 @@ text {
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- nome file caricato -->
 <script type="text/javascript">
   $(document).ready(function () {
     bsCustomFileInput.init();
   });
 </script>
+<!-- caricamento diagramma -->
 <script type="text/javascript">
 
 
@@ -444,6 +467,7 @@ function loadSchemaER(xmlhttp) {
 
  d3.select(".card-body").style("display", "none");
  d3.select("svg").style("display", "inline");
+ d3.selectAll(".zoom").style("display", "inline-block");
 }
 
 
@@ -458,23 +482,37 @@ var viewBox = {x:0,y:0,w:svgImage.getAttribute("width"),h:svgImage.getAttribute(
 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
 var scale = 1;
+var scaleStep = 0.2;
 
 svgContainer.onmousewheel = function(e) {
-   e.preventDefault();
-   if (!(scale > 1 && Math.sign(-e.deltaY) > 0) && !(scale < 0.15 && Math.sign(-e.deltaY) < 0)) {
-	   var w = viewBox.w;
-	   var h = viewBox.h;
-	   var mx = e.x;//mouse x   
-	   var my = e.y;    
-	   var dw = w*Math.sign(-e.deltaY)*0.05;
-	   var dh = h*Math.sign(-e.deltaY)*0.05;
-	   var dx = dw*mx/svgSize.w;
-	   var dy = dh*my/svgSize.h;
-	   viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
-	   scale = svgSize.w/viewBox.w;
-   	 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-	 }
+		e.preventDefault();
+		if (!(scale > 1 && Math.sign(-e.deltaY) > 0) && !(scale < 0.15 && Math.sign(-e.deltaY) < 0)) {
+			 var w = viewBox.w;
+			 var h = viewBox.h;
+			 var mx = e.x;//mouse x   
+			 var my = e.y;    
+			 var dw = w*Math.sign(-e.deltaY)*0.05;
+			 var dh = h*Math.sign(-e.deltaY)*0.05;
+			 var dx = dw*mx/svgSize.w;
+			 var dy = dh*my/svgSize.h;
+			 viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
+			 scale = svgSize.w/viewBox.w;
+		 	 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+		}
 }
+
+	document.getElementById("zoomIn").addEventListener("click", function() {
+    if (scale < 1) { 
+			scale += scaleStep;
+	    document.getElementById("svgImage").style.transform = "scale(" + scale + ")";
+    }
+  });
+  document.getElementById("zoomOut").addEventListener("click", function() {
+    if (scale > scaleStep) {
+      scale -= scaleStep;
+      document.getElementById("svgImage").style.transform = "scale(" + scale + ")";
+    }
+  });
 
 </script>
 <!-- trascinamento -->
