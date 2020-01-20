@@ -22,6 +22,10 @@
   </style>
   <!-- style della pagina -->
   <style>
+  iframe {
+  	overflow: hidden;
+  }
+  
   	ul.operatori {
   		padding: 0;
   	}
@@ -36,13 +40,17 @@
   		padding-bottom: 0.2em;
   	}
   	
-  	.operatore.selected {
-  	}
-  	
   	.operatori .btn-default {
-  		max-width:40%;
-  		display: inline-block;
-  	}	
+    max-width:36%;
+    display: inline-block;
+   } 
+   
+   .operatori .trash {
+    max-width:20%;
+    max-height:20%;
+    display: inline-block;
+   }
+   	
   	.operatori button {
   		width: 100%;
   	}
@@ -111,26 +119,6 @@
               <p>Operazioni salvate<i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview operatori" id="tutteOpLato">
-            <!--  
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Operazione 1</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Operazione 2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Operazione 3</p>
-                </a>
-              </li>
-              -->
             </ul>
           </li>
         </ul>
@@ -328,15 +316,15 @@
 		document.getElementById("tutteOpLato").innerHTML = "";
 		i = 0;
 		while(data[i] != null){
-			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button></li>";
-			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine1.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg4.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine2.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg3.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine3.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg1.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg5.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine4.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg13.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine5.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg8.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine6.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg2.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg6.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine7.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg10.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine8.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg9.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
+			if(data[i].op == "imgFunzioni/Immagine9.png") document.getElementById("tutteOpLato").innerHTML +="<li class='d-flex justify-content-center align-items-center operatore selected' style='background-color:#"+data[i].colore+";'><button id='lt1Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt1Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg12.png' alt='Derivable right'></button><span class='separatore'>-</span><button id='lt2Operando"+i+"' type='button' class='btn btn-default' onclick='scelta(\"lt2Operando"+i+"\",\"#"+data[i].colore+"\")'><img src='imgFunzioni/subimg11.png' alt='Derivable right'></button><button id='cancella"+i+"' type='button' class='btn trash' onclick='elimina(\""+i+"\")'><img src='icone/trash.png'></button></li>";
 			if(data[i].scelta != "null") {
 				var btn = "lt"+data[i].scelta+"Operando"+i;
 				document.getElementById(btn).style.borderColor = "black";
@@ -376,9 +364,18 @@
 			alert("Tipo entita 2: " + data[i].f2T);
 			*/
 			i++;
-		}
-
+		}	
 	}
+	
+	function elimina(btn) {
+		   var xmlhttp = new XMLHttpRequest();
+		   xmlhttp.onreadystatechange = function() {
+		      if (this.readyState == 4 && this.status == 200) {inserisciOperazione("null");}
+		   };
+		   xmlhttp.open("POST", "EliminaOperazione?op=" + btn, true); 
+		   xmlhttp.send();
+		 }
+	
 	function scelta(btn,colore) {
 		
 		var op = btn.substring(11);

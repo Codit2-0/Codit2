@@ -44,7 +44,7 @@ text {
 }
 
 .zoom {
-	position: absolute;
+	position: fixed;
 	left: 5px;
 	width: 20px;
 	font-size: small;
@@ -174,11 +174,11 @@ function loadSchemaER(xmlhttp) {
     w++;
    }
    if(control == true) {
-    nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60,xS: data.entity[i].xAttribute[j],yS: data.entity[i].yAttribute[j]});
+    nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
     links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
    else {
-    nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60,xS: data.entity[i].xAttribute[j],yS: data.entity[i].yAttribute[j]});
+    nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
     links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
    }
    
@@ -483,16 +483,19 @@ svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewB
 const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
 var scale = 1;
 var scaleStep = 0.2;
+var isPanning = false;
+var startPoint = {x:0,y:0};
+var endPoint = {x:0,y:0};
 
 svgContainer.onmousewheel = function(e) {
 		e.preventDefault();
-		if (!(scale > 1 && Math.sign(-e.deltaY) > 0) && !(scale < 0.15 && Math.sign(-e.deltaY) < 0)) {
+		if (!(scale > 1 && Math.sign(e.deltaY) > 0) && !(scale < 0.15 && Math.sign(e.deltaY) < 0)) {
 			 var w = viewBox.w;
 			 var h = viewBox.h;
 			 var mx = e.x;//mouse x   
 			 var my = e.y;    
-			 var dw = w*Math.sign(-e.deltaY)*0.05;
-			 var dh = h*Math.sign(-e.deltaY)*0.05;
+			 var dw = w*Math.sign(e.deltaY)*0.05;
+			 var dh = h*Math.sign(e.deltaY)*0.05;
 			 var dx = dw*mx/svgSize.w;
 			 var dy = dh*my/svgSize.h;
 			 viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
@@ -502,9 +505,16 @@ svgContainer.onmousewheel = function(e) {
 }
 
 	document.getElementById("zoomIn").addEventListener("click", function() {
-    if (scale < 1) { 
+    if (scale < 1) {
 			scale += scaleStep;
-	    document.getElementById("svgImage").style.transform = "scale(" + scale + ")";
+			
+			 var dw = svgSize.w/scale;
+			 var dh = svgSize.h/scale;
+			 var dx = dw*mx/svgSize.w;
+			 var dy = dh*my/svgSize.h;
+			
+			viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
+	    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     }
   });
   document.getElementById("zoomOut").addEventListener("click", function() {
@@ -513,7 +523,36 @@ svgContainer.onmousewheel = function(e) {
       document.getElementById("svgImage").style.transform = "scale(" + scale + ")";
     }
   });
+  
+  svgContainer.onmousedown = function(e){
+	   isPanning = true;
+	   startPoint = {x:e.x,y:e.y};   
+	}
 
+	svgContainer.onmousemove = function(e){
+	   if (isPanning){
+	  endPoint = {x:e.x,y:e.y};
+	  var dx = (startPoint.x - endPoint.x)/scale;
+	  var dy = (startPoint.y - endPoint.y)/scale;
+	  var movedViewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+	  svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
+	   }
+	}
+
+	svgContainer.onmouseup = function(e){
+	   if (isPanning){ 
+	  endPoint = {x:e.x,y:e.y};
+	  var dx = (startPoint.x - endPoint.x)/scale;
+	  var dy = (startPoint.y - endPoint.y)/scale;
+	  viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+	  svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+	  isPanning = false;
+	   }
+	}
+
+	svgContainer.onmouseleave = function(e){
+	 isPanning = false;
+	}
 </script>
 <!-- trascinamento -->
 <script>
