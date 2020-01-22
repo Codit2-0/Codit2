@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SceltaOperazione
+ * Servlet implementation class SceltaOperazione.
  */
 @WebServlet("/SceltaOperazione")
 public class SceltaOperazione extends HttpServlet {

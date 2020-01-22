@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class EliminaOperazione
+ * Servlet implementation class EliminaOperazione.
  */
 @WebServlet("/EliminaOperazione")
 public class EliminaOperazione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
+   * costruttore.
    * @see HttpServlet#HttpServlet()
    */
   public EliminaOperazione() {
@@ -26,9 +27,11 @@ public class EliminaOperazione extends HttpServlet {
   }
 
   /**
+   * override del metodo.
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+                 throws ServletException, IOException {
     HttpSession sessione = request.getSession();
     String p = (String) request.getParameter("op");
 
@@ -63,9 +66,11 @@ public class EliminaOperazione extends HttpServlet {
   }
 
   /**
+   * override del metodo.
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                 throws ServletException, IOException {
     // TODO Auto-generated method stub
     doGet(request, response);
   }
