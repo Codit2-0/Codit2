@@ -2,6 +2,7 @@ package control;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -34,7 +35,7 @@ public class OntologyManager {
 
   public static final String SOURCE = "http://www.unisalab.it/codit/tboxER";
   public static final String BASE = SOURCE + "#";
-  public static final String PATH = "util/tbox.owl";
+  public static final String PATH = "http://localhost:8080/Codit2-0/util/tbox.owl";
 
   public static final String ENTITY = "Entity";
   public static final String ATTRIBUTE = "Attribute";
@@ -128,8 +129,11 @@ public class OntologyManager {
       }
 
       model.write(out);
+      out.close();
 
     } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
       e.printStackTrace();
     }
 

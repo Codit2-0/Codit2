@@ -98,9 +98,9 @@ public class JsonSchemaEr extends HttpServlet {
     Parser p = new Parser();
     ErBean er = p.parser(copy);
     
-//    OntologyManager om = new OntologyManager();
-//    om.save(er, part.getSubmittedFileName().substring(0, 
-//                              part.getSubmittedFileName().lastIndexOf(".")));
+    OntologyManager om = new OntologyManager();
+    om.save(er, part.getSubmittedFileName().substring(0, 
+                              part.getSubmittedFileName().lastIndexOf(".")));
 
     JSONObject obj = JsonParser.parseToJson(er);
     response.getWriter().append(obj.toJSONString());
