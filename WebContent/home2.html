@@ -70,7 +70,7 @@
   	.icona {
   		width: 20px;
   		position: absolute;
-  		bottom: 35px;
+  		bottom: 25px;
   	}
   	
   	.icona:first-of-type {
@@ -93,7 +93,8 @@
       </li>
     </ul>
 
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl"  onclick="filtro()">
+    
+    <button id="op" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl"  onclick="filtro()" disabled>
       Operazioni
     </button>
   </nav>
@@ -137,8 +138,13 @@
               <iframe id="db1" class="col-12 border-primary" src="test2.html">
               </iframe>
             </div>
-            <img class="icona" src="icone/save.png" onclick="savePosition1()"> 
-            <img class="icona" src="icone/reload.png" onclick="refresh1()"> 
+             <button id = "bS1" class="btn icona"  onclick="savePosition1()" disabled>
+              	<img class="icona" src="icone/save.png"> 
+             </button>
+             <button id = "bR1" class="btn icona"  onclick="refresh1()" disabled>
+              	<img class="icona" src="icone/reload.png"> 
+             </button>
+            
           </div>
           <!-- Sezione operazioni -->
           <div class="col-lg-2">
@@ -156,9 +162,12 @@
             <div class="card-body" >
               <iframe id="db2" class="col-12 border-primary" src="test2.html">
               </iframe>
-              <img class="icona" src="icone/save.png" onclick="savePosition2()"> 
-            	<img class="icona" src="icone/reload.png" onclick="refresh2()"> 
-            </div>
+               <button id = "bS2" class="btn icona"  onclick="savePosition2()" disabled>
+              	<img class="icona" src="icone/save.png"> 
+             </button>
+             <button id = "bR2" class="btn icona"  onclick="refresh2()" disabled>
+              	<img class="icona" src="icone/reload.png"> 
+             </button>  </div>
           </div>
         </div>
       </div>
@@ -240,6 +249,23 @@
 	inside1.getElementById("frame").value = "frame1";
 	inside2.getElementById("frame").value = "frame2";
   });
+  
+  $(document).mouseover(function() {
+		var Nframe1 = sessionStorage.getItem('Nframe1');
+	    if(Nframe1 == "Nframe1"){document.getElementById("bS1").disabled=false;document.getElementById("bR1").disabled=false;}
+	    else{document.getElementById("bS1").disabled=true;document.getElementById("bR1").disabled=true;}	
+	    
+	    var Nframe2 = sessionStorage.getItem('Nframe2');
+	    if(Nframe2 == "Nframe2"){document.getElementById("bS2").disabled=false;document.getElementById("bR2").disabled=false;}
+	    else{document.getElementById("bS2").disabled=true;document.getElementById("bR2").disabled=true;}
+	    
+	    var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
+		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
+		if(frame1 != null && frame2 != null){document.getElementById("op").disabled=false;}
+	    else{document.getElementById("op").disabled=true;}
+	    
+		
+});
 </script>
 <!-- script per il dimensionamento degli iframe -->
 <script type="text/javascript">
@@ -280,7 +306,7 @@
 	function explode2(){
 	  inserisciOperazione("null");
 	}
-	setTimeout(explode2, 3000);
+	setTimeout(explode2, 3500);
 	function inserisciOperazione(img) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -335,48 +361,108 @@
 		}
 		
 		
-		var inside1 = iframeRef(document.getElementById('db1'));
-		var inside2 = iframeRef(document.getElementById('db2'));
+		
 		
 		i = 0;
 		while(data[i] != null) {
-			if(data[i].f1T == "entity"){
-				inside1.getElementById(data[i].f1N).style.strokeWidth = 350;
-			} else if (data[i].f1T == "relation") {
-				inside1.getElementById(data[i].f1N).style.strokeWidth = 250;
-			} else {
-				inside1.getElementById(data[i].f1N).style.strokeWidth = 150;
-			}
-			inside1.getElementById(data[i].f1N).style.stroke = data[i].colore;
+			var inside1 = iframeRef(document.getElementById('db1'));
+			var inside2 = iframeRef(document.getElementById('db2'));
+			var op1N = data[i].f1N;
+			var op1T = data[i].f1T;
+			var op2T = data[i].f2T;  
+			var op2N = data[i].f2N;  
+			var array1 = [];
+			var array2 = [];
 			
-			if(data[i].f2T == "entity"){
-				inside2.getElementById(data[i].f2N).style.strokeWidth = 350;
-			} else if (data[i].f2T == "relation") {
-				inside2.getElementById(data[i].f2N).style.strokeWidth = 250;
-			} else {
-				inside2.getElementById(data[i].f2N).style.strokeWidth = 150;
+			while(op1N.indexOf(".")!= -1){
+				array1.push({nome:op1N.substring(0, op1N.indexOf(".")), tipo: op1T.substring(0, op1T.indexOf("."))});
+				op1N = op1N.substring(op1N.indexOf(".")+1);
+				op1T = op1T.substring(op1T.indexOf(".")+1);
 			}
-			inside2.getElementById(data[i].f2N).style.stroke = data[i].colore;
-			/*
-			alert("Nome entita 1: " + data[i].f1N);
-			alert("Tipo entita 1: " + data[i].f1T);
-			alert("Nome entita 1: " + data[i].f2N);
-			alert("Tipo entita 2: " + data[i].f2T);
-			*/
+			
+			while(op2N.indexOf(".")!= -1){
+				array2.push({nome:op2N.substring(0, op2N.indexOf(".")), tipo: op2T.substring(0, op2T.indexOf("."))});
+				op2N = op2N.substring(op2N.indexOf(".")+1);
+				op2T = op2T.substring(op2T.indexOf(".")+1);
+			}
+			
+			
+			var j = 0;
+			while(array1[j]!= null){
+				if(array1[j].tipo == "entity"){
+					inside1.getElementById(array1[j].nome).style.strokeWidth = 350;
+				} else if (array1[j].tipo == "relation") {
+					inside1.getElementById(array1[j].nome).style.strokeWidth = 250;
+				} else {
+					inside1.getElementById(array1[j].nome).style.strokeWidth = 150;
+				}
+				inside1.getElementById(array1[j].nome).style.stroke = data[i].colore;
+				j++;
+			}
+			
+			j = 0;
+			while(array2[j]!= null){
+				if(array2[j].tipo == "entity"){
+					inside2.getElementById(array2[j].nome).style.strokeWidth = 350;
+				} else if (array2[j].tipo == "relation") {
+					inside2.getElementById(array2[j].nome).style.strokeWidth = 250;
+				} else {
+					inside2.getElementById(array2[j].nome).style.strokeWidth = 150;
+				}
+				inside2.getElementById(array2[j].nome).style.stroke = data[i].colore;
+				j++;
+			}
+			
 			i++;
-		}	
+		}
+
 	}
 	
 	function elimina(btn) {
-		   var xmlhttp = new XMLHttpRequest();
-		   xmlhttp.onreadystatechange = function() {
-		      if (this.readyState == 4 && this.status == 200) {inserisciOperazione("null");}
-		   };
-		   xmlhttp.open("POST", "EliminaOperazione?op=" + btn, true); 
-		   xmlhttp.send();
-		 }
-	
-	function scelta(btn,colore) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		  	if (this.readyState == 4 && this.status == 200) {
+				var data = JSON.parse(this.responseText);
+				var inside2 = iframeRef(document.getElementById('db2'));					
+				var inside1 = iframeRef(document.getElementById('db1'));					
+		  		var i = 0;
+				while(data[i] != null) {
+					var op1N = data[i].f1N;
+					var op2N = data[i].f2N;  
+					var array1 = [];
+					var array2 = [];
+					
+					while(op1N.indexOf(".")!= -1){
+						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
+						op1N = op1N.substring(op1N.indexOf(".")+1);
+					}
+					
+					while(op2N.indexOf(".")!= -1){
+						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
+						op2N = op2N.substring(op2N.indexOf(".")+1);
+					}
+					
+					
+					var j = 0;
+					while(array1[j]!= null){
+						inside1.getElementById(array1[j].nome).style.stroke = "#ffffff";
+						j++;
+					}
+					
+					j = 0;
+					while(array2[j]!= null){
+						inside2.getElementById(array2[j].nome).style.stroke = "#ffffff";
+						j++;
+					}
+					i++;
+				}
+		  		inserisciOperazione("null");
+			};
+		}
+		xmlhttp.open("POST", "EliminaOperazione?op=" + btn, true);	
+		xmlhttp.send();
+}
+function scelta(btn,colore) {
 		
 		var op = btn.substring(11);
 		var scelta = btn.substring(2, 3);
@@ -408,17 +494,13 @@
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
 		
-		var i = 0;
+		var i = 0, selFrame1N = "", selFrame2N = "", selFrame1T = "", selFrame2T = "";
 		while(frame1[i] != null) {
-			i++;
-		}
-		i--;
-		
-		if(tipo == 'b'){
+			selFrame1N += ""+frame1[i].name+".";
+			selFrame1T += ""+frame1[i].type+".";
 			
 			var inside1 = iframeRef(document.getElementById('db1'));
-			var inside2 = iframeRef(document.getElementById('db2'));
-			
+
 			if(frame1[i].type == "entity"){
 				inside1.getElementById(frame1[i].name).style.strokeWidth = 350;
 			} else if (frame1[i].type == "relation") {
@@ -427,6 +509,17 @@
 				inside1.getElementById(frame1[i].name).style.strokeWidth = 150;
 			}
 			inside1.getElementById(frame1[i].name).style.stroke = colore;
+			inside1.getElementById("img"+frame1[i].name).style.opacity = 1;
+
+			i++;
+		}
+		
+		i = 0;
+		while(frame2[i] != null) {
+			selFrame2N += ""+frame2[i].name+".";
+			selFrame2T += ""+frame2[i].type+".";
+			
+			var inside2 = iframeRef(document.getElementById('db2'));
 			
 			if(frame2[i].type == "entity"){
 				inside2.getElementById(frame2[i].name).style.strokeWidth = 350;
@@ -436,17 +529,23 @@
 				inside2.getElementById(frame2[i].name).style.strokeWidth = 150;
 			}
 			inside2.getElementById(frame2[i].name).style.stroke = colore;
-			
+			inside2.getElementById("img"+frame2[i].name).style.opacity = 1;
+
+			i++;
+		}
+		
+		if(tipo == 'b'){
 			var xmlhttp = new XMLHttpRequest();
-			xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta + "&f1Name=" + frame1[i].name + "&f1Type=" + frame1[i].type + "&f2Name=" + frame2[i].name + "&f2Type=" + frame2[i].type, true);	
+			xmlhttp.open("POST", "SceltaOperazione?op=" + op + "&sc=" + scelta + "&f1Name=" + selFrame1N + "&f1Type=" + selFrame1T + "&f2Name=" + selFrame2N + "&f2Type=" + selFrame2T, true);	
 			xmlhttp.send();
 		} else {
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.open("POST", "CambioOperazione?op=" + op + "&sc=" + scelta, true);	
 			xmlhttp.send();
 		}
-	
 		
+		sessionStorage.setItem("frame1", "");
+		sessionStorage.setItem("frame2", "");
 	}
 	function iframeRef( frameRef ) {
 	    return frameRef.contentWindow? frameRef.contentWindow.document: frameRef.contentDocument;
@@ -459,19 +558,32 @@
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
-
 				var inside2 = iframeRef(document.getElementById('db2'));					
-				var i = 0;
+		  		var i = 0;
 				while(data[i] != null) {
-					inside2.getElementById(data[i].f2N).style.stroke = "#ffffff";
+					var op2N = data[i].f2N;  
+					var array2 = [];
+					
+					while(op2N.indexOf(".")!= -1){
+						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
+						op2N = op2N.substring(op2N.indexOf(".")+1);
+					}
+					
+					
+					var j = 0;
+					while(array2[j]!= null){
+						inside2.getElementById(array2[j].nome).style.stroke = "#ffffff";
+						j++;
+					}
 					i++;
 				}
-			}
+			};
 		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe1", true);	
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe1", "");
+		sessionStorage.setItem("frame1", null);
 		document.getElementById("tutteOpLato").innerHTML = "";
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 	
@@ -481,6 +593,7 @@
 		
 		
 	}
+	//!!!!!MODIFICATA!!!!!!!!
 	function refresh2() {	
 	
 		var xmlhttp = new XMLHttpRequest();
@@ -488,17 +601,31 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
 				var inside1 = iframeRef(document.getElementById('db1'));					
-				var i = 0;
+		  		var i = 0;
 				while(data[i] != null) {
-					inside1.getElementById(data[i].f1N).style.stroke = "#ffffff";
+					var op1N = data[i].f1N;
+					var array1 = [];
+					
+					while(op1N.indexOf(".")!= -1){
+						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
+						op1N = op1N.substring(op1N.indexOf(".")+1);
+					}
+					
+					var j = 0;
+					while(array1[j]!= null){
+						inside1.getElementById(array1[j].nome).style.stroke = "#ffffff";
+						j++;
+					}
+					
 					i++;
 				}
-			}
+			};
 		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe2", true);	
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe2", "");
+		sessionStorage.setItem("frame2", null);
 		document.getElementById("tutteOpLato").innerHTML = "";
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 		
@@ -506,8 +633,7 @@
 		iframe.src = iframe.src;
 		
 		
-	}
-	
+	}	
 	function savePosition1(){
 		var xmlhttp = new XMLHttpRequest();
  		xmlhttp.onreadystatechange = function() {
