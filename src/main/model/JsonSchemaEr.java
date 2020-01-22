@@ -45,7 +45,7 @@ public class JsonSchemaEr extends HttpServlet {
 
     if (part == null) {
       copy = (File) sessione.getAttribute(url);
-      System.out.println(copy);
+      //System.out.println(copy);
     } else {
       if (url.equals("Nframe1")) {
         response.setContentType("text/html");
@@ -97,11 +97,11 @@ public class JsonSchemaEr extends HttpServlet {
     }
     Parser p = new Parser();
     ErBean er = p.parser(copy);
-    
-    OntologyManager om = new OntologyManager();
-    om.save(er, part.getSubmittedFileName().substring(0, 
+    if (part != null) {
+      OntologyManager om = new OntologyManager();
+      om.save(er, part.getSubmittedFileName().substring(0, 
                               part.getSubmittedFileName().lastIndexOf(".")));
-
+    }
     JSONObject obj = JsonParser.parseToJson(er);
     response.getWriter().append(obj.toJSONString());
     //copy.delete();
