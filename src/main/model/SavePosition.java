@@ -2,9 +2,9 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -69,6 +69,8 @@ public class SavePosition extends HttpServlet {
 		String dopo;
 		String fileModificato="";
 		String nomeFile;
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
+
 		
 		File fileRead;
 		
@@ -82,8 +84,9 @@ public class SavePosition extends HttpServlet {
 		}else {
 			fileSession  = (File) sessione.getAttribute("Nframe1");
 			 fileRead = new File("copyFileDatabase1.xmi"); 
-			 nomeFile = ("riposizionato_" + (String) sessione.getAttribute("NomeFile1"));
-
+			 nomeFile = (String) sessione.getAttribute("NomeFile1");
+			 nomeFile = nomeFile.substring(0,nomeFile.indexOf(".xmi"));
+			 nomeFile = nomeFile+ "_riposizionato"+timeStamp+".xmi";
 
 		}
 		
@@ -113,8 +116,12 @@ public class SavePosition extends HttpServlet {
 		  String st; 
 		  int k = 0;
 		  String perPrendereIlNome = "";
+		  int riga = 0;
 		  while ((st = br.readLine()) != null) {
-			  
+			  riga++;
+			  if(riga==2) {
+				  fileModificato += "<version v=\""+timeStamp+"\"/>\n";
+			  }
 			//Caso in cui è un'entità o un attributo
 			  if(st.indexOf("name=") != -1 && st.indexOf("name=") <= 200) {
 				  
