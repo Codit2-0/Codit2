@@ -3,11 +3,13 @@ package control;
 import java.io.File;
 import java.lang.String;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import model.AssociationBean;
-import model.ErBean;
 import model.EntityBean;
+import model.ErBean;
 import model.HierarchyBean;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -97,12 +99,24 @@ public class Parser {
               padre = nomeGerarchia.substring(0, nomeGerarchia.indexOf("__"));
               figlio = nomeGerarchia.substring(nomeGerarchia.indexOf("__") + 2,
                   nomeGerarchia.lastIndexOf("__"));
-
-
-
-              hierarchy = new HierarchyBean(padre, figlio, x, y);
-              arrayHierarchy.add(hierarchy);
-
+              
+              
+              boolean trovato = false;
+              for (Iterator<HierarchyBean> h = arrayHierarchy.iterator(); h.hasNext(); ) {
+                HierarchyBean bean = h.next();
+                if (bean.getFather().equals(padre)) {
+                  trovato = true;
+                  int index = arrayHierarchy.indexOf(bean);
+                  bean.addSon(figlio);
+                  arrayHierarchy.set(index, bean);
+                  break;
+                }
+              }
+              if (!trovato) {
+                hierarchy = new HierarchyBean(padre, x, y);
+                hierarchy.addSon(figlio);
+                arrayHierarchy.add(hierarchy);
+              }
 
             }
           } else {

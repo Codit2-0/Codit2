@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY tboxER "http://www.unisalab.it/codit/tboxER#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/codit/tboxER#"
+     xml:base="http://www.semanticweb.org/codit/tboxER"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:tboxER="http://www.unisalab.it/codit/tboxER#">
+    <owl:Ontology rdf:about="http://www.unisalab.it/codit/tboxER"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasAttribute -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasAttribute">
+        <rdfs:range rdf:resource="&tboxER;Attribute"/>
+        <rdfs:domain rdf:resource="&tboxER;Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasAttributeElement -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasAttributeElement">
+        <rdfs:range rdf:resource="&tboxER;Attribute"/>
+        <rdfs:domain rdf:resource="&tboxER;AttributeGroup"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasCardinality -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasCardinality">
+        <rdfs:range rdf:resource="&tboxER;Cardinalities"/>
+        <rdfs:domain rdf:resource="&tboxER;Relationship"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasChild -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasChild">
+        <rdfs:range rdf:resource="&tboxER;DaughterEntity"/>
+        <rdfs:domain rdf:resource="&tboxER;FatherEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasComAttribute -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasComAttribute">
+        <rdfs:range rdf:resource="&tboxER;Attribute"/>
+        <rdfs:domain rdf:resource="&tboxER;CompositeAttribute"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasDaughter -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasDaughter">
+        <rdfs:range rdf:resource="&tboxER;DaughterEntity"/>
+        <rdfs:domain rdf:resource="&tboxER;Hierarchy"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasDerivation -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasDerivation">
+        <rdfs:domain rdf:resource="&tboxER;Attribute"/>
+        <rdfs:range rdf:resource="&tboxER;DerivationFunction"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasElement -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasElement">
+        <rdfs:range rdf:resource="&tboxER;Element"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasEntity -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasEntity">
+        <rdfs:range rdf:resource="&tboxER;Entity"/>
+        <rdfs:domain rdf:resource="&tboxER;EntityGroup"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasFather -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasFather">
+        <rdfs:range rdf:resource="&tboxER;FatherEntity"/>
+        <rdfs:domain rdf:resource="&tboxER;Hierarchy"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasLinkWith -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasLinkWith">
+        <rdfs:range rdf:resource="&tboxER;Entity"/>
+        <rdfs:domain rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasRelation -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasRelation">
+        <rdfs:domain rdf:resource="&tboxER;RelationGroup"/>
+        <rdfs:range rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#hasRelationAttribute -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;hasRelationAttribute">
+        <rdfs:range rdf:resource="&tboxER;Attribute"/>
+        <rdfs:domain rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#isChildOf -->
+
+    <owl:ObjectProperty rdf:about="&tboxER;isChildOf">
+        <rdfs:domain rdf:resource="&tboxER;DaughterEntity"/>
+        <rdfs:range rdf:resource="&tboxER;FatherEntity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Locked -->
+
+    <owl:DatatypeProperty rdf:about="&tboxER;Locked"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Attribute -->
+
+    <owl:Class rdf:about="&tboxER;Attribute"/>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#AttributeGroup -->
+
+    <owl:Class rdf:about="&tboxER;AttributeGroup">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasAttributeElement"/>
+                <owl:onClass rdf:resource="&tboxER;Attribute"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Cardinalities -->
+
+    <owl:Class rdf:about="&tboxER;Cardinalities"/>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#CompositeAttribute -->
+
+    <owl:Class rdf:about="&tboxER;CompositeAttribute">
+        <rdfs:subClassOf rdf:resource="&tboxER;Attribute"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasComAttribute"/>
+                <owl:someValuesFrom rdf:resource="&tboxER;Attribute"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#DaughterEntity -->
+
+    <owl:Class rdf:about="&tboxER;DaughterEntity">
+        <rdfs:subClassOf rdf:resource="&tboxER;Entity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;isChildOf"/>
+                <owl:onClass rdf:resource="&tboxER;FatherEntity"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#DerivableAttribute -->
+
+    <owl:Class rdf:about="&tboxER;DerivableAttribute">
+        <rdfs:subClassOf rdf:resource="&tboxER;Attribute"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasDerivation"/>
+                <owl:someValuesFrom rdf:resource="&tboxER;DerivationFunction"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#DerivationFunction -->
+
+    <owl:Class rdf:about="&tboxER;DerivationFunction"/>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Element -->
+
+    <owl:Class rdf:about="&tboxER;Element"/>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Entity -->
+
+    <owl:Class rdf:about="&tboxER;Entity">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasAttribute"/>
+                <owl:someValuesFrom rdf:resource="&tboxER;Attribute"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#EntityGroup -->
+
+    <owl:Class rdf:about="&tboxER;EntityGroup">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasEntity"/>
+                <owl:onClass rdf:resource="&tboxER;Entity"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#FatherEntity -->
+
+    <owl:Class rdf:about="&tboxER;FatherEntity">
+        <rdfs:subClassOf rdf:resource="&tboxER;Entity"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasChild"/>
+                <owl:someValuesFrom rdf:resource="&tboxER;DaughterEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Hierarchy -->
+
+    <owl:Class rdf:about="&tboxER;Hierarchy">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasFather"/>
+                <owl:onClass rdf:resource="&tboxER;FatherEntity"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasDaughter"/>
+                <owl:onClass rdf:resource="&tboxER;DaughterEntity"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#NToMCardinality -->
+
+    <owl:Class rdf:about="&tboxER;NToMCardinality">
+        <rdfs:subClassOf rdf:resource="&tboxER;Cardinalities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#NtoMRelationship -->
+
+    <owl:Class rdf:about="&tboxER;NtoMRelationship">
+        <rdfs:subClassOf rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasCardinality"/>
+                <owl:onClass rdf:resource="&tboxER;NToMCardinality"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#OneToNCardinality -->
+
+    <owl:Class rdf:about="&tboxER;OneToNCardinality">
+        <rdfs:subClassOf rdf:resource="&tboxER;Cardinalities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#OneToNRelationship -->
+
+    <owl:Class rdf:about="&tboxER;OneToNRelationship">
+        <rdfs:subClassOf rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasCardinality"/>
+                <owl:onClass rdf:resource="&tboxER;OneToNCardinality"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#OneToOneCardinality -->
+
+    <owl:Class rdf:about="&tboxER;OneToOneCardinality">
+        <rdfs:subClassOf rdf:resource="&tboxER;Cardinalities"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#OneToOneRelationship -->
+
+    <owl:Class rdf:about="&tboxER;OneToOneRelationship">
+        <rdfs:subClassOf rdf:resource="&tboxER;Relationship"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasCardinality"/>
+                <owl:onClass rdf:resource="&tboxER;OneToOneCardinality"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#RelationGroup -->
+
+    <owl:Class rdf:about="&tboxER;RelationGroup">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasRelation"/>
+                <owl:onClass rdf:resource="&tboxER;Relationship"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.unisalab.it/codit/tboxER#Relationship -->
+
+    <owl:Class rdf:about="&tboxER;Relationship">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasLinkWith"/>
+                <owl:onClass rdf:resource="&tboxER;Entity"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&tboxER;hasRelationAttribute"/>
+                <owl:someValuesFrom rdf:resource="&tboxER;Attribute"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="&tboxER;AttributeGroup"/>
+            <rdf:Description rdf:about="&tboxER;EntityGroup"/>
+            <rdf:Description rdf:about="&tboxER;RelationGroup"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
+

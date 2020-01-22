@@ -1,35 +1,36 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Classe che gestisce i dati di una gerarchia
  * di un diagramma ER.
  */
 public class HierarchyBean {
-  private String sons;
+  private ArrayList<String> sons;
   private String father;
   private String posX;
   private String posY;
 
   /** Construttore della classe {@link HierarchyBean}.
    * @param father Nome dell'entita' padre
-   * @param sons Nome dell'entita' figlio
    * @param x Coorinata x della gerarchia
    * @param y Coordinata y della gerarchia
    */
-  public HierarchyBean(String father, String sons, String x, String y) {
+  public HierarchyBean(String father, String x, String y) {
     super();
     this.father = father;
-    this.sons = sons;
+    sons = new ArrayList<String>();
     this.posX = x;
     this.posY = y;
   }
 
-  public String getSons() {
+  public ArrayList<String> getSons() {
     return sons;
   }
 
-  public void setSons(String sons) {
-    this.sons = sons;
+  public void addSon(String son) {
+    sons.add(son);
   }
 
   public String getFather() {

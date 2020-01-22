@@ -76,7 +76,14 @@ public class JsonParser {
       for (int i = 0; i < hierarchies.size(); i++) {
         JSONObject obj = new JSONObject();
         obj.put("father", hierarchies.get(i).getFather());
-        obj.put("son", hierarchies.get(i).getSons());
+        
+        ArrayList<String> sons = hierarchies.get(i).getSons();
+        JSONArray sonsArray = new JSONArray();
+        for (int j = 0; j < sons.size(); j++) {
+          sonsArray.add(sons.get(j));
+        }
+        
+        obj.put("sons", sons);
         obj.put("x", hierarchies.get(i).getX());
         obj.put("y", hierarchies.get(i).getY());
 

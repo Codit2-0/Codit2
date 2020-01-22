@@ -199,30 +199,28 @@ function loadSchemaER(xmlhttp) {
    i+=2;
  }
  
- i = 0;
- while(data.hierarchy[i] != null){
- j = 0;
- var test = true;
- while(gerarchia[j] != null){
-  if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
-  j++;
- }
- if(test == true) gerarchia.push({father:data.hierarchy[i].father});
- i++;
- }
+//  i = 0;
+//  while(data.hierarchy[i] != null){
+//  j = 0;
+//  var test = true;
+//  while(gerarchia[j] != null){
+// 	 if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
+// 	 j++;
+// 	 }
+// 	 if(test == true) gerarchia.push({father:data.hierarchy[i].father});
+// 	 i++;
+//  }
  
  i = 0;
- while(gerarchia[i] != null){
- j = 0;
- nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70,xS: data.hierarchy[i].x,yS: data.hierarchy[i].y});
- links.push({source: gerarchia[i].father, target: i, value: 1, force:200});
- while(data.hierarchy[j] != null){
-  if(gerarchia[i].father == data.hierarchy[j].father){
-   links.push({source: data.hierarchy[j].son, target: i, value: 1, force:50});
-  }
-  j++;
- }
- i++;
+ while(data.hierarchy[i] != null){
+	 j = 0;
+	 nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70,xS: data.hierarchy[i].x,yS: data.hierarchy[i].y});
+	 links.push({source: data.hierarchy[i].father, target: i, value: 1, force:200});
+	 while(data.hierarchy[i].sons[j] != null){	  
+	   links.push({source: data.hierarchy[i].sons[j], target: i, value: 1, force:50});
+	  j++;
+	 }
+	 i++;
  }
  
  var t = 0
@@ -496,10 +494,11 @@ svgContainer.onmousewheel = function(e) {
 			 var my = e.y;    
 			 var dw = w*Math.sign(e.deltaY)*0.05;
 			 var dh = h*Math.sign(e.deltaY)*0.05;
-			 var dx = dw*mx/svgSize.w;
+			 var dx = dw*mx/svgSize.w;			 
 			 var dy = dh*my/svgSize.h;
 			 viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
 			 scale = svgSize.w/viewBox.w;
+			 console.log(dx, dh);
 		 	 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 		}
 }
@@ -507,20 +506,25 @@ svgContainer.onmousewheel = function(e) {
 	document.getElementById("zoomIn").addEventListener("click", function() {
     if (scale < 1) {
 			scale += scaleStep;
-			
-			 var dw = svgSize.w/scale;
-			 var dh = svgSize.h/scale;
-			 var dx = dw*mx/svgSize.w;
-			 var dy = dh*my/svgSize.h;
-			
-			viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
+			var dw = svgSize.w/(scale);
+			var dh = svgSize.h/(scale);
+			var dx = (viewBox.w - dw)*(viewBox.w/2)/svgSize.w;
+			var dy = (viewBox.h - dh)*(viewBox.h/2)/svgSize.h;
+			viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w: dw,h: dh};
+			scale = svgSize.w/viewBox.w;
 	    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     }
   });
   document.getElementById("zoomOut").addEventListener("click", function() {
-    if (scale > scaleStep) {
-      scale -= scaleStep;
-      document.getElementById("svgImage").style.transform = "scale(" + scale + ")";
+		if (scale > scaleStep) {
+		  scale -= scaleStep;
+			var dw = svgSize.w/(scale/2);
+			var dh = svgSize.h/(scale/2);
+			var dx = (dw - viewBox.w)*(viewBox.w/2)/svgSize.w;
+			var dy = (dh - viewBox.h)*(viewBox.h/2)/svgSize.h;
+			viewBox = {x:viewBox.x-dx,y:viewBox.y-dy,w: dw,h: dh};
+			scale = svgSize.w/viewBox.w;
+   		svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     }
   });
   
