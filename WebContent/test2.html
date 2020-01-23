@@ -448,7 +448,10 @@ function loadSchemaER(xmlhttp) {
       	});
 
   	node.attr("transform", function(d) {
-  			if(d.xS != "n"){return "translate(" + d.xS + "," + d.yS + ")";}
+  			if(d.xS != "n"){
+  					d.x = parseFloat(d.xS);
+  					d.y = parseFloat(d.yS);
+  				return "translate(" + d.x + "," + d.y + ")";}
  			else{return "translate(" + d.x + "," + d.y + ")";}
   		})
  }
@@ -460,8 +463,19 @@ function loadSchemaER(xmlhttp) {
  }
 
  function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
+	 if(d.xS == "n"){
+	  d.fx = d3.event.x;
+	  d.fy = d3.event.y;
+	 }else{
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		  d.xS = String(d.fx);
+		  d.yS = String(d.fy);
+	 }
+	 
+	 console.log(d3.event.x);
+  	 console.log(d);
+  
  }
 
  d3.select(".card-body").style("display", "none");

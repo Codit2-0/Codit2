@@ -89,8 +89,12 @@ public class SavePosition extends HttpServlet {
       fileRead = new File("copyFileDatabase1.xmi"); 
       nomeFile = (String) sessione.getAttribute("NomeFile1");
       nomeFile = nomeFile.substring(0,nomeFile.indexOf(".xmi"));
+      if(nomeFile.indexOf("_riposizionato") == -1) {
       nomeFile = nomeFile + "_riposizionato" + timeStamp + ".xmi";
+      } else {
+          nomeFile = nomeFile + timeStamp + ".xmi";
 
+      }
     }
 
     int sl = 0;
@@ -126,7 +130,14 @@ public class SavePosition extends HttpServlet {
     while ((st = br.readLine()) != null) {
       riga++;
       if (riga == 2) {
+    	  if(st.indexOf("<version") == -1) {
         fileModificato += "<version v=\"" + timeStamp + "\"/>\n";
+    	  }else {
+    		  prima = st.substring(0, st.indexOf("=")+1);
+    		  dopo = st.substring(st.indexOf("/>"));
+    		  
+    		  fileModificato += prima + timeStamp + dopo +"\n";
+    	  }
       }
       //Caso in cui è un'entità o un attributo
       if (st.indexOf("name=") != -1 && st.indexOf("name=") <= 200) {
