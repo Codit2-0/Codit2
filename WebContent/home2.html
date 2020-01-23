@@ -330,14 +330,14 @@
 <!-- Gestione della parte grafica -->
 <script type="text/javascript">
 	
-	<!-- Funzione che serve a riciamre inserisciOperazione di modo che quando si fa il refresh e vengono caricati
-	i database vengono inserite anche le oparazioni in sessione e colorati gli elementi delle operazioni. -->
+	/* Funzione che serve a riciamre inserisciOperazione di modo che quando si fa il refresh e vengono caricati
+	i database vengono inserite anche le oparazioni in sessione e colorati gli elementi delle operazioni. */
 	function explode2(){
 		inserisciOperazione("null");
 	}
 	setTimeout(explode2, 3500);
 	
-	<!-- Recupera i dati da JSONOperazioni e invia a loadScemaER() il JSON -->
+	/* Recupera i dati da JSONOperazioni e invia a loadScemaER() il JSON */
 	function inserisciOperazione(img) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -347,8 +347,8 @@
 		xmlhttp.send();		
 	}
 	
-	<!-- Con il JSON recuperato da inserisciOperazione() inserisce le operazioni nella colonna centrale, nello storico (barra laterale)
-	e tinge gli elementi del database del colore delle operazioni corrispettive -->
+	/* Con il JSON recuperato da inserisciOperazione() inserisce le operazioni nella colonna centrale, nello storico (barra laterale)
+	e tinge gli elementi del database del colore delle operazioni corrispettive */
 	function loadSchemaER(xmlhttp) {
 		var data = JSON.parse(xmlhttp.responseText);
 		document.getElementById("operatoriSelezionati").innerHTML = "";
@@ -448,7 +448,7 @@
 
 	}
 	
-	<!-- Funzione per eliminare le operazioni nello storico, l'eliminazione poi avviene dovunque, quindi barra centrale e in sessine -->
+	/* Funzione per eliminare le operazioni nello storico, l'eliminazione poi avviene dovunque, quindi barra centrale e in sessine */
 	function elimina(btn) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -476,13 +476,13 @@
 					
 					var j = 0;
 					while(array1[j]!= null){
-						inside1.getElementById(array1[j].nome).style.stroke = "#ffffff";
+						inside1.getElementById(frame2[i].name).style.strokeWidth = 150;
 						j++;
 					}
 					
 					j = 0;
 					while(array2[j]!= null){
-						inside2.getElementById(array2[j].nome).style.stroke = "#ffffff";
+						inside2.getElementById(frame2[i].name).style.strokeWidth = 150;
 						j++;
 					}
 					i++;
@@ -494,9 +494,9 @@
 		xmlhttp.send();
 	}
 	
-	<!-- Funzione che ti permette di scegliere tra destra e sinistra gli operandi, tinge ancge gli elementi selezionati e tutte le info
+	/* Funzione che ti permette di scegliere tra destra e sinistra gli operandi, tinge ancge gli elementi selezionati e tutte le info
 	sull'operazione in questione la selva in sessione, quindi numero dell'operazione rispetto all'ordine cronologico, il colore, gli 
-	elementi a cui fa riferimento e la scelta(destra/sinistra). Questa funzione viene utilizzata anche per cambiare operazione-->
+	elementi a cui fa riferimento e la scelta(destra/sinistra). Questa funzione viene utilizzata anche per cambiare operazione*/
 	function scelta(btn,colore) {	
 		var op = btn.substring(11);
 		var scelta = btn.substring(2, 3);
@@ -582,13 +582,13 @@
 		sessionStorage.setItem("frame2", "");
 	}
 	
-	<!-- -->
+	
 	function iframeRef( frameRef ) {
 	    return frameRef.contentWindow? frameRef.contentWindow.document: frameRef.contentDocument;
 	}
 	
 	
-	<!-- Funzione per il refresh del database 1 -->
+	/* Funzione per il refresh del database 1 */
 	function refresh1() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -608,7 +608,7 @@
 					
 					var j = 0;
 					while(array2[j]!= null){
-						inside2.getElementById(array2[j].nome).style.stroke = "#ffffff";
+						inside2.getElementById(frame2[i].name).style.strokeWidth = 0;
 						j++;
 					}
 					i++;
@@ -627,7 +627,7 @@
 		iframe.src = iframe.src;
 	}
 
-	<!-- Funzione per il refresh del database 2 -->
+	/* Funzione per il refresh del database 2 */
 	function refresh2() {	
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -646,7 +646,7 @@
 					
 					var j = 0;
 					while(array1[j]!= null){
-						inside1.getElementById(array1[j].nome).style.stroke = "#ffffff";
+						inside1.getElementById(frame2[i].name).style.strokeWidth = 0;
 						j++;
 					}
 					
@@ -666,7 +666,7 @@
 		iframe.src = iframe.src;
 	}
 	
-	<!-- Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition1Servlet() -->
+	/* Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition1Servlet() */
 	function savePosition1(){
 		var xmlhttp = new XMLHttpRequest();
  		xmlhttp.onreadystatechange = function() {
@@ -678,7 +678,7 @@
  		xmlhttp.send(formData);
 	}
 	
-	<!-- Funzione per salvare le posizioni degli elementi del database 1 -->
+	/* Funzione per salvare le posizioni degli elementi del database 1 */
 	function savePosition1Servlet(xmlhttp){
 		var nodes = [];
 		var gerarchia = [];
@@ -764,7 +764,7 @@
 		 	alert("File salvato in cartella Codit"); 
 	}
 	
-	<!-- Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition2Servlet() -->
+	/* Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition2Servlet() */
 	function savePosition2(){
 		var xmlhttp = new XMLHttpRequest();
  		xmlhttp.onreadystatechange = function() {
@@ -776,7 +776,7 @@
  		xmlhttp.send(formData);
 	}
 	
-	<!-- Funzione per salvare le posizioni degli elementi del database 1 -->
+	/* Funzione per salvare le posizioni degli elementi del database 1 */
 	function savePosition2Servlet(xmlhttp){
 		var nodes = [];
 		var gerarchia = [];
@@ -857,7 +857,7 @@
 		alert("File salvato in cartella Codit");
 	}
 	
-	<!-- Funzione per flirtare le operazioni selezionabili nel modal -->
+	/* Funzione per flirtare le operazioni selezionabili nel modal */
 	function filtro() {
 		d3.select('#btn1').style('display', 'none');
 		d3.select('#btn2').style('display', 'none');
