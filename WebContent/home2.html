@@ -578,8 +578,12 @@
 			xmlhttp.send();
 		}
 		
-		sessionStorage.setItem("frame1", "");
-		sessionStorage.setItem("frame2", "");
+	    selectedNodes = JSON.parse(sessionStorage.getItem("frame1"));
+	   	for(var i=0; i < selectedNodes.length; i++) {
+	  		selectedNodes.splice(i, i+1);
+	   	}	 
+	    sessionStorage.setItem("frame1", JSON.stringify(selectedNodes));
+	    sessionStorage.setItem("frame2", JSON.stringify(selectedNodes));
 	}
 	
 	
@@ -619,7 +623,13 @@
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe1", "");
-		sessionStorage.setItem("frame1", null);
+		selectedNodes = JSON.parse(sessionStorage.getItem("frame1"));
+	   	for(var i=0; i < selectedNodes.length; i++) {
+	  		selectedNodes.splice(i, i+1);
+	   	}	 
+	    sessionStorage.setItem("frame1", JSON.stringify(selectedNodes));
+	    sessionStorage.setItem("frame2", JSON.stringify(selectedNodes));
+
 		document.getElementById("tutteOpLato").innerHTML = "";
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 	
@@ -658,7 +668,12 @@
 		xmlhttp.send();
 		
 		sessionStorage.setItem("Nframe2", "");
-		sessionStorage.setItem("frame2", null);
+		selectedNodes = JSON.parse(sessionStorage.getItem("frame1"));
+	   	for(var i=0; i < selectedNodes.length; i++) {
+	  		selectedNodes.splice(i, i+1);
+	   	}	 
+	    sessionStorage.setItem("frame1", JSON.stringify(selectedNodes));
+	    sessionStorage.setItem("frame2", JSON.stringify(selectedNodes));
 		document.getElementById("tutteOpLato").innerHTML = "";
 		document.getElementById("operatoriSelezionati").innerHTML = "";
 		
