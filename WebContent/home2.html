@@ -8,23 +8,26 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  
   <!-- per la scomparsa del menu laterale -->
   <style>
-    @media (min-width: 992px) {
-      .sidebar-mini.sidebar-collapse .main-sidebar {
-        width: 0;
-      }
-      .sidebar-mini.sidebar-collapse .main-header,
-      .sidebar-mini.sidebar-collapse .content-wrapper {
-        margin-left: 0 !important;
-      }
+  	@media (min-width: 992px) {
+		.sidebar-mini.sidebar-collapse .main-sidebar {
+        	width: 0;
+      	}
+      	
+      	.sidebar-mini.sidebar-collapse .main-header,
+      	.sidebar-mini.sidebar-collapse .content-wrapper {
+        	margin-left: 0 !important;
+      	}
     }
   </style>
+  
   <!-- style della pagina -->
   <style>
-  iframe {
-  	overflow: hidden;
-  }
+  	iframe {
+  		overflow: hidden;
+  	}
   
   	ul.operatori {
   		padding: 0;
@@ -34,6 +37,7 @@
   		font-size: 1.2em;
   		color: #8c858d
   	}
+  	
   	.operatore {
   		margin-bottom: 0.3em;
   		padding-top: 0.2em;
@@ -41,22 +45,24 @@
   	}
   	
   	.operatori .btn-default {
-    max-width:36%;
-    display: inline-block;
-   } 
+    	max-width:36%;
+    	display: inline-block;
+   	} 
    
-   .operatori .trash {
-    max-width:20%;
-    max-height:20%;
-    display: inline-block;
-   }
+   	.operatori .trash {
+    	max-width:20%;
+    	max-height:20%;
+    	display: inline-block;
+   	}
    	
   	.operatori button {
   		width: 100%;
   	}
+  	
   	img {
   		max-width: 100%;
   	}
+  	
   	.card-body {
   		padding-left: 0.2rem !important;
   		padding-right: 0.2rem !important;
@@ -74,185 +80,205 @@
   	}
   	
   	.icona:first-of-type {
-			left: 18px;
-		}
+  		left: 18px;
+	}
 		
-		.icona:nth-of-type(2) {
-			left: 50px;
-		}
+	.icona:nth-of-type(2) {
+		left: 50px;
+	}
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
     
-    <button id="op" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl"  onclick="filtro()" disabled>
-      Operazioni
-    </button>
-  </nav>
+    	<!-- Left navbar links -->
+    	<ul class="navbar-nav">
+    		<li class="nav-item">
+        		<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      		</li>
+    	</ul>
 
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <div class="brand-link align-content-center">
-      <a href="home.html">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-        <span class="brand-text font-weight-light">Codit 2.0</span>
-      </a>
-    </div>
+	    <!-- Bottone delle operazioni -->
+    	<button id="op" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-xl"  onclick="filtro()" disabled>
+    		Operazioni
+    	</button>
+  	</nav>
+  	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    	<!-- Brand Logo -->
+    	<div class="brand-link align-content-center">
+      		<a href="home.html">
+        		<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        		<span class="brand-text font-weight-light">Codit 2.0</span>
+      		</a>
+    	</div>
 		
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >  
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>Operazioni salvate<i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview operatori" id="tutteOpLato">
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-  <div class="content-wrapper">
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <!-- Database sinistro -->
-          <div class="col-lg-5">
-            <div class="card-body">
-              <iframe id="db1" class="col-12 border-primary" src="test2.html">
-              </iframe>
-            </div>
-             <button id = "bS1" class="btn icona"  onclick="savePosition1()" disabled>
-              	<img class="icona" src="icone/save.png"> 
-             </button>
-             <button id = "bR1" class="btn icona"  onclick="refresh1()" disabled>
-              	<img class="icona" src="icone/reload.png"> 
-             </button>
+    	<!-- Sidebar -->
+    	<div class="sidebar">
+ 
+      		<!-- Sidebar Menu -->
+      		<nav class="mt-2">
+        		<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" >  
+          			<li class="nav-item has-treeview">
+            			<a href="#" class="nav-link">
+              				<i class="nav-icon fas fa-chart-pie"></i>
+              				<p>Operazioni salvate<i class="right fas fa-angle-left"></i></p>
+            			</a>
+            			<ul class="nav nav-treeview operatori" id="tutteOpLato">
+            			</ul>
+          			</li>
+        		</ul>
+      		</nav>
+    	</div>
+  	</aside>
+  	<div class="content-wrapper">
+ 		<section class="content">
+      		<div class="container-fluid">
+        		<div class="row">
+        
+		        	<!-- Database sinistro -->
+          			<div class="col-lg-5">
+            			<div class="card-body">
+              				<iframe id="db1" class="col-12 border-primary" src="test2.html">
+              				</iframe>
+            			</div>
             
-          </div>
-          <!-- Sezione operazioni -->
-          <div class="col-lg-2">
-          	<div class="card-header border-0">
-              <div class="d-flex justify-content-between">
-              </div>
-            </div>
-          	<div class="card-body">
-		         	<ul class="operatori" id="operatoriSelezionati">
-		         	</ul>
-	         	</div>
-          </div>
-          <!-- Database destro -->
-          <div class="col-lg-5">
-            <div class="card-body" >
-              <iframe id="db2" class="col-12 border-primary" src="test2.html">
-              </iframe>
-               <button id = "bS2" class="btn icona"  onclick="savePosition2()" disabled>
-              	<img class="icona" src="icone/save.png"> 
-             </button>
-             <button id = "bR2" class="btn icona"  onclick="refresh2()" disabled>
-              	<img class="icona" src="icone/reload.png"> 
-             </button>  </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            			<!-- Bottone salvataggio database sinistro -->
+            			<button id = "bS1" class="btn icona"  onclick="savePosition1()" disabled>
+            				<img class="icona" src="icone/save.png"> 
+            			</button>
+            
+            			<!-- Bottone reset database sinistro -->
+            			<button id = "bR1" class="btn icona"  onclick="refresh1()" disabled>
+            				<img class="icona" src="icone/reload.png"> 
+            			</button>
+          			</div>
+          
+          			<!-- Sezione operazioni -->
+					<div class="col-lg-2">
+          				<div class="card-header border-0">
+              				<div class="d-flex justify-content-between">
+              				</div>
+            			</div>
+          				<div class="card-body">
+		    				<ul class="operatori" id="operatoriSelezionati">
+		       				</ul>
+	        			</div>
+          			</div>
+          
+          			<!-- Database destro -->
+          			<div class="col-lg-5">
+	            		<div class="card-body" >
+              				<iframe id="db2" class="col-12 border-primary" src="test2.html">
+              				</iframe>
+              			</div>
+              
+						<!-- Bottone salvataggio database destro -->
+             			<button id = "bS2" class="btn icona"  onclick="savePosition2()" disabled>
+              				<img class="icona" src="icone/save.png"> 
+             			</button>
+             
+             			<!-- Bottone salvataggio database sinistro -->
+             			<button id = "bR2" class="btn icona"  onclick="refresh2()" disabled>
+              				<img class="icona" src="icone/reload.png"> 
+             			</button>  
+          			</div>
+        		</div>
+      		</div>
+    	</section>
+  	</div>
 
-  </div>
-
-  <div class="modal fade" id="modal-xl">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Operazioni disponibili</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <button id="btn1" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine1.png')">
-            <img src="imgFunzioni/Immagine1.png" alt="Derivable right">
-          </button>
-          <button id="btn2" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine2.png')">
-            <img src="imgFunzioni/Immagine2.png" alt="Derivable right">
-          </button>
-          <button id="btn3" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine3.png')">
-            <img src="imgFunzioni/Immagine3.png" alt="Derivable right">
-          </button>
-          <button id="btn4" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine4.png')">
-            <img src="imgFunzioni/Immagine4.png" alt="Derivable right">
-          </button>
-          <button id="btn5" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine5.png')">
-            <img src="imgFunzioni/Immagine5.png" alt="Derivable right">
-          </button>
-          <button id="btn6" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine6.png')">
-            <img src="imgFunzioni/Immagine6.png" alt="Derivable right">
-          </button>
-          <button id="btn7" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine7.png')">
-            <img src="imgFunzioni/Immagine7.png" alt="Derivable right">
-          </button>
-          <button id="btn8" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine8.png')">
-            <img src="imgFunzioni/Immagine8.png" alt="Derivable right">
-          </button>
-          <button id="btn9" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine9.png')">
-            <img src="imgFunzioni/Immagine9.png" alt="Derivable right">
-          </button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+  	<div class="modal fade" id="modal-xl">
+   		<div class="modal-dialog modal-xl">
+      		<div class="modal-content">
+        		<div class="modal-header">
+          			<h4 class="modal-title">Operazioni disponibili</h4>
+          			
+          			<!-- Bottone per finestra operazioni -->
+          			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            			<span aria-hidden="true">&times;</span>
+          			</button>
+        		</div>
+        			
+        		<!-- Modal operazioni -->
+        		<div class="modal-body">
+          			<button id="btn1" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine1.png')">
+            			<img src="imgFunzioni/Immagine1.png" alt="Derivable right">
+          			</button>
+          			<button id="btn2" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine2.png')">
+            			<img src="imgFunzioni/Immagine2.png" alt="Derivable right">
+          			</button>
+          			<button id="btn3" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine3.png')">
+            			<img src="imgFunzioni/Immagine3.png" alt="Derivable right">
+          			</button>
+          			<button id="btn4" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine4.png')">
+            			<img src="imgFunzioni/Immagine4.png" alt="Derivable right">
+          			</button>
+          			<button id="btn5" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine5.png')">
+            			<img src="imgFunzioni/Immagine5.png" alt="Derivable right">
+          			</button>
+          			<button id="btn6" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine6.png')">
+            			<img src="imgFunzioni/Immagine6.png" alt="Derivable right">
+          			</button>
+          			<button id="btn7" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine7.png')">
+            			<img src="imgFunzioni/Immagine7.png" alt="Derivable right">
+          			</button>
+          			<button id="btn8" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine8.png')">
+            			<img src="imgFunzioni/Immagine8.png" alt="Derivable right">
+          			</button>
+          			<button id="btn9" type="button" class="btn btn-default" onclick="inserisciOperazione('imgFunzioni/Immagine9.png')">
+            			<img src="imgFunzioni/Immagine9.png" alt="Derivable right">
+          			</button>
+        		</div>
+      		</div>
+	    </div>
+	</div>
 </div>
+
 <!-- D3.js -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
+
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
+
 <!-- Sparkline -->
 <script src="plugins/sparklines/sparkline.js"></script>
+
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+	$.widget.bridge('uibutton', $.ui.button)
+</script>
+
 <script type="text/javascript">
-  $(document).ready(function () {
-    bsCustomFileInput.init();
-    var inside1 = iframeRef(document.getElementById('db1'));
-	var inside2 = iframeRef(document.getElementById('db2'));
-	inside1.getElementById("Nomeframe").value = "Nframe1";
-	inside2.getElementById("Nomeframe").value = "Nframe2";
-	inside1.getElementById("frame").value = "frame1";
-	inside2.getElementById("frame").value = "frame2";
-  });
+	
+	<!-- Script che imposta i valori dei tag input con id Nomeframe e frame nel frame1 e frame2 quando carica il documento -->
+	$(document).ready(function () {
+		bsCustomFileInput.init();
+    	var inside1 = iframeRef(document.getElementById('db1'));
+		var inside2 = iframeRef(document.getElementById('db2'));
+		inside1.getElementById("Nomeframe").value = "Nframe1";
+		inside2.getElementById("Nomeframe").value = "Nframe2";
+		inside1.getElementById("frame").value = "frame1";
+		inside2.getElementById("frame").value = "frame2";
+	});
   
-  $(document).mouseover(function() {
+	<!-- Script che imposta evento mouseover sulla pagina per controllare i valori per attivare i bottoni save, delete e operazioni  -->
+  	$(document).mouseover(function() {
 		var Nframe1 = sessionStorage.getItem('Nframe1');
-	    if(Nframe1 == "Nframe1"){document.getElementById("bS1").disabled=false;document.getElementById("bR1").disabled=false;}
+	   	if(Nframe1 == "Nframe1"){document.getElementById("bS1").disabled=false;document.getElementById("bR1").disabled=false;}
 	    else{document.getElementById("bS1").disabled=true;document.getElementById("bR1").disabled=true;}	
 	    
 	    var Nframe2 = sessionStorage.getItem('Nframe2');
@@ -262,20 +288,19 @@
 	    var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
 		if(frame1 != null && frame2 != null){document.getElementById("op").disabled=false;}
-	    else{document.getElementById("op").disabled=true;}
-	    
-		
-});
+	    else{document.getElementById("op").disabled=true;}		
+	});
 </script>
-<!-- script per il dimensionamento degli iframe -->
+
+<!-- Script per il dimensionamento degli iframe -->
 <script type="text/javascript">
-    $('iframe').on('resize', function() {
-      // $('iframe').height( $('iframe').width() *80/100);
+	$('iframe').on('resize', function() {
     	$('iframe').height($(document).height() * 83/100);
     }).trigger('resize');
 </script>
+
+<!-- Script che setta una variabile nei frame per distinguerli -->
 <script src="dist/js/adminlte.js"></script>
-<!-- script che setta una variabile nei frame per distinguerli -->
 <script type="text/javascript">
 	$('#db1').on('load', function () {
 		var iframe1 = document.getElementById('db1');
@@ -288,6 +313,7 @@
 		var inside1 = iframeRef(document.getElementById('db1'));
 		inside1.getElementById("Nomeframe").value = "Nframe1";
 	});
+	
 	$('#db2').on('load', function () {
 		var iframe2 = document.getElementById('db2');
 		var docIframe = (iframe2.contentWindow || iframe2.contentDocument);
@@ -300,13 +326,18 @@
 		inside2.getElementById("Nomeframe").value = "Nframe2";
 	});
 </script>
-<!-- gestione del modal -->
+
+<!-- Gestione della parte grafica -->
 <script type="text/javascript">
 	
+	<!-- Funzione che serve a riciamre inserisciOperazione di modo che quando si fa il refresh e vengono caricati
+	i database vengono inserite anche le oparazioni in sessione e colorati gli elementi delle operazioni. -->
 	function explode2(){
-	  inserisciOperazione("null");
+		inserisciOperazione("null");
 	}
 	setTimeout(explode2, 3500);
+	
+	<!-- Recupera i dati da JSONOperazioni e invia a loadScemaER() il JSON -->
 	function inserisciOperazione(img) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -315,6 +346,9 @@
 		xmlhttp.open("POST", "JSONOperazioni?op=" + img, true);	
 		xmlhttp.send();		
 	}
+	
+	<!-- Con il JSON recuperato da inserisciOperazione() inserisce le operazioni nella colonna centrale, nello storico (barra laterale)
+	e tinge gli elementi del database del colore delle operazioni corrispettive -->
 	function loadSchemaER(xmlhttp) {
 		var data = JSON.parse(xmlhttp.responseText);
 		document.getElementById("operatoriSelezionati").innerHTML = "";
@@ -359,10 +393,6 @@
 			}
 			i++;
 		}
-		
-		
-		
-		
 		i = 0;
 		while(data[i] != null) {
 			var inside1 = iframeRef(document.getElementById('db1'));
@@ -418,6 +448,7 @@
 
 	}
 	
+	<!-- Funzione per eliminare le operazioni nello storico, l'eliminazione poi avviene dovunque, quindi barra centrale e in sessine -->
 	function elimina(btn) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -461,9 +492,12 @@
 		}
 		xmlhttp.open("POST", "EliminaOperazione?op=" + btn, true);	
 		xmlhttp.send();
-}
-function scelta(btn,colore) {
-		
+	}
+	
+	<!-- Funzione che ti permette di scegliere tra destra e sinistra gli operandi, tinge ancge gli elementi selezionati e tutte le info
+	sull'operazione in questione la selva in sessione, quindi numero dell'operazione rispetto all'ordine cronologico, il colore, gli 
+	elementi a cui fa riferimento e la scelta(destra/sinistra). Questa funzione viene utilizzata anche per cambiare operazione-->
+	function scelta(btn,colore) {	
 		var op = btn.substring(11);
 		var scelta = btn.substring(2, 3);
 		var tipo = btn.substring(0,1);
@@ -547,12 +581,14 @@ function scelta(btn,colore) {
 		sessionStorage.setItem("frame1", "");
 		sessionStorage.setItem("frame2", "");
 	}
+	
+	<!-- -->
 	function iframeRef( frameRef ) {
 	    return frameRef.contentWindow? frameRef.contentWindow.document: frameRef.contentDocument;
 	}
 	
 	
-	
+	<!-- Funzione per il refresh del database 1 -->
 	function refresh1() {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
@@ -589,13 +625,10 @@ function scelta(btn,colore) {
 	
 		var iframe = document.getElementById('db1');
 		iframe.src = iframe.src;
-		
-		
-		
 	}
-	//!!!!!MODIFICATA!!!!!!!!
+
+	<!-- Funzione per il refresh del database 2 -->
 	function refresh2() {	
-	
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -631,9 +664,9 @@ function scelta(btn,colore) {
 		
 		var iframe = document.getElementById('db2');
 		iframe.src = iframe.src;
-		
-		
-	}	
+	}
+	
+	<!-- Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition1Servlet() -->
 	function savePosition1(){
 		var xmlhttp = new XMLHttpRequest();
  		xmlhttp.onreadystatechange = function() {
@@ -643,77 +676,66 @@ function scelta(btn,colore) {
  		formData.append("presente", "Nframe1");
  		xmlhttp.open("POST", "JSONSchemaER", true);
  		xmlhttp.send(formData);
- 		
- 		
-
 	}
 	
+	<!-- Funzione per salvare le posizioni degli elementi del database 1 -->
 	function savePosition1Servlet(xmlhttp){
-		
 		var nodes = [];
 		var gerarchia = [];
 		var data = JSON.parse(xmlhttp.responseText);
-
-			var i = 0;
-			 while(data.entity[i] != null){
-			  var j = 0;
-			  nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120});
-			  while(data.entity[i].attributes[j] != null){
-			   var w = 0, control = true;
-			   while(nodes[w] != null){
-			    if(data.entity[i].attributes[j] == nodes[w].id) control = false;
-			    w++;
-			   }
-			   if(control == true) {
-			    nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
-			   }
-			   else {
-			    nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
-			   }
+		var i = 0;
+			while(data.entity[i] != null){
+				var j = 0;
+			  	nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120});
+			  	while(data.entity[i].attributes[j] != null){
+			   		var w = 0, control = true;
+			   		while(nodes[w] != null){
+			    		if(data.entity[i].attributes[j] == nodes[w].id) control = false;
+			    		w++;
+			   		}
+			   		if(control == true) {
+			    		nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
+			   		}else {
+			    		nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
+			   		} 
+			   		j++;
+			  	}
+			  	i++;
+			}
 			   
-			   j++;
-			  }
-			  i++;
-			 }
-			  
-			 
-			 i = 0;
-			 while(data.association[i] != null){
+			i = 0;
+			while(data.association[i] != null){
 				j = 0;
-			   while( data.association[i].entity[j] != null){
-			    j++;
-			   }
-			   nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
-			   i+=2;
-			 }
+			   	while( data.association[i].entity[j] != null){
+			    	j++;
+			   	}
+			   	nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
+			   	i+=2;
+			}
 			 
-			 i = 0;
-			 while(data.hierarchy[i] != null){
-			 j = 0;
-			 var test = true;
-			 while(gerarchia[j] != null){
-			  if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
-			  j++;
-			 }
-			 if(test == true) gerarchia.push({father:data.hierarchy[i].father});
-			 i++;
-			 }
+			i = 0;
+		 	while(data.hierarchy[i] != null){
+				j = 0;
+			 	var test = true;
+			 	while(gerarchia[j] != null){
+			  		if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
+			  		j++;
+			 	}
+			 	if(test == true) gerarchia.push({father:data.hierarchy[i].father});
+			 	i++;
+			}
 			 
-			 i = 0;
-			 while(gerarchia[i] != null){
-
-			 nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
-
-			 i++;
-			 }
+			i = 0;
+			while(gerarchia[i] != null){
+				nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
+				i++;
+			}
 			 
 		    var inside1 = iframeRef(document.getElementById('db1'));
-			 var k = 0;
-			 var nomi="", x="", y="";
-			 while(nodes[k] != null){
-				 
+			var k = 0;
+			var nomi="", x="", y="";
+			while(nodes[k] != null){	 
 				nomi+=nodes[k].id+"__";
-				
 				var div = inside1.getElementById(nodes[k].id);
 				var rect = div.getBoundingClientRect();
 				var scale = sessionStorage.getItem("scale");
@@ -731,26 +753,18 @@ function scelta(btn,colore) {
 					pos = ((scale/10)/2.2)*10;
 				}
 				var viewBox = sessionStorage.getItem("viewBox");
-				//x+=""+(rect.left * scale)\viewBox+"_";
-				//y+=""+(rect.top * scale)\viewBox+"_";
 				x+=""+rect.left*pos+"_";
 				y+=""+rect.top*pos+"_";
-				console.log("Nodo: "+nodes[k].id+" x=" + rect.left + ", y=" + rect.top);
-				 
 				k++;
-			 }
+			}
 			 
-
-			 
-			 var xmlhttp = new XMLHttpRequest();
-		 		xmlhttp.open("POST", "SavePosition?nomi="+nomi+"&x="+x+"&y="+y+"&url=Nframe1", true);
-		 		xmlhttp.send();
-		 		
-		 		alert("File salvato in cartella Codit");
-			 
-			
+			var xmlhttp = new XMLHttpRequest();
+		 	xmlhttp.open("POST", "SavePosition?nomi="+nomi+"&x="+x+"&y="+y+"&url=Nframe1", true);
+		 	xmlhttp.send();
+		 	alert("File salvato in cartella Codit"); 
 	}
 	
+	<!-- Funzione per recuperare dati con JSONSchemaER per poi passare il JSON generato a savePosition2Servlet() -->
 	function savePosition2(){
 		var xmlhttp = new XMLHttpRequest();
  		xmlhttp.onreadystatechange = function() {
@@ -762,109 +776,89 @@ function scelta(btn,colore) {
  		xmlhttp.send(formData);
 	}
 	
-	
+	<!-- Funzione per salvare le posizioni degli elementi del database 1 -->
 	function savePosition2Servlet(xmlhttp){
 		var nodes = [];
 		var gerarchia = [];
 		var data = JSON.parse(xmlhttp.responseText);
-
-			var i = 0;
-			 while(data.entity[i] != null){
-			  var j = 0;
-			  nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120});
-			  while(data.entity[i].attributes[j] != null){
-			   var w = 0, control = true;
-			   while(nodes[w] != null){
-			    if(data.entity[i].attributes[j] == nodes[w].id) control = false;
-			    w++;
-			   }
-			   if(control == true) {
-			    nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
-			   }
-			   else {
-			    nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
-			   }
-			   
-			   j++;
-			  }
-			  i++;
-			 }
-			  
-			 
-			 i = 0;
-			 while(data.association[i] != null){
-				j = 0;
-			   while( data.association[i].entity[j] != null){
-			    j++;
-			   }
-			   nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
-			   i+=2;
-			 }
-			 
-			 i = 0;
-			 while(data.hierarchy[i] != null){
-			 j = 0;
-			 var test = true;
-			 while(gerarchia[j] != null){
-			  if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
-			  j++;
-			 }
-			 if(test == true) gerarchia.push({father:data.hierarchy[i].father});
-			 i++;
-			 }
-			 
-			 i = 0;
-			 while(gerarchia[i] != null){
-
-			 nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
-
-			 i++;
-			 }
-			 
-		    var inside1 = iframeRef(document.getElementById('db2'));
-			 var k = 0;
-			 var nomi="", x="", y="";
-			 while(nodes[k] != null){
-				 
-				nomi+=nodes[k].id+"__";
-				
-				var div = inside1.getElementById(nodes[k].id);
-				var rect = div.getBoundingClientRect();
-				var scale = sessionStorage.getItem("scale");
-				var pos;
-				if(scale<0.5){
-					pos = ((1-scale)/2.1)*10;
-				} else if(scale>0.5 && scale<0.75) {
-					pos = ((1-scale)/2.3)*10;
-				}else if(scale>0.75 && scale<1.25) {
-					pos = 1;
-				} else if(scale>1.25 && scale<1.75){
-					pos = ((scale/10)/1.8)*10;
-				}
-				else if(scale>1.5){
-					pos = ((scale/10)/2.2)*10;
-				}
-				var viewBox = sessionStorage.getItem("viewBox");
-				//x+=""+(rect.left * scale)\viewBox+"_";
-				//y+=""+(rect.top * scale)\viewBox+"_";
-				x+=""+rect.left*pos+"_";
-				y+=""+rect.top*pos+"_";
-				console.log("Nodo: "+nodes[k].id+" x=" + rect.left + ", y=" + rect.top);
-				 
-				k++;
-			 }
-			 
-
-			 
-			 var xmlhttp = new XMLHttpRequest();
-		 		xmlhttp.open("POST", "SavePosition?nomi="+nomi+"&x="+x+"&y="+y+"&url=Nframe2", true);
-		 		xmlhttp.send();
-		 		
-		 		alert("File salvato in cartella Codit");
+		var i = 0;
+		while(data.entity[i] != null){
+			var j = 0;
+			nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120});
+			while(data.entity[i].attributes[j] != null){
+				var w = 0, control = true;
+			   	while(nodes[w] != null){
+			    	if(data.entity[i].attributes[j] == nodes[w].id) control = false;
+			    	w++;
+			   	}
+			   	if(control == true) {
+			    	nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60});
+			   	} else {
+			    	nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60});
+			   	}
+				j++;
+			}
+			i++;
+		}	  	 
+		i = 0;
+		while(data.association[i] != null){
+			j = 0;
+			while( data.association[i].entity[j] != null){
+				j++;
+			}
+			nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100});
+			i+=2;
+		}	 
+		i = 0;
+		while(data.hierarchy[i] != null){
+			j = 0;
+			var test = true;
+			while(gerarchia[j] != null){
+				if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
+			  	j++;
+			}
+			if(test == true) gerarchia.push({father:data.hierarchy[i].father});
+				i++;
+		}
+		i = 0;
+		while(gerarchia[i] != null){
+			nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70});
+			i++;
+		}	 
+		var inside1 = iframeRef(document.getElementById('db2'));
+		var k = 0;
+		var nomi="", x="", y="";
+		while(nodes[k] != null){		 
+			nomi+=nodes[k].id+"__";	
+			var div = inside1.getElementById(nodes[k].id);
+			var rect = div.getBoundingClientRect();
+			var scale = sessionStorage.getItem("scale");
+			var pos;
+			if(scale<0.5){
+				pos = ((1-scale)/2.1)*10;
+			} else if(scale>0.5 && scale<0.75) {
+				pos = ((1-scale)/2.3)*10;
+			}else if(scale>0.75 && scale<1.25) {
+				pos = 1;
+			} else if(scale>1.25 && scale<1.75){
+				pos = ((scale/10)/1.8)*10;
+			}
+			else if(scale>1.5){
+				pos = ((scale/10)/2.2)*10;
+			}
+			var viewBox = sessionStorage.getItem("viewBox");
+			x+=""+rect.left*pos+"_";
+			y+=""+rect.top*pos+"_";
+			k++;
+		}
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST", "SavePosition?nomi="+nomi+"&x="+x+"&y="+y+"&url=Nframe2", true);
+		xmlhttp.send(); 		
+		alert("File salvato in cartella Codit");
 	}
 	
+	<!-- Funzione per flirtare le operazioni selezionabili nel modal -->
 	function filtro() {
-		/*
 		d3.select('#btn1').style('display', 'none');
 		d3.select('#btn2').style('display', 'none');
 		d3.select('#btn3').style('display', 'none');
@@ -874,12 +868,10 @@ function scelta(btn,colore) {
 		d3.select('#btn7').style('display', 'none');
 		d3.select('#btn8').style('display', 'none');
 		d3.select('#btn9').style('display', 'none');
-		*/
+		
 		var frame1 = JSON.parse(sessionStorage.getItem('frame1'));
 		var frame2 = JSON.parse(sessionStorage.getItem('frame2'));
-		
-		console.log(frame1, frame2);
-		
+				
 		//variabili che contano contano per tipo di oggetto
 		var entity1 = 0, relation1 = 0, attribute1 = 0, hierarchy1 = 0;
 		var entity2 = 0, relation2 = 0, attribute2 = 0, hierarchy2 = 0;
@@ -966,11 +958,8 @@ function scelta(btn,colore) {
 					}
 				}
 			}
-		}
-		//fine controllo
-		
+		}		
 	}
-
 </script>
 </body>
 </html>
