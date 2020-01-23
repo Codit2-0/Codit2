@@ -1,502 +1,445 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-  <meta charset="ISO-8859-1">
-  <title>Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- a differenza del default di questo
-       template, abbiamo deciso di far scomparire
-       completamente la barra laterale
-  -->
-  <style>
-    @media (min-width: 992px) {
-      .sidebar-mini.sidebar-collapse .main-sidebar {
-        width: 0;
-      }
-      .sidebar-mini.sidebar-collapse .main-header,
-      .sidebar-mini.sidebar-collapse .content-wrapper {
-        margin-left: 0 !important;
-      }
-    }
-  </style>
-</head>
-<style>
-
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
-
-path{
- stroke: #999;
-}
-path.selected {
- stroke: #FF0000;
-}
-
-text {
-  font-family: sans-serif;
-  font-size: 10px;
-}
-
-.zoom {
-	position: fixed;
-	left: 5px;
-	width: 20px;
-	font-size: small;
-	padding: 0;
-	display: none;
-}
-
-.zoom:first-of-type{
-		top: 10px;
-	
-}
-
-.zoom:nth-of-type(2) {
-		top: 30px;	
-}
-
-</style>
-<body>
-  <button id="zoomIn" class="zoom">+</button>
-  <button id="zoomOut" class="zoom">-</button>
+	<meta charset="ISO-8859-1">
+  	<title>Home</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  	<link rel="stylesheet" href="dist/css/adminlte.min.css">
+  	<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   
- <div class="card-body">
-   <form method="post" enctype="multipart/form-data" role="form">
-     <div class="form-group">
-       <label for="path">Selezionare file .xmi</label>
-       <div class="input-group">
-         <div class="custom-file">
-           <input type="file" id="path" name="file" class="custom-file-input">
-           <label class="custom-file-label" for="path">Choose file</label>
-         </div>
-         <div class="input-group-append">
-           <span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()" name="test">
-             Upload
-           </span>
-         </div>
-       </div>
-     </div>
-     <input type="hidden" id="frame" value="">
-     <input type="hidden" id="Nomeframe" value=""> 
-   </form>
- </div>
-  <div id="svgContainer" class="svgContainer">
- 	<svg id="svgImage" width="1200"  height="1200" style="display: none;"></svg>
- </div>
+  	<!-- a differenza del default di questo template, abbiamo deciso di far scomparire
+    completamente la barra laterale -->
+  	<style>
+    	@media (min-width: 992px) {
+      		.sidebar-mini.sidebar-collapse .main-sidebar {
+        		width: 0;
+      		}
+      		.sidebar-mini.sidebar-collapse .main-header,
+      		.sidebar-mini.sidebar-collapse .content-wrapper {
+        		margin-left: 0 !important;
+      		}
+    	}
+    </style>
+  
+  	<!-- style della pagina -->
+  	<style>
+		.links line {
+  			stroke: #999;
+  			stroke-opacity: 0.6;
+		}
+
+		path{
+ 			stroke: #999;
+		}
+
+		path.selected {
+ 			stroke: #FF0000;
+		}
+
+		text {
+  			font-family: sans-serif;
+  			font-size: 10px;
+		}
+
+		.zoom {
+			position: fixed;
+			left: 5px;
+			width: 20px;
+			font-size: small;
+			padding: 0;
+			display: none;
+		}
+
+		.zoom:first-of-type{
+			top: 10px;
+		}
+
+		.zoom:nth-of-type(2) {
+			top: 30px;	
+		}	
+	</style>
+</head>
+<body>
+	<button id="zoomIn" class="zoom">+</button>
+  	<button id="zoomOut" class="zoom">-</button>
+ 	<div class="card-body">
+   		<form method="post" enctype="multipart/form-data" role="form">
+     		<div class="form-group">
+       			<label for="path">Selezionare file .xmi</label>
+       			<div class="input-group">
+         			<div class="custom-file">
+           				<input type="file" id="path" name="file" class="custom-file-input">
+           				<label class="custom-file-label" for="path">Choose file</label>
+         			</div>
+         			<div class="input-group-append">
+           				<span class="btn btn-default" style="background-color: #e9ecef;" onclick="writeDatabase()" name="test">
+             				Upload
+           				</span>
+         			</div>
+       			</div>
+     		</div>
+     		<input type="hidden" id="frame" value="">
+     		<input type="hidden" id="Nomeframe" value=""> 
+   		</form>
+ 	</div>
+ 	
+ 	<!-- Spazio in cui viene inserito lo schema E/R -->
+  	<div id="svgContainer" class="svgContainer">
+ 		<svg id="svgImage" width="1200"  height="1200" style="display: none;"></svg>
+ 	</div>
 </body>
 
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
 <!-- nome file caricato -->
 <script type="text/javascript">
-  $(document).ready(function () {
-    bsCustomFileInput.init();
-  });
+	$(document).ready(function () {
+    	bsCustomFileInput.init();
+ 	});
 </script>
+
 <!-- caricamento diagramma -->
 <script type="text/javascript">
+	var data = [];
+	var links = [];
+	var nodes = [];
+	var gerarchia = [];
+	var svg = d3.select("svg"),width = 600, height = 900;
 
+	function explode2(){
+		writeDatabase();
+	}setTimeout(explode2, 500);
 
-var data = [];
-var links = [];
-var nodes = [];
-var gerarchia = [];
-var svg = d3.select("svg"),width = 600, height = 900;
-
-function explode2(){
-	writeDatabase();
-}
-setTimeout(explode2, 500);
-
-function writeDatabase() {
-	var nomeFrame = document.getElementById("Nomeframe").value;
-	var f = sessionStorage.getItem(nomeFrame);
-	//alert("Nome frame: " + nomeFrame + ", Nome Sesseone: " + f);
-
-	
-	if(f == nomeFrame){
-		//alert("FilePresente");
- 		var xmlhttp = new XMLHttpRequest();
- 		xmlhttp.onreadystatechange = function() {
-  			if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
- 		};
- 
-		var formData = new FormData();
- 		formData.append("presente", nomeFrame);
- 		
- 		xmlhttp.open("POST", "JSONSchemaER", true);
- 		xmlhttp.send(formData);
-	}else if(document.getElementById("path").files[0] != null){
-		//alert("InserireFile");
-		sessionStorage.setItem(nomeFrame, nomeFrame);
- 		var xmlhttp = new XMLHttpRequest();
- 		xmlhttp.onreadystatechange = function() {
-  			if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
- 		};
- 
-		var formData = new FormData();
- 		formData.append("file", document.getElementById("path").files[0]);
- 		formData.append("presente", nomeFrame);
- 		
- 		xmlhttp.open("POST", "JSONSchemaER", true);
- 		xmlhttp.send(formData);
-	}  
-}
+	function writeDatabase() {
+		var nomeFrame = document.getElementById("Nomeframe").value;
+		var f = sessionStorage.getItem(nomeFrame);
+		if(f == nomeFrame){
+ 			var xmlhttp = new XMLHttpRequest();
+ 			xmlhttp.onreadystatechange = function() {
+  				if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+ 			}; 
+			var formData = new FormData();
+ 			formData.append("presente", nomeFrame);
+ 			xmlhttp.open("POST", "JSONSchemaER", true);
+ 			xmlhttp.send(formData);
+		}else if(document.getElementById("path").files[0] != null){
+			sessionStorage.setItem(nomeFrame, nomeFrame);
+ 			var xmlhttp = new XMLHttpRequest();
+ 			xmlhttp.onreadystatechange = function() {
+  				if (this.readyState == 4 && this.status == 200) {loadSchemaER(this);}
+ 			};
+			var formData = new FormData();
+ 			formData.append("file", document.getElementById("path").files[0]);
+ 			formData.append("presente", nomeFrame);
+ 			xmlhttp.open("POST", "JSONSchemaER", true);
+ 			xmlhttp.send(formData);
+		}  
+	}
 
   
-function loadSchemaER(xmlhttp) {
- //variabile che distingue i due frame
- var frame = document.getElementById("frame").value;
+	function loadSchemaER(xmlhttp) {
+ 		var frame = document.getElementById("frame").value;
+ 		sessionStorage.setItem(frame, '[]'); 
+ 		var selectedNodes = [];
+ 		data = JSON.parse(xmlhttp.responseText);
+		var i = 0;
+ 		while(data.entity[i] != null){
+  			var j = 0;
+  			nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120,xS: data.entity[i].x,yS: data.entity[i].y});
+  			while(data.entity[i].attributes[j] != null){
+   				var w = 0, control = true;
+   				while(nodes[w] != null){
+    				if(data.entity[i].attributes[j] == nodes[w].id) control = false;
+    				w++;
+   				}
+   				if(control == true) {
+    				nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
+    				links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
+   				} else {
+  	 				nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
+    				links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
+   				}
+   				j++;
+ 			}
+  			i++;
+ 		}
+ 		i = 0;
+ 		while(data.association[i] != null){
+			j = 0;
+   			while( data.association[i].entity[j] != null){
+    			links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:100});
+    			j++;
+   			}
+   			nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100,xS: data.association[i].x,yS: data.association[i].y});
+   			i+=2;
+ 		}
  
- sessionStorage.setItem(frame, '[]');
+//  	i = 0;
+//  	while(data.hierarchy[i] != null){
+//  		j = 0;
+//  		var test = true;
+//  		while(gerarchia[j] != null){
+// 	 			if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
+// 	 			j++;
+// 	 		}
+// 	 		if(test == true) gerarchia.push({father:data.hierarchy[i].father});
+// 	 		i++;
+//  	}
  
- var selectedNodes = [];
+ 		i = 0;
+ 		while(data.hierarchy[i] != null){
+	 		j = 0;
+	 		nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70,xS: data.hierarchy[i].x,yS: data.hierarchy[i].y});
+	 		links.push({source: data.hierarchy[i].father, target: i, value: 1, force:200});
+	 		while(data.hierarchy[i].sons[j] != null){	  
+	   			links.push({source: data.hierarchy[i].sons[j], target: i, value: 1, force:50});
+	  			j++;
+	 		}
+	 		i++;
+ 		}
  
- data = JSON.parse(xmlhttp.responseText);
+ 		var t = 0
+ 		while(nodes[t] != null){
+ 			console.log(nodes[t].id + " x: " + nodes[t].xS + " y: " + nodes[t].yS);
+ 			t++;
+ 		}
  
- 
- var i = 0;
- while(data.entity[i] != null){
-  var j = 0;
-  nodes.push({id:data.entity[i].name, type: "symbolSquare", img:  "imgForme/entita.png", imgS:  "imgForme/entitaSelezionata.png",h: 100, w:120,xS: data.entity[i].x,yS: data.entity[i].y});
-  while(data.entity[i].attributes[j] != null){
-   var w = 0, control = true;
-   while(nodes[w] != null){
-    if(data.entity[i].attributes[j] == nodes[w].id) control = false;
-    w++;
-   }
-   if(control == true) {
-    nodes.push({id:data.entity[i].attributes[j], type: "symbolCircle",  img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png", h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
-    links.push({source: data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
-   }
-   else {
-    nodes.push({id: data.entity[i].name + "-" + data.entity[i].attributes[j], size:4000, type: "symbolCircle", img:  "imgForme/attributo.png", imgS:  "imgForme/attributoSelezionato.png",h: 85, w:60,xS: data.entity[i].xattribute[j],yS: data.entity[i].yattribute[j]});
-    links.push({source: data.entity[i].name + "-" + data.entity[i].attributes[j], target: data.entity[i].name , value: 4, force:80}); 
-   }
-   
-   j++;
-  }
-  i++;
- }
-  
- 
- i = 0;
- while(data.association[i] != null){
-	j = 0;
-   while( data.association[i].entity[j] != null){
-    links.push({source: data.association[i].entity[j], target: data.association[i].name , value: 1, force:100});
-    j++;
-   }
-   nodes.push({id:data.association[i].name, type: "symbolDiamond", img:  "imgForme/relazione.png",imgS:  "imgForme/relazioneSelezionata.png", h: 130, w:100,xS: data.association[i].x,yS: data.association[i].y});
-   i+=2;
- }
- 
-//  i = 0;
-//  while(data.hierarchy[i] != null){
-//  j = 0;
-//  var test = true;
-//  while(gerarchia[j] != null){
-// 	 if(gerarchia[j].father == data.hierarchy[i].father){test = false;}
-// 	 j++;
-// 	 }
-// 	 if(test == true) gerarchia.push({father:data.hierarchy[i].father});
-// 	 i++;
-//  }
- 
- i = 0;
- while(data.hierarchy[i] != null){
-	 j = 0;
-	 nodes.push({id:i, type: "symbolTriangolo", img:  "imgForme/gerarchia.png",imgS:  "imgForme/gerarchiaSelezionata.png", h: 100, w:70,xS: data.hierarchy[i].x,yS: data.hierarchy[i].y});
-	 links.push({source: data.hierarchy[i].father, target: i, value: 1, force:200});
-	 while(data.hierarchy[i].sons[j] != null){	  
-	   links.push({source: data.hierarchy[i].sons[j], target: i, value: 1, force:50});
-	  j++;
-	 }
-	 i++;
- }
- 
- var t = 0
- while(nodes[t] != null){
- 	console.log(nodes[t].id + " x: " + nodes[t].xS + " y: " + nodes[t].yS);
- 	t++;
- }
- var simulation = d3.forceSimulation()
+ 		var simulation = d3.forceSimulation()
          .force("link", d3.forceLink().distance(function(d) { return d.force; }).id(function(d) { return d.id; }))
          .force("charge", d3.forceManyBody().strength(-1000))
          .force("center", d3.forceCenter(width - 400, height/2));
  
- var link = svg.append("g")
-     .attr("class", "links")
-     .selectAll("line")
-     .data(links)
-     .enter().append("line")
-     .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+ 		var link = svg.append("g")
+     	.attr("class", "links")
+     	.selectAll("line")
+     	.data(links)
+     	.enter().append("line")
+     	.attr("stroke-width", function(d) { return Math.sqrt(d.value); });
  
- 
- var node = svg.append("g")
-     .attr("class", "nodes")
-     .attr("opacity",1)
-     .selectAll("g")
-     .data(nodes)
-     .enter().append("g")
-     .on("click", function(){
-      //Funzione per la selezione e la deselezione di entità e relazioni
-      selectedNodes = JSON.parse(sessionStorage.getItem(frame));
-      
-      if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
+ 		var node = svg.append("g")
+     	.attr("class", "nodes")
+     	.attr("opacity",1)
+     	.selectAll("g")
+     	.data(nodes)
+     	.enter().append("g")
+     	.on("click", function(){
+     		//Funzione per la selezione e la deselezione di entità e relazioni
+      		selectedNodes = JSON.parse(sessionStorage.getItem(frame));
+      		if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
+       			var numAttributi = 0;
+       			var indexEntity = d3.select(this)._groups[0][0].__data__.index;
+       			var j = indexEntity;
+       			var nomeEntity = d3.select(this)._groups[0][0].__data__.id;
+       			var length = d3.selectAll(link)._groups[0]._groups[0].length;
+       			var entity = {name: nomeEntity, attributes: [], type: "entity"}
        
-       
-       var numAttributi = 0;
-       var indexEntity = d3.select(this)._groups[0][0].__data__.index;
-       var j = indexEntity;
-       var nomeEntity = d3.select(this)._groups[0][0].__data__.id;
-       var length = d3.selectAll(link)._groups[0]._groups[0].length;
-       
-       var entity = {name: nomeEntity, attributes: [], type: "entity"}
-       
-        while(true){
-         j++;
-         if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
-          numAttributi++;
-         } else {
-          break;
-         }
-        }
-        /*for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
-
-         if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
-          
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
-          
-         } else { 
-        
-          d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
-          entity.attributes.push(d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].textContent)
-         
-         }
-         
-        }*/
-        if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
-         
-         checkSelected(entity);
-         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-         
-        } else {
-        
-         d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-         selectedNodes.push(entity);
-         
-        }
-      } else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
-       var relation = {name: d3.select(this)._groups[0][0].__data__.id,
-          type: "relation"}
-       
-       if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
-        
-        checkSelected(relation);
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-        
-       } else {
-      
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-        selectedNodes.push(relation);
-        
-       }
-      }else if(d3.select(this)._groups[0][0].__data__.type == "symbolTriangolo"){
-          var g = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,
-                  type: "g"}
-               
-               if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
-                
-                checkSelected(g);
-                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-                
+        		while(true){
+         			j++;
+         			if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
+          				numAttributi++;
+         			} else {
+          				break;
+         			}
+        		}
+        		
+       			/*for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
+         			if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){ 
+          				d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
+         			} else { 
+          				d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
+          				entity.attributes.push(d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].textContent);
+         			}
+        		}*/
+        		
+        		if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
+         			checkSelected(entity);
+         			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+        		} else {
+        			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+         			selectedNodes.push(entity);
+        		}
+      		} else if(d3.select(this)._groups[0][0].__data__.type == "symbolDiamond"){
+       			var relation = {name: d3.select(this)._groups[0][0].__data__.id,type: "relation"}
+       			if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
+        			checkSelected(relation);
+        			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+       			} else {
+        			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+       				selectedNodes.push(relation);
+       			}
+      		}else if(d3.select(this)._groups[0][0].__data__.type == "symbolTriangolo"){
+          		var g = {name: d3.select(this)._groups[0][0].childNodes[2].textContent,type: "g"}
+               	if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
+                	checkSelected(g);
+                	d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
                } else {
-              
-                d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-                selectedNodes.push(g);
-                
-         }
-       } else{
-       var attribute = {name: d3.select(this)._groups[0][0].__data__.id,
-                type: "attribute"};
-       
-       if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
-        
-        checkSelected(attribute);
-        d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
-        
-       } else {
- 		d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
-        selectedNodes.push(attribute);
-       
-       }
-      }
-      console.log(selectedNodes, selectedNodes.length);
-      sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
-     })
-     .on("dblclick", function(){
-      
-     // Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
-      if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
-      var numAttributi = 0;
-      var indexEntity = d3.select(this)._groups[0][0].__data__.index;
-      var j = indexEntity;
-      var nomeEntity = d3.select(this)._groups[0][0].__data__.id;
-      var length = d3.selectAll(link)._groups[0]._groups[0].length;
-       while(true){
-        j++;
-        if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
-         numAttributi++;
-        } else {
+                	d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+                	selectedNodes.push(g); 
+         		}
+       		} else{
+       			var attribute = {name: d3.select(this)._groups[0][0].__data__.id,type: "attribute"};
+       			if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
+        			checkSelected(attribute);
+        			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;
+       			} else {
+ 					d3.select(this)._groups[0][0].childNodes[2].style.opacity = 0;
+        			selectedNodes.push(attribute);
+       			}
+      		}
+      		sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
+    	 })
+     	.on("dblclick", function(){
+     		// Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
+      		if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
+      			var numAttributi = 0;
+      			var indexEntity = d3.select(this)._groups[0][0].__data__.index;
+      			var j = indexEntity;
+      			var nomeEntity = d3.select(this)._groups[0][0].__data__.id;
+      			var length = d3.selectAll(link)._groups[0]._groups[0].length;
+       			while(true){
+        			j++;
+        			if(d3.selectAll(node)._groups[0]._groups[0][j].__data__.type == "symbolCircle"){
+         				numAttributi++;
+        			} else {
+			        	break;
+        			}
+       			}
+      			for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
+       				if(d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == 1||d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == ""){
+       					d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 0;
+       				}else{
+        				d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 1;
+       				} 
+      			}
+      			for(var j = 0; j<length; j++){
+       				if(d3.selectAll(link)._groups[0]._groups[0][j].__data__.target.id == nomeEntity){
+        				if(d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == 1 || d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == ""){
+        					d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 0;
+        				}else{
+         					d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 1;
+        				}
+       				}
+      			}
+      		}
+     	});
 
-         break;
-        }
-       }
-      for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
-       if(d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == 1||d3.selectAll(node)._groups[0]._groups[0][i].style.opacity == ""){
-       d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 0;
-       }else{
-        d3.selectAll(node)._groups[0]._groups[0][i].style.opacity = 1;
-       }
-       
-      }
-      for(var j = 0; j<length; j++){
-       if(d3.selectAll(link)._groups[0]._groups[0][j].__data__.target.id == nomeEntity){
-        if(d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == 1 || d3.selectAll(link)._groups[0]._groups[0][j].style.opacity == ""){
-        d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 0;
-        }else{
-         d3.selectAll(link)._groups[0]._groups[0][j].style.opacity = 1;
-        }
-       }
-      }
-      }
-     });
-
-
-
- function checkSelected(obj) {
-  for(var i=0; i < selectedNodes.length; i++) {
-   if(obj.name == selectedNodes[i].name){
-    selectedNodes.splice(i, i+1);
-    break;
-   }
-  } 
- }
- // Append a circle
-  node.append("circle")
-      .attr("r", 5)
-      .style("fill", "#eee")
-      .attr("id", function(d) { return d.id;});
+ 		function checkSelected(obj) {
+  			for(var i=0; i < selectedNodes.length; i++) {
+   				if(obj.name == selectedNodes[i].name){
+    				selectedNodes.splice(i, i+1);
+    				break;
+   				}
+  			} 
+ 		}
+ 
+ 		// Append a circle
+  		node.append("circle")
+      	.attr("r", 5)
+      	.style("fill", "#eee")
+      	.attr("id", function(d) { return d.id;});
       
  
    
-  // Append images
-  var images = node.append("image")
-   .attr("xlink:href",  function(d) { return d.imgS;})
-     .attr("x", function(d) { return -(d.w/2);})
-     .attr("y", function(d) { return -(d.h/2);})
-     .attr("height",function(d) { return d.h;})
-     .attr("width", function(d) { return d.w;})
-     .call(d3.drag().on("start", dragstarted).on("drag", dragged));
+  		// Append images
+  		var images = node.append("image")
+   		.attr("xlink:href",  function(d) { return d.imgS;})
+     	.attr("x", function(d) { return -(d.w/2);})
+     	.attr("y", function(d) { return -(d.h/2);})
+     	.attr("height",function(d) { return d.h;})
+    	.attr("width", function(d) { return d.w;})
+     	.call(d3.drag().on("start", dragstarted).on("drag", dragged));
   
-  var images2 = node.append("image")
-      .attr("xlink:href",  function(d) { return d.img;})
-      .attr("x", function(d) {  return -(d.w/2 + 2);})
-	  .attr("y", function(d) { return -(d.h/2 + 2);})
-      .attr("height",function(d) { return d.h + 5;})
-      .attr("width", function(d) { return d.w + 5;})
-      .attr("id", function(d) { return "img" + d.id;})
-      .call(d3.drag().on("start", dragstarted).on("drag", dragged));
+  		var images2 = node.append("image")
+      	.attr("xlink:href",  function(d) { return d.img;})
+      	.attr("x", function(d) {  return -(d.w/2 + 2);})
+	  	.attr("y", function(d) { return -(d.h/2 + 2);})
+      	.attr("height",function(d) { return d.h + 5;})
+      	.attr("width", function(d) { return d.w + 5;})
+      	.attr("id", function(d) { return "img" + d.id;})
+      	.call(d3.drag().on("start", dragstarted).on("drag", dragged));
  
 
- var lables = node.append("text")
-    .text(function(d) {return d.id;})
-  	.attr('x', function(d) {return -(d.h/4)})
-    .attr('y', 0);
+ 		var lables = node.append("text")
+    	.text(function(d) {return d.id;})
+  		.attr('x', function(d) {return -(d.h/4)})
+    	.attr('y', 0);
 
  
- simulation.nodes(nodes).on("tick", ticked);
- simulation.force("link").links(links);
+ 		simulation.nodes(nodes).on("tick", ticked);
+ 		simulation.force("link").links(links);
  
- 
- 
- function ticked() {
-  	link.attr("x1", function(d) { 
-	  		if(d.source.xS != "n"){return d.source.xS;d.classed("fixed", d.fixed = true);}
-	  		else{return d.source.x;}
-		})
-      	.attr("y1", function(d) { 
-      	  	if(d.source.yS != "n"){return d.source.yS;d.classed("fixed", d.fixed = true);}
-    	  	else{return d.source.y;}
-      	})
-     	.attr("x2", function(d) {
-     		if(d.target.xS != "n"){return d.target.xS;d.classed("fixed", d.fixed = true);}
-     		else{return d.target.x;}
-     	})
-      	.attr("y2", function(d) { 
-      		if(d.target.yS != "n"){return d.target.yS;d.classed("fixed", d.fixed = true);}
-     		else{return d.target.y;}
-      	});
+ 		function ticked() {
+  			link.attr("x1", function(d) { 
+	  			if(d.source.xS != "n"){return d.source.xS;d.classed("fixed", d.fixed = true);}
+	  			else{return d.source.x;}
+			})
+      		.attr("y1", function(d) { 
+      	  		if(d.source.yS != "n"){return d.source.yS;d.classed("fixed", d.fixed = true);}
+    	  		else{return d.source.y;}
+      		})
+     		.attr("x2", function(d) {
+     			if(d.target.xS != "n"){return d.target.xS;d.classed("fixed", d.fixed = true);}
+     			else{return d.target.x;}
+     		})
+      		.attr("y2", function(d) { 
+      			if(d.target.yS != "n"){return d.target.yS;d.classed("fixed", d.fixed = true);}
+     			else{return d.target.y;}
+      		});
 
-  	node.attr("transform", function(d) {
-  			if(d.xS != "n"){
+  			node.attr("transform", function(d) {
+  				if(d.xS != "n"){
   					d.x = parseFloat(d.xS);
   					d.y = parseFloat(d.yS);
-  				return "translate(" + d.x + "," + d.y + ")";}
- 			else{return "translate(" + d.x + "," + d.y + ")";}
-  		})
- }
+  					return "translate(" + d.x + "," + d.y + ")";
+  				} else{
+ 					return "translate(" + d.x + "," + d.y + ")";
+ 				}
+  			})
+ 		}
 
- function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
- }
+ 		function dragstarted(d) {
+  			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+ 	 		d.fx = d.x;
+  			d.fy = d.y;
+ 		}
 
- function dragged(d) {
-	 if(d.xS == "n"){
-	  d.fx = d3.event.x;
-	  d.fy = d3.event.y;
-	 }else{
-		  d.fx = d3.event.x;
-		  d.fy = d3.event.y;
-		  d.xS = String(d.fx);
-		  d.yS = String(d.fy);
-	 }
- }
+ 		function dragged(d) {
+	 		if(d.xS == "n"){
+	  			d.fx = d3.event.x;
+	  			d.fy = d3.event.y;
+	 		}else{
+		  		d.fx = d3.event.x;
+		  		d.fy = d3.event.y;
+		  		d.xS = String(d.fx);
+		  		d.yS = String(d.fy);
+		 	}
+ 		}
 
- d3.select(".card-body").style("display", "none");
- d3.select("svg").style("display", "inline");
- d3.selectAll(".zoom").style("display", "inline-block");
-}
-
-
+ 		d3.select(".card-body").style("display", "none");
+ 		d3.select("svg").style("display", "inline");
+ 		d3.selectAll(".zoom").style("display", "inline-block");
+	}
 </script>
 
 <!-- zoom -->
 <script type="text/javascript">
-const svgImage = document.getElementById("svgImage");
-const svgContainer = document.getElementById("svgContainer");
+	const svgImage = document.getElementById("svgImage");
+	const svgContainer = document.getElementById("svgContainer");
+	var viewBox = {x:0,y:0,w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
+	svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+	const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
+	var scale = 1;
+	var scaleStep = 0.2;
+	var isPanning = false;
+	var startPoint = {x:0,y:0};
+	var endPoint = {x:0,y:0};
 
-var viewBox = {x:0,y:0,w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
-svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
-var scale = 1;
-var scaleStep = 0.2;
-var isPanning = false;
-var startPoint = {x:0,y:0};
-var endPoint = {x:0,y:0};
-
-svgContainer.onmousewheel = function(e) {
+	svgContainer.onmousewheel = function(e) {
 		e.preventDefault();
 		if (!(scale > 1 && Math.sign(e.deltaY) > 0) && !(scale < 0.15 && Math.sign(e.deltaY) < 0)) {
 			 var w = viewBox.w;
@@ -512,10 +455,10 @@ svgContainer.onmousewheel = function(e) {
 			 console.log(dx, dh);
 		 	 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 		}
-}
+	}
 
 	document.getElementById("zoomIn").addEventListener("click", function() {
-    if (scale < 1) {
+    	if (scale < 1) {
 			scale += scaleStep;
 			var dw = svgSize.w/(scale);
 			var dh = svgSize.h/(scale);
@@ -523,86 +466,94 @@ svgContainer.onmousewheel = function(e) {
 			var dy = (viewBox.h - dh)*(viewBox.h/2)/svgSize.h;
 			viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w: dw,h: dh};
 			scale = svgSize.w/viewBox.w;
-	    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-    }
-  });
-  document.getElementById("zoomOut").addEventListener("click", function() {
+	    	svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+    	}
+  	});
+	
+  	document.getElementById("zoomOut").addEventListener("click", function() {
 		if (scale > scaleStep) {
-		  scale -= scaleStep;
+		  	scale -= scaleStep;
 			var dw = svgSize.w/(scale/2);
 			var dh = svgSize.h/(scale/2);
 			var dx = (dw - viewBox.w)*(viewBox.w/2)/svgSize.w;
 			var dy = (dh - viewBox.h)*(viewBox.h/2)/svgSize.h;
 			viewBox = {x:viewBox.x-dx,y:viewBox.y-dy,w: dw,h: dh};
 			scale = svgSize.w/viewBox.w;
-   		svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-    }
-  });
+   			svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+    	}
+  	});
   
-  svgContainer.onmousedown = function(e){
-	   isPanning = true;
-	   startPoint = {x:e.x,y:e.y};   
+  	svgContainer.onmousedown = function(e){
+		isPanning = true;
+	   	startPoint = {x:e.x,y:e.y};   
 	}
 
 	svgContainer.onmousemove = function(e){
-	   if (isPanning){
-	  endPoint = {x:e.x,y:e.y};
-	  var dx = (startPoint.x - endPoint.x)/scale;
-	  var dy = (startPoint.y - endPoint.y)/scale;
-	  var movedViewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
-	  svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
+		if (isPanning){
+	  		endPoint = {x:e.x,y:e.y};
+	  		var dx = (startPoint.x - endPoint.x)/scale;
+	  		var dy = (startPoint.y - endPoint.y)/scale;
+	  		var movedViewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+	  		svgImage.setAttribute('viewBox', `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`);
 	   }
 	}
 
 	svgContainer.onmouseup = function(e){
-	   if (isPanning){ 
-	  endPoint = {x:e.x,y:e.y};
-	  var dx = (startPoint.x - endPoint.x)/scale;
-	  var dy = (startPoint.y - endPoint.y)/scale;
-	  viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
-	  svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
-	  isPanning = false;
+	   	if (isPanning){ 
+	  		endPoint = {x:e.x,y:e.y};
+	  		var dx = (startPoint.x - endPoint.x)/scale;
+	  		var dy = (startPoint.y - endPoint.y)/scale;
+	  		viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w,h:viewBox.h};
+	  		svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+	  		isPanning = false;
 	   }
 	}
 
 	svgContainer.onmouseleave = function(e){
-	 isPanning = false;
+	 	isPanning = false;
 	}
 </script>
+
 <!-- trascinamento -->
 <script>
-for (const divMain of document.getElementsByTagName("body")) {
-	// drag the svg
-	  for (const divSection of divMain.getElementsByClassName('svgContainer')) {
-	    // when mouse is pressed store the current mouse x,y
-	    let previousX, previousY
-	    divSection.addEventListener('mousedown', (event) => {
-	      previousX = event.pageX
-	      previousY = event.pageY
-	    })
+	for (const divMain of document.getElementsByTagName("body")) {
+		
+		// drag the svg
+	  	for (const divSection of divMain.getElementsByClassName('svgContainer')) {
+	    
+	  		// when mouse is pressed store the current mouse x,y
+	    	let previousX, previousY
+	    	divSection.addEventListener('mousedown', (event) => {
+	      		previousX = event.pageX
+	      		previousY = event.pageY
+	    	})
 
-	    // when mouse is moved, scrollBy() the mouse movement x,y
-	    divSection.addEventListener('mousemove', (event) => {
-	        // only do this when the primary mouse button is pressed (event.buttons = 1)
-	      if (event.buttons) {
-	        let dragX = 0
-	        let dragY = 0
-	        // skip the drag when the x position was not changed
-	        if (event.pageX - previousX !== 0) {
-	          dragX = previousX - event.pageX
-	          previousX = event.pageX
-	        }
-	        // skip the drag when the y position was not changed
-	        if (event.pageY - previousY !== 0) {
-	          dragY = previousY - event.pageY
-	          previousY = event.pageY
-	        }
-	        // scrollBy x and y
-	        if (dragX !== 0 || dragY !== 0) {
-	          divMain.scrollBy(dragX, dragY)
-	        }
-	      }
-	    })
-	  }
+	    	// when mouse is moved, scrollBy() the mouse movement x,y
+	    	divSection.addEventListener('mousemove', (event) => {
+	        	
+	    		// only do this when the primary mouse button is pressed (event.buttons = 1)
+	      		if (event.buttons) {
+	        		let dragX = 0
+	        		let dragY = 0
+	        		
+	        		// skip the drag when the x position was not changed
+	        		if (event.pageX - previousX !== 0) {
+	          			dragX = previousX - event.pageX
+	          			previousX = event.pageX
+	        		}
+	        
+	        		// skip the drag when the y position was not changed
+	        		if (event.pageY - previousY !== 0) {
+	          			dragY = previousY - event.pageY
+	          			previousY = event.pageY
+	        		}
+	        
+	        		// scrollBy x and y
+	        		if (dragX !== 0 || dragY !== 0) {
+	          			divMain.scrollBy(dragX, dragY)
+	        		}
+	      		}
+	    	})
+	  	}
 	}
 </script>
