@@ -92,6 +92,7 @@ public class SavePosition extends HttpServlet {
       if(nomeFile.indexOf("_riposizionato") == -1) {
       nomeFile = nomeFile + "_riposizionato" + timeStamp + ".xmi";
       } else {
+    	  nomeFile = nomeFile.substring(0, nomeFile.indexOf("_riposizionato")+14);
           nomeFile = nomeFile + timeStamp + ".xmi";
 
       }
