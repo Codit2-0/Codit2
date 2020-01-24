@@ -461,7 +461,7 @@
 	}
 </script>
 
-<!-- zoom -->
+<!-- zoom e spostamento-->
 <script type="text/javascript">
 	const svgImage = document.getElementById("svgImage");
 	const svgContainer = document.getElementById("svgContainer");
@@ -474,9 +474,13 @@
 	var startPoint = {x:0,y:0};
 	var endPoint = {x:0,y:0};
 
+	/* funzione per lo zoom sulla rotellina del mouse, 
+		 o per lo scroll a due dita in caso di touchpad.		
+	*/
+	/*
 	svgContainer.onmousewheel = function(e) {
 		e.preventDefault();
-		if (!(scale > 1 && Math.sign(e.deltaY) > 0) && !(scale < 0.15 && Math.sign(e.deltaY) < 0)) {
+		if (!(scale > 1 && Math.sign(e.deltaY) > 0) && !(scale < 0.30 && Math.sign(e.deltaY) < 0)) {
 			 var w = viewBox.w;
 			 var h = viewBox.h;
 			 var mx = e.x;//mouse x   
@@ -485,42 +489,57 @@
 			 var dh = h*Math.sign(e.deltaY)*0.05;
 			 var dx = dw*mx/svgSize.w;			 
 			 var dy = dh*my/svgSize.h;
+			 
+			 console.log(mx,my);
 			 viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w:viewBox.w-dw,h:viewBox.h-dh};
+			 console.log(viewBox);
 			 scale = svgSize.w/viewBox.w;
-			 console.log(dx, dh);
+			 
 		 	 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 		}
 	}
-
+	*/
+	
+	var containerSize = {w:svgContainer.getAttribute("width"),h:svgContainer.getAttribute("height")};
+	
+	/* funzione oer il button zoomIn */
 	document.getElementById("zoomIn").addEventListener("click", function() {
     	if (scale < 1) {
 			scale += scaleStep;
 			var dw = svgSize.w/(scale);
 			var dh = svgSize.h/(scale);
-			var dx = (viewBox.w - dw)*(viewBox.w/2)/svgSize.w;
-			var dy = (viewBox.h - dh)*(viewBox.h/2)/svgSize.h;
-			viewBox = {x:viewBox.x+dx,y:viewBox.y+dy,w: dw,h: dh};
+			var dx = (viewBox.w - dw)*((viewBox.x + containerSize.w)/2)/svgSize.w;
+			var dy = (viewBox.h - dh)*((viewBox.y + containerSize.h)/2)/svgSize.h;
+			console.log(dw, dh, dx, dy);
+			viewBox = {x: dx,y: dy,w: dw,h: dh};
 			scale = svgSize.w/viewBox.w;
-	    	svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+	    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     	}
   	});
 	
+	/* funzione oer il button zoomOut */
   	document.getElementById("zoomOut").addEventListener("click", function() {
-		if (scale > scaleStep) {
+		if (scale > 0.4) {
 		  	scale -= scaleStep;
-			var dw = svgSize.w/(scale/2);
-			var dh = svgSize.h/(scale/2);
-			var dx = (dw - viewBox.w)*(viewBox.w/2)/svgSize.w;
-			var dy = (dh - viewBox.h)*(viewBox.h/2)/svgSize.h;
-			viewBox = {x:viewBox.x-dx,y:viewBox.y-dy,w: dw,h: dh};
+			var dw = svgSize.w/(scale);
+			var dh = svgSize.h/(scale);
+			var dx = (dw - viewBox.w)*((viewBox.x + containerSize.w)/2)/svgSize.w;
+			var dy = (dh - viewBox.h)*((viewBox.y + containerSize.h)/2)/svgSize.h;
+			viewBox = {x: dx,y: dy,w: dw,h: dh};
+			console.log(dw, dh, dx, dy);
 			scale = svgSize.w/viewBox.w;
-   			svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
+   		svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     	}
   	});
   
-  	svgContainer.onmousedown = function(e){
+	/* le tre successive funzioni servono per lo spostamento nell'immagine:
+		 la prima cattura dove viene premuto il mouse;
+	   la seconda è eseguita finché si  tiene premuto il mouse;
+	   e la terza quando lo si rilacia.
+	*/
+ 	svgContainer.onmousedown = function(e){
 		isPanning = true;
-	   	startPoint = {x:e.x,y:e.y};   
+   	startPoint = {x:e.x,y:e.y};   
 	}
 
 	svgContainer.onmousemove = function(e){
@@ -546,49 +565,5 @@
 
 	svgContainer.onmouseleave = function(e){
 	 	isPanning = false;
-	}
-</script>
-
-<!-- trascinamento -->
-<script>
-	for (const divMain of document.getElementsByTagName("body")) {
-		
-		// drag the svg
-	  	for (const divSection of divMain.getElementsByClassName('svgContainer')) {
-	    
-	  		// when mouse is pressed store the current mouse x,y
-	    	let previousX, previousY
-	    	divSection.addEventListener('mousedown', (event) => {
-	      		previousX = event.pageX
-	      		previousY = event.pageY
-	    	})
-
-	    	// when mouse is moved, scrollBy() the mouse movement x,y
-	    	divSection.addEventListener('mousemove', (event) => {
-	        	
-	    		// only do this when the primary mouse button is pressed (event.buttons = 1)
-	      		if (event.buttons) {
-	        		let dragX = 0
-	        		let dragY = 0
-	        		
-	        		// skip the drag when the x position was not changed
-	        		if (event.pageX - previousX !== 0) {
-	          			dragX = previousX - event.pageX
-	          			previousX = event.pageX
-	        		}
-	        
-	        		// skip the drag when the y position was not changed
-	        		if (event.pageY - previousY !== 0) {
-	          			dragY = previousY - event.pageY
-	          			previousY = event.pageY
-	        		}
-	        
-	        		// scrollBy x and y
-	        		if (dragX !== 0 || dragY !== 0) {
-	          			divMain.scrollBy(dragX, dragY)
-	        		}
-	      		}
-	    	})
-	  	}
 	}
 </script>
