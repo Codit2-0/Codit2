@@ -111,10 +111,16 @@
 	var gerarchia = [];
 	var svg = d3.select("svg"),width = 600, height = 900;
 
+	/*
+	* Funzione che ritarda l'esecuzione di writeDatabase().
+	*/
 	function explode2(){
 		writeDatabase();
 	}setTimeout(explode2, 500);
 
+	/* 
+	* Funzione che manda tutti i dati del database caricato nel frame alla servlet JSONSchemaER.
+	*/
 	function writeDatabase() {
 		var nomeFrame = document.getElementById("Nomeframe").value;
 		var f = sessionStorage.getItem(nomeFrame);
@@ -141,7 +147,9 @@
 		}  
 	}
 
-  
+  /*
+  * Funzione che assegna la figura (rettangolo, ellisse o rombo) corretta a ogni nodo (entità, attributo o associazione)
+  */
 	function loadSchemaER(xmlhttp) {
  		var frame = document.getElementById("frame").value;
  		sessionStorage.setItem(frame, '[]'); 
@@ -208,12 +216,18 @@
  			console.log(nodes[t].id + " x: " + nodes[t].xS + " y: " + nodes[t].yS);
  			t++;
  		}
- 
+ 		
+ 		/*
+ 		* Variabile che gestisce le forze attrattive/repulsive tra i nodi del diagramma
+ 		*/
  		var simulation = d3.forceSimulation()
          .force("link", d3.forceLink().distance(function(d) { return d.force; }).id(function(d) { return d.id; }))
          .force("charge", d3.forceManyBody().strength(-1000))
          .force("center", d3.forceCenter(width - 400, height/2));
  
+ 		/*
+ 		* Variabile che definisce le linee che collegano i nodi
+ 		*/
  		var link = svg.append("g")
      	.attr("class", "links")
      	.selectAll("line")
@@ -221,6 +235,9 @@
      	.enter().append("line")
      	.attr("stroke-width", function(d) { return Math.sqrt(d.value); });
  
+ 		/*
+ 		* Variabile che definisce i nodi
+ 		*/
  		var node = svg.append("g")
      	.attr("class", "nodes")
      	.attr("opacity",1)
@@ -228,8 +245,10 @@
      	.data(nodes)
      	.enter().append("g")
      	.on("click", function(){
-     		//Funzione per la selezione e la deselezione di entità e relazioni
-      		selectedNodes = JSON.parse(sessionStorage.getItem(frame));
+     		/*
+     		* Funzione per la selezione e la deselezione di entità e relazioni
+      		*/
+     		selectedNodes = JSON.parse(sessionStorage.getItem(frame));
       		if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
        			var numAttributi = 0;
        			var indexEntity = d3.select(this)._groups[0][0].__data__.index;
@@ -294,8 +313,10 @@
       		sessionStorage.setItem(frame, JSON.stringify(selectedNodes));
     	 })
      	.on("dblclick", function(){
-     		// Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
-      		if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
+     		/*
+     		* Funzione per far scomparire e ricomparire gli attributi di una entità al doubleclick
+      		*/
+     		if(d3.select(this)._groups[0][0].__data__.type == "symbolSquare"){
       			var numAttributi = 0;
       			var indexEntity = d3.select(this)._groups[0][0].__data__.index;
       			var j = indexEntity;
@@ -328,6 +349,9 @@
       		}
      	});
 
+ 		/*
+ 		* Funzione che riempie l'array dei nodi selezionati
+ 		*/
  		function checkSelected(obj) {
   			for(var i=0; i < selectedNodes.length; i++) {
    				if(obj.name == selectedNodes[i].name){
@@ -373,6 +397,9 @@
  		simulation.nodes(nodes).on("tick", ticked);
  		simulation.force("link").links(links);
  
+ 		/*
+ 		* Funzione che dà le coordinate per il posizionamento dei nodi e delle linee 
+ 		*/
  		function ticked() {
   			link.attr("x1", function(d) { 
 	  			if(d.source.xS != "n"){return d.source.xS;d.classed("fixed", d.fixed = true);}
@@ -401,13 +428,21 @@
  				}
   			})
  		}
-
+		
+ 		/*
+ 		* Funzione che viene lanciata nel momento in cui parte il trascinamento di un nodo
+ 		*  e assegna a fx e fy (le coordinate fissate) le attuali coordinate x e y;
+ 		*/
  		function dragstarted(d) {
   			if (!d3.event.active) simulation.alphaTarget(0.3).restart();
  	 		d.fx = d.x;
   			d.fy = d.y;
  		}
 
+ 		/*
+ 		* Funzione che viene lanciata ogni qual volta si verifica l'evento di trascinamento di un nodo
+ 		* e assegna a fx e fy (le coordinare fissate) le coordinate x e y del trascinamento fino a qeull'istante
+ 		*/
  		function dragged(d) {
 	 		if(d.xS == "n"){
 	  			d.fx = d3.event.x;
