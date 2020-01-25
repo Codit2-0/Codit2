@@ -26,7 +26,9 @@
   	<!-- style della pagina -->
   	<style>
   		iframe {
-  			overflow: hidden;
+  			padding: 0 !important;
+  			overflow: hidden !important;
+  			height: 33rem;
   		}
   
   		ul.operatori {
@@ -139,7 +141,7 @@
 		        	<!-- Database sinistro -->
           			<div class="col-lg-5">
             			<div class="card-body">
-              				<iframe id="db1" class="col-12 border-primary" src="test2.html">
+              				<iframe id="db1" class="col-12 border-primary" src="test2.html" scrolling="no">
               				</iframe>
             			</div>
             
@@ -169,7 +171,7 @@
           			<!-- Database destro -->
           			<div class="col-lg-5">
 	            		<div class="card-body" >
-              				<iframe id="db2" class="col-12 border-primary" src="test2.html">
+              				<iframe id="db2" class="col-12 border-primary" src="test2.html" scrolling="no">
               				</iframe>
               			</div>
               
@@ -264,7 +266,7 @@
 
 <script type="text/javascript">
 	
-	<!-- Script che imposta i valori dei tag input con id Nomeframe e frame nel frame1 e frame2 quando carica il documento -->
+	/* Script che imposta i valori dei tag input con id Nomeframe e frame nel frame1 e frame2 quando carica il documento */
 	$(document).ready(function () {
 		bsCustomFileInput.init();
     	var inside1 = iframeRef(document.getElementById('db1'));
@@ -275,7 +277,7 @@
 		inside2.getElementById("frame").value = "frame2";
 	});
   
-	<!-- Script che imposta evento mouseover sulla pagina per controllare i valori per attivare i bottoni save, delete e operazioni  -->
+	/* Script che imposta evento mouseover sulla pagina per controllare i valori per attivare i bottoni save, delete e operazioni  */
   	$(document).mouseover(function() {
 		var Nframe1 = sessionStorage.getItem('Nframe1');
 	   	if(Nframe1 == "Nframe1"){document.getElementById("bS1").disabled=false;document.getElementById("bR1").disabled=false;}
@@ -292,12 +294,7 @@
 	});
 </script>
 
-<!-- Script per il dimensionamento degli iframe -->
-<script type="text/javascript">
-	$('iframe').on('resize', function() {
-    	$('iframe').height($(document).height() * 83/100);
-    }).trigger('resize');
-</script>
+
 
 <!-- Script che setta una variabile nei frame per distinguerli -->
 <script src="dist/js/adminlte.js"></script>
