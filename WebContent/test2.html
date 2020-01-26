@@ -469,6 +469,7 @@
 	svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 	const svgSize = {w:svgImage.getAttribute("width"),h:svgImage.getAttribute("height")};
 	var scale = 1;
+	sessionStorage.setItem("scale", scale);
 	var scaleStep = 0.2;
 	var isPanning = false;
 	var startPoint = {x:0,y:0};
