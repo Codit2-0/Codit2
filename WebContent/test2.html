@@ -513,6 +513,7 @@
 			var dy = (viewBox.h - dh)*((containerSize.h)/2)/svgSize.h;
 			viewBox = {x: viewBox.x + dx,y:viewBox.y + dy,w: dw,h: dh};
 			scale = svgSize.w/viewBox.w;
+			sessionStorage.setItem("scale", scale);
 	    svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
    	}
  	});
@@ -529,6 +530,7 @@
 			var dy = (dh - viewBox.h)*((containerSize.h)/2)/svgSize.h;
 			viewBox = {x: viewBox.x - dx,y: viewBox.y - dy,w: dw,h: dh};
 			scale = svgSize.w/viewBox.w;
+			sessionStorage.setItem("scale", scale);
    		svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
     	}
  	});

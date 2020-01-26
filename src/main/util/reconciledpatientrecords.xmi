@@ -124,12 +124,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="Constraints" name="Constraints" visibility="private">
         </ownedAttribute>
 	</packagedElement>
-	<packagedElement xmi:type="uml:Association" xmi:id="patient__clinicalrecord__clinicalHistory__id">
-		<ownedAttribute xmi:type="uml:Property" xmi:id="checkInDate" name="checkInDate" visibility="private">
-        </ownedAttribute>
-		<ownedAttribute xmi:type="uml:Property" xmi:id="checkOutDate" name="checkOutDate" visibility="private">
-        </ownedAttribute>
-	</packagedElement>
+	<packagedElement xmi:type="uml:Association" xmi:id="patient__clinicalrecord__clinicalHistory__id"/>
 	<packagedElement xmi:type="uml:Association" xmi:id="clinicalrecord__activity__entry__id" />
 	<packagedElement xmi:type="uml:Association" xmi:id="activity__therapy__id" type="ISA" />
 	<packagedElement xmi:type="uml:Association" xmi:id="activity__diagnostictest__id" type="ISA"/>
