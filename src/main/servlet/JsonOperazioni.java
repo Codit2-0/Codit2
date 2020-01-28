@@ -1,4 +1,4 @@
-package model;
+package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,7 +100,6 @@ public class JsonOperazioni extends HttpServlet {
                 + f1.get(j) + "\", \"f2N\": \"" + f2.get(x) + "\", \"f2T\": \""
                 + f2.get(j) + "\"}");
       }
-      //System.out.println(operazioniSelezionate.get(i));
     }
     response.getWriter().append("]");
 

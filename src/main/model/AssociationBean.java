@@ -54,16 +54,6 @@ public class AssociationBean {
     this.entity.add(entity);
   }
   
-  /**
-   * metodo di controllo che stampa i dati.
-   */
-  public void stampa() {
-    System.out.print("nome: " + name);
-    for (int i = 0; i < entity.size(); i++) {
-      System.out.print(" entità:" + entity.get(i) + " ");
-    }
-  }
-  
   public String getX() {
     return posX;
   }

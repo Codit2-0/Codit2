@@ -1,4 +1,4 @@
-package model;
+package control;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,7 +22,6 @@ public class SaveDialog {
 
     try {
       File fil = new File(path + nome);
-      //System.out.println(path + nome);
       if (!fil.exists()) {
         fil.createNewFile();
       }
@@ -30,7 +29,7 @@ public class SaveDialog {
       FileWriter myWriter = new FileWriter(fil);
       myWriter.write(contenuto);
       myWriter.close();
-      System.out.println("Successfully wrote to the file.");
+      System.out.println("[SaveDialog-33] Successfully wrote to the file.");
       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     } catch (IOException e) {

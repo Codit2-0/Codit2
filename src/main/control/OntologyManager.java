@@ -112,7 +112,6 @@ public class OntologyManager {
         } else {
           entity.setOntClass(subClass);
         }
-        System.out.println(entity.getOntClass());
         model.add(new StatementImpl(hierarchy, property, entity));
         
         ArrayList<String> sons = hb.getSons();

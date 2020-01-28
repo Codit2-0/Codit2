@@ -48,11 +48,9 @@ public class Parser {
       HierarchyBean hierarchy = null;
 
       doc.getDocumentElement().normalize();
-      //System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
 
       NodeList listClass = doc.getElementsByTagName(CLASSES);
       int totalClass = listClass.getLength();
-      //System.out.println("Total Class : " + totalClass);
 
       //ciclo di tutti gli elementi 'packagedElement'
       for (int i = 0; i < totalClass;i++) {
@@ -149,7 +147,6 @@ public class Parser {
             while (true) {
 
               if (!nuovaStringa.equals("id")) {
-                //System.out.println("nuovaStringa: "+ nuovaStringa+ " j: "+j);
                 tmp.add(nomeAssociazione.substring(j, nuovaStringa.indexOf("__") + j));
 
                 nuovaStringa = nuovaStringa.substring(nuovaStringa.indexOf("__") + 2);
@@ -175,7 +172,6 @@ public class Parser {
 
             association = new AssociationBean(nomeAssociazione, attribute, entityList, x, y);
             entityList = new ArrayList<String>();
-            association.stampa();
 
             arrayAssociation.add(association);
 
@@ -203,8 +199,7 @@ public class Parser {
           nomeClasse = nomeClasse.substring(nomeClasse.indexOf('"') + 1,
               nomeClasse.lastIndexOf('"'));
 
-          System.out.println(x);
-          //System.out.println("Classe : " + nomeClasse);
+
           attribute = new ArrayList<String>();
           xattribute = new ArrayList<String>();
           yattribute = new ArrayList<String>();
@@ -242,7 +237,6 @@ public class Parser {
             } catch (Exception e) {
               yattributo = "n";
             }
-            //System.out.println("Attribute : " + nomeAttributo);
             entity.getAttribute().add(nomeAttributo);
             entity.getxAttribute().add(xattributo);
             entity.getyAttribute().add(yattributo);

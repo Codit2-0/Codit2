@@ -180,7 +180,7 @@
               				<img class="icona" src="icone/save.png"> 
              			</button>
              
-             			<!-- Bottone salvataggio database sinistro -->
+             			<!-- Bottone reset database sinistro -->
              			<button id = "bR2" class="btn icona"  onclick="refresh2()" disabled>
               				<img class="icona" src="icone/reload.png"> 
              			</button>  
@@ -294,7 +294,12 @@
 	});
 </script>
 
-
+<!-- Script per il dimensionamento degli iframe -->
+<script type="text/javascript">
+	$('iframe').on('resize', function() {
+    	$('iframe').height($(document).height() * 83/100);
+    }).trigger('resize');
+</script>
 
 <!-- Script che setta una variabile nei frame per distinguerli -->
 <script src="dist/js/adminlte.js"></script>

@@ -1,4 +1,6 @@
-package model;
+package servlet;
+
+import control.SaveDialog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 /**
  * Servlet implementation class SavePosition.
@@ -40,10 +43,6 @@ public class SavePosition extends HttpServlet {
     String xstr = (String) request.getParameter("x");
     String ystr = (String) request.getParameter("y");
 
-    //System.out.println(nomi);
-    //System.out.println(xstr);
-    //System.out.println(ystr);
-
     int q = 0;
 
     ArrayList<String> arrayNomi = new ArrayList<String>();
@@ -54,7 +53,6 @@ public class SavePosition extends HttpServlet {
     while (nomi.indexOf("__") != -1) {
       arrayNomi.add(nomi.substring(0, nomi.indexOf("__")));
       nomi = nomi.substring(nomi.indexOf("__") + 2);
-      System.out.println(arrayNomi.get(q) + " " + q);
       q++;
     }
 
@@ -89,11 +87,11 @@ public class SavePosition extends HttpServlet {
       fileRead = new File("copyFileDatabase1.xmi"); 
       nomeFile = (String) sessione.getAttribute("NomeFile1");
       nomeFile = nomeFile.substring(0,nomeFile.indexOf(".xmi"));
-      if(nomeFile.indexOf("_riposizionato") == -1) {
-      nomeFile = nomeFile + "_riposizionato" + timeStamp + ".xmi";
+      if (nomeFile.indexOf("_riposizionato") == -1) {
+        nomeFile = nomeFile + "_riposizionato" + timeStamp + ".xmi";
       } else {
-    	  nomeFile = nomeFile.substring(0, nomeFile.indexOf("_riposizionato")+14);
-          nomeFile = nomeFile + timeStamp + ".xmi";
+        nomeFile = nomeFile.substring(0, nomeFile.indexOf("_riposizionato") + 14);
+        nomeFile = nomeFile + timeStamp + ".xmi";
 
       }
     }
@@ -105,22 +103,14 @@ public class SavePosition extends HttpServlet {
       sl++;
       car += nuovoPath.indexOf("/");
       nuovoPath = nuovoPath.substring(nuovoPath.indexOf("/") + 1);
-      System.out.println("nuovoPath= " + nuovoPath);
     }
 
     nuovoPath = fileSession.getAbsolutePath().substring(0, 
         fileSession.getAbsolutePath().indexOf(nuovoPath));
-    System.out.println("nuovoPath= " + nuovoPath);
     File cartella = new File(nuovoPath + "Codit");
     if (!cartella.exists()) {
       cartella.mkdirs();
     }
-    //File save = new File(nuovoPath+"Codit/"+fileSession.getName());
-
-    //String n = fileSession.getAbsolutePath().substring(0,)
-    //System.out.println(fileSession.getAbsolutePath());
-
-
 
     BufferedReader br = new BufferedReader(new FileReader(fileRead)); 
 
@@ -131,25 +121,21 @@ public class SavePosition extends HttpServlet {
     while ((st = br.readLine()) != null) {
       riga++;
       if (riga == 2) {
-    	  if(st.indexOf("<version") == -1) {
-        fileModificato += "<version v=\"" + timeStamp + "\"/>\n";
-    	  }else {
-    		  prima = st.substring(0, st.indexOf("=")+1);
-    		  dopo = st.substring(st.indexOf("/>"));
-    		  
-    		  fileModificato += prima + timeStamp + dopo +"\n";
-    	  }
+        if (st.indexOf("<version") == -1) {
+          fileModificato += "<version v=\"" + timeStamp + "\"/>\n";
+        } else {
+          prima = st.substring(0, st.indexOf("=") + 1);
+          dopo = st.substring(st.indexOf("/>"));
+
+          fileModificato += prima + timeStamp + dopo + "\n";
+        }
       }
       //Caso in cui è un'entità o un attributo
       if (st.indexOf("name=") != -1 && st.indexOf("name=") <= 200) {
 
         //Caso in cui x e y non sono settate
         if (st.indexOf("x=") == -1 || st.indexOf("y=") == -1) {
-          //  perPrendereIlNome = st.substring(st.indexOf("name=")+6);
 
-          //Caso in cui il nome si trova con il corrispondente nell'array dei nomi
-          // if(perPrendereIlNome.substring(0, perPrendereIlNome.indexOf("\""))
-          //        .equals(arrayNomi.get(indiciNomi))) {
           prima = st.substring(0, st.indexOf("name="));
           dopo = st.substring(st.indexOf("name="));
 
@@ -158,13 +144,6 @@ public class SavePosition extends HttpServlet {
           if (k != arrayNomi.size() - 1) {
             k++;
           }
-          //}
-          //else {
-          //fileModificato += st + "\n";
-          //}
-
-
-          // System.out.println(fileModificato);
 
           //Caso in cui x e y sono settate (Quindi sicuramente un'entità)  
         } else {
@@ -177,7 +156,6 @@ public class SavePosition extends HttpServlet {
           if (k != arrayNomi.size() - 1) {
             k++;
           }
-          //System.out.println(fileModificato);
 
         }
 
@@ -223,7 +201,6 @@ public class SavePosition extends HttpServlet {
           
         } else {
           fileModificato += st + "\n";
-          // System.out.println(fileModificato);
         }
       }
     }
@@ -231,7 +208,6 @@ public class SavePosition extends HttpServlet {
     saveDialogClass.saveDialog(nuovoPath + "Codit/", nomeFile, fileModificato);
     fileModificato = "";
 
-    //System.out.println(fileModificato);
 
   }
 
