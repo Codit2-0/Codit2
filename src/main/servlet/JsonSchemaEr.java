@@ -115,5 +115,4 @@ public class JsonSchemaEr extends HttpServlet {
       throws ServletException, IOException {
     doGet(request, response);
   }
-
 }

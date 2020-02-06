@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import model.AssociationBean;
@@ -21,7 +20,6 @@ public class Parser {
 
   static final String ATTRIBUTES = "ownedAttribute";
   static final String CLASSES = "packagedElement"; 
-  //static final String FILE_ADDRESS = "/Users/antoniocimino/git/Codit/src/main/util/test.xmi";
 
   /**
    * Parser che legge da un file .xmi e lo traduce in un elemento {@link ErBean}.
