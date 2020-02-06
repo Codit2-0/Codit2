@@ -1,4 +1,4 @@
-package servlet;
+package control;
 
 import control.SaveDialog;
 
