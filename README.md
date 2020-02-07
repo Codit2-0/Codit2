@@ -1,5 +1,5 @@
 # Codit
-=======
+-------
 
 Tool per la Data Integration di schemi concettuali di Database relazionali
 
@@ -19,6 +19,6 @@ Apache Tomcat 9.0
 # Esecuzione
 ------------
 
-- Importare il progetto il un IDE (es. Eclipse, Intellij)
-- Configurare il web server: **in eclipse** File>New>Other...>Server e impostare la versione del server
-- Eseguire il progetto: **in eclipse** Tasto destro sul progetto, Run As>Run on Server
+* Importare il progetto il un IDE (es. Eclipse, Intellij)
+* Configurare il web server: **in eclipse** File>New>Other...>Server e impostare la versione del server
+* Eseguire il progetto: **in eclipse** Tasto destro sul progetto, Run As>Run on Server
