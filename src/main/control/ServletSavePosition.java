@@ -126,7 +126,7 @@ public class ServletSavePosition extends HttpServlet {
           prima = st.substring(0, st.indexOf("=") + 1);
           dopo = st.substring(st.indexOf("/>"));
 
-          fileModificato += prima + timeStamp + dopo + "\n";
+          fileModificato += prima + "\"" + timeStamp + "\"" + dopo + "\n";
         }
       }
       //Caso in cui è un'entità o un attributo
