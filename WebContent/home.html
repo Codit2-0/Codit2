@@ -4,10 +4,10 @@
   	<meta charset="ISO-8859-1">
   	<title>Home</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="js/plugins/fontawesome-free/css/all.min.css">
+  	<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   	<link rel="stylesheet" href="dist/css/adminlte.min.css">
-  	<link rel="stylesheet" href="js/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  	<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   
   	<!-- per la scomparsa del menu laterale -->
   	<style>
@@ -241,23 +241,23 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <!-- jQuery -->
-<script src="js/plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
 
 <!-- jQuery UI 1.11.4 -->
-<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
 
 <!-- Bootstrap 4 -->
-<script src="js/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- ChartJS -->
-<script src="js/plugins/chart.js/Chart.min.js"></script>
+<script src="plugins/chart.js/Chart.min.js"></script>
 
 <!-- Sparkline -->
-<script src="js/plugins/sparklines/sparkline.js"></script>
+<script src="plugins/sparklines/sparkline.js"></script>
 
 <!-- overlayScrollbars -->
-<script src="js/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="js/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -596,24 +596,15 @@
 	
 	/* Funzione per il refresh del database 1 */
 	function refresh1() {
-		
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
 				var inside2 = iframeRef(document.getElementById('db2'));					
-				var inside1 = iframeRef(document.getElementById('db1'));					
 		  		var i = 0;
 				while(data[i] != null) {
-					var op1N = data[i].f1N;
 					var op2N = data[i].f2N;  
-					var array1 = [];
 					var array2 = [];
-					
-					while(op1N.indexOf(".")!= -1){
-						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
-						op1N = op1N.substring(op1N.indexOf(".")+1);
-					}
 					
 					while(op2N.indexOf(".")!= -1){
 						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
@@ -622,19 +613,12 @@
 					
 					
 					var j = 0;
-					while(array1[j]!= null){
-						inside1.getElementById(array1[j].nome).style.strokeWidth = 1;
-						j++;
-					}
-					
-					j = 0;
 					while(array2[j]!= null){
-						inside2.getElementById(array2[j].nome).style.strokeWidth = 1;
+						inside2.getElementById(array2[j].nome).style.strokeWidth = 0;
 						j++;
 					}
 					i++;
 				}
-		  		inserisciOperazione("null");
 			};
 		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe1", true);	
@@ -661,25 +645,16 @@
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
-				var inside2 = iframeRef(document.getElementById('db2'));					
 				var inside1 = iframeRef(document.getElementById('db1'));					
 		  		var i = 0;
 				while(data[i] != null) {
 					var op1N = data[i].f1N;
-					var op2N = data[i].f2N;  
 					var array1 = [];
-					var array2 = [];
 					
 					while(op1N.indexOf(".")!= -1){
 						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
 						op1N = op1N.substring(op1N.indexOf(".")+1);
 					}
-					
-					while(op2N.indexOf(".")!= -1){
-						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
-						op2N = op2N.substring(op2N.indexOf(".")+1);
-					}
-					
 					
 					var j = 0;
 					while(array1[j]!= null){
@@ -687,14 +662,8 @@
 						j++;
 					}
 					
-					j = 0;
-					while(array2[j]!= null){
-						inside2.getElementById(array2[j].nome).style.strokeWidth = 1;
-						j++;
-					}
 					i++;
 				}
-		  		inserisciOperazione("null");
 			};
 		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe2", true);	
