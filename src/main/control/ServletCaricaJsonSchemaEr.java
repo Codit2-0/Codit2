@@ -96,10 +96,12 @@ public class ServletCaricaJsonSchemaEr extends HttpServlet {
     ServerFacade sF = new ServerFacade();
     ErBean er = sF.parserXMI(copy);
     
+    /*
     if (part != null) {
       sF.saveOntology(er, part.getSubmittedFileName().substring(0, 
                               part.getSubmittedFileName().lastIndexOf(".")));
     }
+    */
     
     JSONObject obj = sF.parserBean(er);
     response.getWriter().append(obj.toJSONString());
