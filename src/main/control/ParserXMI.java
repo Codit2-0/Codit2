@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 
-public class Parser {
+public class ParserXMI {
 
   static final String ATTRIBUTES = "ownedAttribute";
   static final String CLASSES = "packagedElement"; 

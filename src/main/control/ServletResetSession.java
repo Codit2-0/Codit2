@@ -15,14 +15,14 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class ResetSession.
  */
 @WebServlet("/ResetSession")
-public class ResetSession extends HttpServlet {
+public class ServletResetSession extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * costruttore.
    * @see HttpServlet#HttpServlet()
    */
-  public ResetSession() {
+  public ServletResetSession() {
     super();
   }
 

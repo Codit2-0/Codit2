@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 
 
 
-public class JsonParser {
+public class ParserBean {
   
   /**
    * Metodo che trasforma un ERBean in una stringa in formato JSON.

@@ -249,15 +249,6 @@
          			}
         		}
         		
-       			/*for(var i = indexEntity + 1; i<=numAttributi+indexEntity ;i++){
-         			if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){ 
-          				d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 1;
-         			} else { 
-          				d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].style.opacity = 0;
-          				entity.attributes.push(d3.selectAll(node)._groups[0]._groups[0][i].childNodes[2].textContent);
-         			}
-        		}*/
-        		
         		if(d3.select(this)._groups[0][0].childNodes[2].style.opacity == 0){
          			checkSelected(entity);
          			d3.select(this)._groups[0][0].childNodes[2].style.opacity = 1;

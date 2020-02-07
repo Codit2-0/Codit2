@@ -15,13 +15,13 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class EliminaOperazione.
  */
 @WebServlet("/EliminaOperazione")
-public class EliminaOperazione extends HttpServlet {
+public class ServletEliminaOperazione extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public EliminaOperazione() {
+  public ServletEliminaOperazione() {
     super();
     // TODO Auto-generated constructor stub
   }

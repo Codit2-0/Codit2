@@ -1,8 +1,6 @@
 package control;
 
-import control.JsonParser;
 import control.OntologyManager;
-import control.Parser;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,10 +26,10 @@ import org.json.simple.JSONObject;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,
     maxFileSize = 1024 * 1024 * 10,
     maxRequestSize = 1024 * 1024 * 50) 
-public class JsonSchemaEr extends HttpServlet {
+public class ServletCaricaJsonSchemaEr extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public JsonSchemaEr() {
+  public ServletCaricaJsonSchemaEr() {
     super();
   }
 
@@ -95,16 +93,15 @@ public class JsonSchemaEr extends HttpServlet {
 
       }
     }
-    Parser p = new Parser();
-    ErBean er = p.parser(copy);
+    ServerFacade sF = new ServerFacade();
+    ErBean er = sF.parserXMI(copy);
     
     if (part != null) {
-      OntologyManager om = new OntologyManager();
-      om.save(er, part.getSubmittedFileName().substring(0, 
+      sF.saveOntology(er, part.getSubmittedFileName().substring(0, 
                               part.getSubmittedFileName().lastIndexOf(".")));
     }
     
-    JSONObject obj = JsonParser.parseToJson(er);
+    JSONObject obj = sF.parserBean(er);
     response.getWriter().append(obj.toJSONString());
     //copy.delete();
 

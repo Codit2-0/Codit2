@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet("/JSONOperazioni")
-public class JsonOperazioni extends HttpServlet {
+public class ServletSalvaOperazioni extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public JsonOperazioni() {
+  public ServletSalvaOperazioni() {
     super();
   }
 

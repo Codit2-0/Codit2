@@ -1,6 +1,5 @@
 package control;
 
-import control.SaveDialog;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,14 +20,14 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class SavePosition.
  */
 @WebServlet("/SavePosition")
-public class SavePosition extends HttpServlet {
+public class ServletSavePosition extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * costruttore.
    * @see HttpServlet#HttpServlet()
    */
-  public SavePosition() {
+  public ServletSavePosition() {
     super();
     // TODO Auto-generated constructor stub
   }
@@ -204,8 +203,8 @@ public class SavePosition extends HttpServlet {
         }
       }
     }
-    SaveDialog saveDialogClass = new SaveDialog();
-    saveDialogClass.saveDialog(nuovoPath + "Codit/", nomeFile, fileModificato);
+    ServerFacade sF = new ServerFacade();
+    sF.saveFilePosition(nuovoPath + "Codit/", nomeFile, fileModificato);
     fileModificato = "";
 
 
