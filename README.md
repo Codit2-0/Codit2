@@ -9,7 +9,9 @@ Tool per la Data Integration di schemi concettuali di Database relazionali
 #### Libraries
 
 json-simple-1.1.1 : https://jar-download.com/artifacts/com.googlecode.json-simple/json-simple/1.1.1/source-code
+
 apache-jena-3.13.1 : https://jena.apache.org/download/index.cgi
+
 Apache Tomacat 9.0 : https://tomcat.apache.org/download-90.cgi
 
 #### Web server
