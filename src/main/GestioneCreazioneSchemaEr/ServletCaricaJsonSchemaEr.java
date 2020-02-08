@@ -1,13 +1,11 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
-import control.OntologyManager;
-
+import GestioneCreazioneSchemaEr.OntologyManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import model.ErBean;
+import Bean.ErBean;
 
 import org.json.simple.JSONObject;
 
@@ -96,10 +94,12 @@ public class ServletCaricaJsonSchemaEr extends HttpServlet {
     ServerFacade sF = new ServerFacade();
     ErBean er = sF.parserXMI(copy);
     
+    /*
     if (part != null) {
       sF.saveOntology(er, part.getSubmittedFileName().substring(0, 
                               part.getSubmittedFileName().lastIndexOf(".")));
     }
+    */
     
     JSONObject obj = sF.parserBean(er);
     response.getWriter().append(obj.toJSONString());

@@ -1,4 +1,4 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,10 +21,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.log4j.varia.NullAppender;
 
-import model.AssociationBean;
-import model.ErBean;
-import model.EntityBean;
-import model.HierarchyBean;
+import Bean.AssociationBean;
+import Bean.ErBean;
+import Bean.EntityBean;
+import Bean.HierarchyBean;
 
 /**
  * Classe per la persistenza mediante un'ontologia .OWL.

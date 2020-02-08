@@ -1,4 +1,4 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
 
 import java.io.BufferedReader;

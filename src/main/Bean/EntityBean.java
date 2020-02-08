@@ -1,4 +1,4 @@
-package model;
+package Bean;
 
 import java.util.ArrayList;
 
@@ -20,12 +20,12 @@ public class EntityBean {
 
   /**
    * costruttore della classe {@link EntityBean}.
-   * @param name Nome dell'entità
+   * @param name Nome dell'entitï¿½
    * @param attribute Lista degli attributi
-   * @param x Coordinata x dell'entità
-   * @param y Coordinata y dell'entità
-   * @param attributePosX Lista delle coordinate x degli attributi dell'entità
-   * @param attributePosY Lista delle coordinate y degli attributi dell'entità
+   * @param x Coordinata x dell'entitï¿½
+   * @param y Coordinata y dell'entitï¿½
+   * @param attributePosX Lista delle coordinate x degli attributi dell'entitï¿½
+   * @param attributePosY Lista delle coordinate y degli attributi dell'entitï¿½
    */
   public EntityBean(String name, ArrayList<String> attribute, String x, String y,
                     ArrayList<String> attributePosX, ArrayList<String> attributePosY) {

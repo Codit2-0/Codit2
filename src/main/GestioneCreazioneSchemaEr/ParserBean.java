@@ -1,10 +1,10 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
 import java.util.ArrayList;
-import model.AssociationBean;
-import model.ErBean;
-import model.EntityBean;
-import model.HierarchyBean;
+import Bean.AssociationBean;
+import Bean.ErBean;
+import Bean.EntityBean;
+import Bean.HierarchyBean;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

@@ -1,11 +1,11 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.json.simple.JSONObject;
 
-import model.ErBean;
+import Bean.ErBean;
 
 public class ServerFacade {
 	   

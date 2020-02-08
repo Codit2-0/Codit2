@@ -1,4 +1,4 @@
-package control;
+package GestioneCreazioneSchemaEr;
 
 import java.io.File;
 import java.lang.String;
@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import model.AssociationBean;
-import model.EntityBean;
-import model.ErBean;
-import model.HierarchyBean;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import Bean.AssociationBean;
+import Bean.EntityBean;
+import Bean.ErBean;
+import Bean.HierarchyBean;
 
 
 public class ParserXMI {
