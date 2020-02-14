@@ -4,10 +4,10 @@
   	<meta charset="ISO-8859-1">
   	<title>Home</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  	<link rel="stylesheet" href="js/plugins/fontawesome-free/css/all.min.css">
   	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   	<link rel="stylesheet" href="dist/css/adminlte.min.css">
-  	<link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  	<link rel="stylesheet" href="js/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   
   	<!-- per la scomparsa del menu laterale -->
   	<style>
@@ -596,15 +596,24 @@
 	
 	/* Funzione per il refresh del database 1 */
 	function refresh1() {
+		
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
-				var inside2 = iframeRef(document.getElementById('db2'));					
+				var inside2 = iframeRef(document.getElementById('db2'));	
+				var inside1 = iframeRef(document.getElementById('db1'));		
 		  		var i = 0;
 				while(data[i] != null) {
+					var op1N = data[i].f1N;
 					var op2N = data[i].f2N;  
+					var array1 = [];
 					var array2 = [];
+					
+					while(op1N.indexOf(".")!= -1){
+						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
+						op1N = op1N.substring(op1N.indexOf(".")+1);
+					}
 					
 					while(op2N.indexOf(".")!= -1){
 						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
@@ -613,8 +622,14 @@
 					
 					
 					var j = 0;
+					while(array1[j]!= null){
+						inside1.getElementById(array1[j].nome).style.strokeWidth = 1;
+						j++;
+					}
+					
+					j = 0;
 					while(array2[j]!= null){
-						inside2.getElementById(array2[j].nome).style.strokeWidth = 0;
+						inside2.getElementById(array2[j].nome).style.strokeWidth = 1;
 						j++;
 					}
 					i++;
@@ -645,16 +660,25 @@
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var data = JSON.parse(this.responseText);
+				var inside2 = iframeRef(document.getElementById('db2'));		
 				var inside1 = iframeRef(document.getElementById('db1'));					
 		  		var i = 0;
 				while(data[i] != null) {
+					var op2N = data[i].f2N;
 					var op1N = data[i].f1N;
 					var array1 = [];
+					var array2 = [];
 					
 					while(op1N.indexOf(".")!= -1){
 						array1.push({nome:op1N.substring(0, op1N.indexOf("."))});
 						op1N = op1N.substring(op1N.indexOf(".")+1);
 					}
+					
+					while(op2N.indexOf(".")!= -1){
+						array2.push({nome:op2N.substring(0, op2N.indexOf("."))});
+						op2N = op2N.substring(op2N.indexOf(".")+1);
+					}
+					
 					
 					var j = 0;
 					while(array1[j]!= null){
@@ -662,8 +686,15 @@
 						j++;
 					}
 					
+					j = 0;
+					while(array2[j]!= null){
+						inside2.getElementById(array2[j].nome).style.strokeWidth = 1;
+						j++;
+					}
+					
 					i++;
 				}
+				inserisciOperazione("null");
 			};
 		};
 		xmlhttp.open("POST", "ResetSession?presente=Nframe2", true);	
